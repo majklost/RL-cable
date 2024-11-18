@@ -14,8 +14,10 @@ class Rectangle1D(gym.Env):
     """
     metadata = {'render.modes': ['human', None], 'render_fps': 60}
 
-    def __init__(self, sim_config, threshold=2, scale_factor=5000, render_mode=None, oneD=True):
+    def __init__(self, sim_config, threshold=2, scale_factor=5000, render_mode=None, oneD=True, seed=None):
         pygame.init()
+        if seed is not None:
+            self.np_random = np.random.default_rng(seed)
         # rendering
         self.screen = None
         self.scale_factor = scale_factor
@@ -66,9 +68,9 @@ class Rectangle1D(gym.Env):
 
     def _get_target(self):
         if self.oneD:
-            return np.array([np.random.randint(0, self.width), self.height/2])
+            return np.array([self.np_random.integers(0, self.width), self.height/2])
         else:
-            return np.array([np.random.randint(0, self.width), np.random.randint(0, self.height)])
+            return np.array([self.np_random.integers(0, self.width), self.np_random.integers(0, self.height)])
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed, options=options)
@@ -93,7 +95,7 @@ class Rectangle1D(gym.Env):
         if distance < self.threshold:
             done = True
             velocity = np.linalg.norm(self.rect.velocity)
-            reward = 1000 - self.step_count
+            reward = 10*(1000 - self.step_count)
             # print("Reached target in {} steps with velocity {}".format(
             #     self.step_count, velocity))
         else:
