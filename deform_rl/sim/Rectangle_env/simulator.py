@@ -7,9 +7,9 @@ from dataclasses import dataclass
 import time
 
 
-from rl.sim.Rectangle_env.objects.pm_singlebody import PMSingleBodyObject
-from rl.sim.Rectangle_env.objects.pm_multibody import PMMultiBodyObject
-from rl.sim.Rectangle_env.objects.base_simulator import Simulator as BaseSimulator, BaseSimulatorExport
+from deform_rl.sim.Rectangle_env.objects.pm_singlebody import PMSingleBodyObject
+from deform_rl.sim.Rectangle_env.objects.pm_multibody import PMMultiBodyObject
+from deform_rl.sim.Rectangle_env.objects.base_simulator import Simulator as BaseSimulator, BaseSimulatorExport
 from .collision_data import CollisionData
 
 

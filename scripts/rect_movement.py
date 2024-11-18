@@ -1,9 +1,9 @@
 import pymunk
 
-from rl.sim.Rectangle_env.simulator import Simulator
-from rl.sim.Rectangle_env.objects.rectangle import Rectangle
-from rl.sim.Rectangle_env.utils.PM_debug_viewer import DebugViewer
-from rl.sim.Rectangle_env.utils.PM_rectangle_controller import PMRectangleController
+from deform_rl.sim.Rectangle_env.simulator import Simulator
+from deform_rl.sim.Rectangle_env.objects.rectangle import Rectangle
+from deform_rl.sim.Rectangle_env.utils.PM_debug_viewer import DebugViewer
+from deform_rl.sim.Rectangle_env.utils.PM_rectangle_controller import PMRectangleController
 
 
 rect = Rectangle([100, 100], 200, 20, pymunk.Body.DYNAMIC)
@@ -23,5 +23,6 @@ viewer = DebugViewer(sim, realtime=True)
 viewer.controller = controller
 
 for i in range(10000):
+    print(rect.position)
     if sim.step():
         break

@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from rl.sim.Rectangle_env.objects.base_singlebody import BaseSingleBodyObject
-from rl.sim.Rectangle_env.objects.base_multibody import BaseMultiBodyObject
+from deform_rl.sim.Rectangle_env.objects.base_singlebody import BaseSingleBodyObject
+from deform_rl.sim.Rectangle_env.objects.base_multibody import BaseMultiBodyObject
 class Simulator(ABC):
     def __init__(self,
                  movable_objects: List[BaseMultiBodyObject| BaseSingleBodyObject],
