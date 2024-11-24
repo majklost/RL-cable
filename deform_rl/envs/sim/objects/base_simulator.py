@@ -1,12 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from deform_rl.sim.Rectangle_env.objects.base_singlebody import BaseSingleBodyObject
-from deform_rl.sim.Rectangle_env.objects.base_multibody import BaseMultiBodyObject
+from .base_singlebody import BaseSingleBodyObject
+from .base_multibody import BaseMultiBodyObject
+
+
 class Simulator(ABC):
     def __init__(self,
-                 movable_objects: List[BaseMultiBodyObject| BaseSingleBodyObject],
-                 fixed_objects: List[BaseMultiBodyObject| BaseSingleBodyObject]):
+                 movable_objects: List[BaseMultiBodyObject | BaseSingleBodyObject],
+                 fixed_objects: List[BaseMultiBodyObject | BaseSingleBodyObject]):
 
         self.movable_objects = movable_objects
         self.fixed_objects = fixed_objects
@@ -20,9 +22,8 @@ class Simulator(ABC):
         pass
 
     @abstractmethod
-    def apply_forces(self, forces: List, indexes: List[int]=None):
+    def apply_forces(self, forces: List, indexes: List[int] = None):
         pass
-
 
     @abstractmethod
     def export(self) -> 'BaseSimulatorExport':
@@ -32,6 +33,7 @@ class Simulator(ABC):
         :return: BaseSimulatorExport object
         """
         pass
+
 
 class BaseSimulatorExport:
     pass

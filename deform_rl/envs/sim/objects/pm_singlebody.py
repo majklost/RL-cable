@@ -7,8 +7,7 @@ from .base_singlebody import BaseSingleBodyObject
 from ..collision_data import CollisionData
 
 
-def rot_matrix(angle):
-    return np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
+from ..utils.common_utils import rot_matrix
 
 
 class PMSingleBodyObject(BaseSingleBodyObject):

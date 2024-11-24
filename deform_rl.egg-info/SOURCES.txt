@@ -7,9 +7,9 @@ deform_rl.egg-info/dependency_links.txt
 deform_rl.egg-info/requires.txt
 deform_rl.egg-info/top_level.txt
 deform_rl/algos/__init__.py
-deform_rl/sim/__init__.py
-deform_rl/sim/Rectangle_env/__init__.py
-deform_rl/sim/Rectangle_env/collision_data.py
-deform_rl/sim/Rectangle_env/environment.py
-deform_rl/sim/Rectangle_env/simulator.py
+deform_rl/envs/__init__.py
+deform_rl/envs/Cable_reshape_env/__init__.py
+deform_rl/envs/Cable_reshape_env/environment.py
+deform_rl/envs/Rectangle_env/__init__.py
+deform_rl/envs/Rectangle_env/environment.py
 tests/__init__.py

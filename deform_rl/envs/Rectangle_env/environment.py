@@ -3,9 +3,10 @@ from pymunk.pygame_util import DrawOptions
 import pygame
 import numpy as np
 import gymnasium as gym
-from .simulator import Simulator
-from .utils.PM_debug_viewer import DebugViewer
-from .objects.rectangle import Rectangle
+from ..sim.simulator import Simulator
+from ..sim.utils.PM_debug_viewer import DebugViewer
+from ..sim.objects.rectangle import Rectangle
+from ..sim.utils.standard_cfg import sim_cfg
 
 
 class Rectangle1D(gym.Env):
@@ -14,10 +15,9 @@ class Rectangle1D(gym.Env):
     """
     metadata = {'render.modes': ['human', None], 'render_fps': 60}
 
-    def __init__(self, sim_config, threshold=2, scale_factor=5000, render_mode=None, oneD=True, seed=None):
+    def __init__(self, sim_config=sim_cfg, threshold=20, scale_factor=5000, render_mode=None, oneD=True, seed=None):
         pygame.init()
-        if seed is not None:
-            self.np_random = np.random.default_rng(seed)
+        self.seed = seed
         # rendering
         self.screen = None
         self.scale_factor = scale_factor
@@ -50,6 +50,7 @@ class Rectangle1D(gym.Env):
             self.sim_cfg, [self.rect], [], unstable_sim=False)
         self.exported_sim = self.sim.export()
         self.target = self._get_target()
+        self.start_distance = self._calc_distance()
 
     def _get_obs(self):
         return {
@@ -74,10 +75,12 @@ class Rectangle1D(gym.Env):
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed, options=options)
+
         self.step_count = 0
         self.sim.import_from(self.exported_sim)
         self.rect.position = self._get_target()
         self.target = self._get_target()
+        self.start_distance = self._calc_distance()
         info = self._get_info()
         return self._get_obs(), info
 
@@ -87,21 +90,21 @@ class Rectangle1D(gym.Env):
         if self.oneD:
             self.rect.apply_force_middle((self.scale_factor * action, 0))
         else:
-            self.rect.apply_force_middle(self.scale_factor * action)
+            if np.linalg.norm(action) > 1:
+                action = action/np.linalg.norm(action)
+            self.rect.apply_force_middle(
+                self.scale_factor * action)
+            # self.rect.velocity = self.scale_factor/100 * action
         self.sim.step()
         distance = self._calc_distance()
         reward = 0
         done = False
         if distance < self.threshold:
             done = True
-            velocity = np.linalg.norm(self.rect.velocity)
-            reward = 10*(1000 - self.step_count)
-            # print("Reached target in {} steps with velocity {}".format(
-            #     self.step_count, velocity))
+            reward = 500-np.linalg.norm(self.rect.velocity)
         else:
-            reward = prev_distance-distance
-        # reward -= (.01*self.step_count)
-        # reward -= 10
+            # reward = -1*distance
+            reward = -5*distance/self.start_distance
         obs = self._get_obs()
         info = self._get_info()
         return obs, reward, done, False, info
