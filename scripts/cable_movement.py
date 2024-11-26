@@ -22,8 +22,13 @@ cable_controller = PMCableController(cable, moving_force=500)
 dbg = DebugViewer(sim, realtime=True, render_constraints=False)
 dbg.controller = cable_controller
 
+print(cable.position.shape)
+print("-"*10)
+flat = cable.position.flatten()
+resh = flat.reshape((flat.shape[0]//2, 2))
+# print(np.all(resh == cable.position))
 
 for i in range(10000):
     if sim.step():
         break
-    # print(cable.position.shape)
+    print(cable.position.shape)

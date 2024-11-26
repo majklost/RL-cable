@@ -35,22 +35,22 @@ class CableReshape(gym.Env):
 
         self.width = sim_config['width']
         self.height = sim_config['height']
-        self.sampler = BezierSampler(cable_length, seg_num, lower_bounds=np.array(
-            [0, 0, 0]), upper_bounds=np.array([self.width, self.height, 2*np.pi]))
         # threshold for mean distance to target to consider the task solved
         self.threshold = threshold
 
         ctrl_num = len(self.controlable_idxs)
-
+        limit = max(self.width, self.height)//2
         # ctrl_num*2 for distance to targets + segnum*2 for relative positions to CoG of cable
         self.observation_space = gym.spaces.Box(
-            low=-1, high=1, shape=(ctrl_num*2+seg_num*2,), dtype=np.float64)
+            low=-limit, high=limit, shape=(ctrl_num*2+seg_num*2,), dtype=np.float32)
 
         self.action_space = gym.spaces.Box(
             low=-1, high=1, shape=(ctrl_num*2,), dtype=np.float32)
 
         self.cable = Cable([self.width/2-cable_length/2, self.height/2],
                            length=cable_length, num_links=seg_num, thickness=5)
+        self.sampler = BezierSampler(self.cable.length, seg_num, lower_bounds=np.array(
+            [0, 0, 0]), upper_bounds=np.array([self.width, self.height, 2*np.pi]))
         self.sim = Simulator(sim_config, [self.cable], [], unstable_sim=False)
         self.exported_sim = self.sim.export()
         self.target = self._get_target()
@@ -78,7 +78,7 @@ class CableReshape(gym.Env):
         rel_pts_norm_coef = np.max(np.linalg.norm(rel_pts, axis=1))
         rel_pts /= rel_pts_norm_coef
 
-        target_dist = (ctrl_pts - target_pts) / \
+        target_dist = (target_pts - ctrl_pts) / \
             np.array([self.width, self.height])
         return np.concatenate((target_dist.flatten(), rel_pts.flatten()))
 
@@ -103,9 +103,14 @@ class CableReshape(gym.Env):
 
     def step(self, action):
         self.step_count += 1
+        # print(action)
         for i in range(len(self.controlable_idxs)):
             idx = self.controlable_idxs[i]
-            force = action[i*2:i*2+2] * self.scale_factor
+            # print(i, len(action), i*2+2)
+            force = action[i*2:i*2+2]
+            if np.linalg.norm(force) > 1:
+                force /= np.linalg.norm(force)
+            force *= self.scale_factor
             self.cable.bodies[idx].apply_force_middle(force)
 
         self.sim.step()
@@ -146,3 +151,18 @@ class CableReshape(gym.Env):
             pygame.quit()
             self.screen = None
             self.clock = None
+
+
+class CableReshapeV2(CableReshape):
+    def _get_obs(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        target_pts = self.target[self.controlable_idxs]
+        first_seg_pt = all_pts[0]
+        target_dists = target_pts - ctrl_pts
+        seg_positions = all_pts - first_seg_pt
+        return np.concatenate([target_dists.flatten(), seg_positions.flatten()])
+        # longest_dist = np.linalg.norm(
+        #     np.array([self.width, self.height]))
+        # normalize target points
+        # target_pts /= longest_dist

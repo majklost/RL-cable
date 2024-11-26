@@ -109,14 +109,18 @@ class Cable(PMMultiBodyObject):
     def __init__(self, pos, length, num_links, thickness, angle=0, max_angle=np.pi/2):
         super().__init__()
         self.angle = angle
-        self.length = length
         self.num_links = num_links
         self.thickness = thickness
         self.max_angle = max_angle
         self.density = 0.005
-        self.segment_length = self.length / self.num_links
+        # segments length does not sum up to LENGTH !!!
+        self.segment_length = length / self.num_links
         self.pivots = []
         self.angular_springs = []
+        # the length of the empty space between segments so cable can bend
+        self.empty_len = self.thickness / \
+            (2 * np.tan((np.pi-self.max_angle)/2))
+        self.length = length + 2 * (self.num_links - 1) * self.empty_len
         self._create_cable(pos)
 
     def _create_cable(self, pos):
@@ -132,7 +136,7 @@ class Cable(PMMultiBodyObject):
             self.append(r)
 
     def _create_pivots(self):
-        x = self.thickness / (2 * np.tan((np.pi-self.max_angle)/2))
+        x = self.empty_len
         # print(x)
         for i in range(self.num_links - 1):
             pivot = pymunk.constraints.PivotJoint(

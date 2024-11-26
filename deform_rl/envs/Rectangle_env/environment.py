@@ -28,11 +28,14 @@ class Rectangle1D(gym.Env):
         self.width = sim_config.get("width", 800)
         self.height = sim_config.get("height", 600)
 
-        self.observation_space = gym.spaces.Dict({
-            'position': gym.spaces.Box(low=np.array([0, 0]), high=np.array([self.width, self.height]), dtype=np.float64),
-            'velocity': gym.spaces.Box(low=np.array([-np.inf, -np.inf]), high=np.array([np.inf, np.inf]), dtype=np.float64),
-            'target': gym.spaces.Box(low=np.array([0, 0]), high=np.array([self.width, self.height]), dtype=np.float64),
-        })
+        # self.observation_space = gym.spaces.Dict({
+        #     'position': gym.spaces.Box(low=np.array([0, 0]), high=np.array([self.width, self.height]), dtype=np.float64),
+        #     'velocity': gym.spaces.Box(low=np.array([-np.inf, -np.inf]), high=np.array([np.inf, np.inf]), dtype=np.float64),
+        #     'target': gym.spaces.Box(low=np.array([0, 0]), high=np.array([self.width, self.height]), dtype=np.float64),
+        # })
+
+        
+
         self.threshold = threshold
 
         self.oneD = oneD
@@ -52,12 +55,14 @@ class Rectangle1D(gym.Env):
         self.target = self._get_target()
         self.start_distance = self._calc_distance()
 
+    # def _get_obs(self):
+    #     return {
+    #         'position': self.rect.position,
+    #         'velocity': self.rect.velocity,
+    #         'target': self.target
+    #     }
     def _get_obs(self):
-        return {
-            'position': self.rect.position,
-            'velocity': self.rect.velocity,
-            'target': self.target
-        }
+        return self.rect.position-self.target
 
     def _get_info(self):
         return {

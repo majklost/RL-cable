@@ -13,7 +13,7 @@ from deform_rl.envs.Cable_reshape_env.environment import CableReshape
 
 def make_env(seed=None):
     env = CableReshape(render_mode='human', seed=seed,
-                       seg_num=4, cable_length=300, scale_factor=800)
+                       seg_num=10, cable_length=300, scale_factor=800)
     env = TimeLimit(env, max_episode_steps=1000)
     return env
 
