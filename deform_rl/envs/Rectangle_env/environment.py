@@ -13,7 +13,7 @@ class Rectangle1D(gym.Env):
     """
     Class where there is a rectangle that must be moved to a target position.
     """
-    metadata = {'render.modes': ['human', None], 'render_fps': 60}
+    metadata = {"render_modes": ["human"], "render_fps": 30}
 
     def __init__(self, sim_config=sim_cfg, threshold=20, scale_factor=5000, render_mode=None, oneD=True, seed=None):
         pygame.init()
@@ -33,8 +33,12 @@ class Rectangle1D(gym.Env):
         #     'velocity': gym.spaces.Box(low=np.array([-np.inf, -np.inf]), high=np.array([np.inf, np.inf]), dtype=np.float64),
         #     'target': gym.spaces.Box(low=np.array([0, 0]), high=np.array([self.width, self.height]), dtype=np.float64),
         # })
-
-        
+        self.observation_space = gym.spaces.Box(
+            low=np.array([-self.width, -self.height, -
+                         np.inf, -np.inf], dtype=np.float32),
+            high=np.array([self.width, self.height, np.inf,
+                          np.inf], dtype=np.float32),
+        )
 
         self.threshold = threshold
 
@@ -62,7 +66,7 @@ class Rectangle1D(gym.Env):
     #         'target': self.target
     #     }
     def _get_obs(self):
-        return self.rect.position-self.target
+        return np.concatenate([self.rect.position-self.target, self.rect.velocity], dtype=np.float32)
 
     def _get_info(self):
         return {
@@ -106,6 +110,7 @@ class Rectangle1D(gym.Env):
         done = False
         if distance < self.threshold:
             done = True
+            # reward = 500
             reward = 500-np.linalg.norm(self.rect.velocity)
         else:
             # reward = -1*distance
@@ -134,3 +139,13 @@ class Rectangle1D(gym.Env):
             pygame.quit()
             self.screen = None
             self.clock = None
+
+
+if __name__ == "__main__":
+    from stable_baselines3.common.env_checker import check_env
+    env = Rectangle1D(oneD=False)
+    check_env(env)
+    gym.register(
+        id='Rectangle1D-v0',
+        entry_point=Rectangle1D,
+    )

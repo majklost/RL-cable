@@ -80,7 +80,7 @@ class CableReshape(gym.Env):
 
         target_dist = (target_pts - ctrl_pts) / \
             np.array([self.width, self.height])
-        return np.concatenate((target_dist.flatten(), rel_pts.flatten()))
+        return np.concatenate((target_dist.flatten(), rel_pts.flatten()), dtype=np.float32)
 
     def _get_info(self):
         return {
@@ -121,7 +121,7 @@ class CableReshape(gym.Env):
             done = True
             reward = 500
         else:
-            reward = -5*np.mean(distance)/np.mean(self.start_distance)
+            reward = float(-5*np.mean(distance)/np.mean(self.start_distance))
         obs = self._get_obs()
         info = self._get_info()
         return obs, reward, done, False, info
@@ -161,8 +161,17 @@ class CableReshapeV2(CableReshape):
         first_seg_pt = all_pts[0]
         target_dists = target_pts - ctrl_pts
         seg_positions = all_pts - first_seg_pt
-        return np.concatenate([target_dists.flatten(), seg_positions.flatten()])
+        return np.concatenate([target_dists.flatten(), seg_positions.flatten()], dtype=np.float32
+                              )
         # longest_dist = np.linalg.norm(
         #     np.array([self.width, self.height]))
         # normalize target points
         # target_pts /= longest_dist
+
+
+if __name__ == "__main__":
+    from stable_baselines3.common.env_checker import check_env
+    env1 = CableReshape()
+    env2 = CableReshapeV2()
+    check_env(env1)
+    check_env(env2)
