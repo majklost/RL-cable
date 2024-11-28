@@ -15,7 +15,7 @@ class Rectangle1D(gym.Env):
     """
     metadata = {"render_modes": ["human"], "render_fps": 30}
 
-    def __init__(self, sim_config=sim_cfg, threshold=20, scale_factor=5000, render_mode=None, oneD=True, seed=None):
+    def __init__(self, sim_config=sim_cfg, threshold=20, scale_factor=5000, render_mode=None, oneD=False, seed=None):
         pygame.init()
         self.seed = seed
         # rendering
