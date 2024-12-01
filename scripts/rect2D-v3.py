@@ -8,7 +8,7 @@ from stable_baselines3.common.callbacks import EvalCallback, CallbackList
 from deform_rl.algos.save_manager import get_paths, consistency_check, delete_experiment
 from deform_rl.algos.training.training_helpers import single_env_maker, create_multi_env, SaveNormalizeCallback, SaveModelCallback
 from deform_rl.envs.Rectangle_env.environment import Rectangle1D
-delete_experiment('rect2D')
+# delete_experiment('rect2D')
 consistency_check()
 paths = get_paths('rect2D', 'testing')
 maker = single_env_maker(Rectangle1D, wrappers=[TimeLimit, Monitor], wrappers_args=[

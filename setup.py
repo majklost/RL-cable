@@ -7,5 +7,9 @@ setup(
     install_requires=[
         'gymnasium',
         'numpy',
+        'stable-baselines3',
+        'pymunk',
+        'pygame',
+        'tensorboard',
     ]
 )

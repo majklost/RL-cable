@@ -7,9 +7,11 @@ deform_rl.egg-info/dependency_links.txt
 deform_rl.egg-info/requires.txt
 deform_rl.egg-info/top_level.txt
 deform_rl/algos/__init__.py
+deform_rl/algos/save_manager.py
 deform_rl/envs/__init__.py
 deform_rl/envs/Cable_reshape_env/__init__.py
 deform_rl/envs/Cable_reshape_env/environment.py
 deform_rl/envs/Rectangle_env/__init__.py
 deform_rl/envs/Rectangle_env/environment.py
 tests/__init__.py
+tests/manager_tests.py

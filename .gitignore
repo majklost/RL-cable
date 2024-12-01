@@ -1,4 +1,5 @@
 .venv/
+.venv_old/
 .idea/
 *.egg-info/
 __pycache__/
@@ -7,3 +8,6 @@ __pycache__/
 logs/
 # Jupyter Notebook
 .ipynb_checkpoints
+save_manager.pkl
+saved_models/
+saved_norms/
