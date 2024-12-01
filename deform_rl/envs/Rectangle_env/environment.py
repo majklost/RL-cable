@@ -80,7 +80,8 @@ class Rectangle1D(gym.Env):
         if self.oneD:
             return np.array([self.np_random.integers(0, self.width), self.height/2])
         else:
-            return np.array([self.np_random.integers(0, self.width), self.np_random.integers(0, self.height)])
+            PADDING = 20
+            return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed, options=options)
@@ -110,8 +111,11 @@ class Rectangle1D(gym.Env):
         done = False
         if distance < self.threshold:
             done = True
-            # reward = 500
-            reward = 500-np.linalg.norm(self.rect.velocity)
+            reward = 500
+            # reward = 500-np.linalg.norm(self.rect.velocity)
+        elif self.rect.position[0] < 0 or self.rect.position[0] > self.width or self.rect.position[1] < 0 or self.rect.position[1] > self.height:
+            done = True
+            reward = -500
         else:
             # reward = -1*distance
             reward = -5*distance/self.start_distance

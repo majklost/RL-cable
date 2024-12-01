@@ -4,6 +4,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from stable_baselines3.common.callbacks import BaseCallback
 import gymnasium as gym
 from pathlib import Path
+from typing import Callable
 
 
 def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] = [],  wrappers_args: list[dict] = [], **kwargs):
@@ -21,6 +22,7 @@ def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] =
         wrappers_args), "The number of wrappers and their arguments must match"
 
     def _init():
+        nonlocal call_num
         env = ENV_CREATOR(**kwargs)
         for wrapper, wrapper_args in zip(wrappers, wrappers_args):
             env = wrapper(env, **wrapper_args)
@@ -32,14 +34,14 @@ def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] =
     return _init
 
 
-def create_multi_env(single_env_make: callable[None, gym.Env], n_envs: int, normalize: bool = False):
+def create_multi_env(single_env_make: Callable[[], gym.Env], n_envs: int, normalize: bool = False):
     """
     Create vectorized environment.
 
     :param single_env_make: (callable) a function that creates a single environment
     :param n_envs: (int) the number of environments to create
     """
-    envs = [single_env_make() for _ in range(n_envs)]
+    envs = [single_env_make for _ in range(n_envs)]
     if normalize:
         envs = VecNormalize(DummyVecEnv(envs))
     else:
@@ -54,12 +56,30 @@ class SaveNormalizeCallback(BaseCallback):
     :param save_freq: (int) the frequency at which to save VecNormalize statistics
     """
 
-    def __init__(self, save_freq: int, save_path: Path, verbose=0):
+    def __init__(self, save_path: Path, save_freq: int = 1, verbose=0):
         super().__init__(verbose)
         self.save_freq = save_freq
         self.save_path = save_path
 
     def _on_step(self) -> bool:
-        if self.n_calls % self.save_freq == 0:
-            self.model.get_vec_normalize_env().save("vec_normalize.pkl")
+        if self.num_timesteps % self.save_freq == 0:
+            self.model.get_vec_normalize_env().save(self.save_path)
+        return True
+
+
+class SaveModelCallback(BaseCallback):
+    """
+    Callback for saving the model. Not only best but also last.
+    :param save_path: (Path) the path to save the model
+    :param save_freq: (int) the frequency at which to save the model
+    """
+
+    def __init__(self, save_path: Path, save_freq: int = 1, verbose=0):
+        super().__init__(verbose)
+        self.save_freq = save_freq
+        self.save_path = save_path
+
+    def _on_step(self) -> bool:
+        if self.num_timesteps % self.save_freq == 0:
+            self.model.save(self.save_path)
         return True

@@ -1,15 +1,11 @@
 # useful functions for grid search
+import optuna
 
 
 
 
 
-
-
-
-
-
-#FOR REFERENCE
+# FOR REFERENCE
 # def sample_ppo_params(trial: optuna.Trial, n_actions: int, n_envs: int, additional_args: dict) -> dict[str, Any]:
 #     """
 #     Sampler for PPO hyperparams.

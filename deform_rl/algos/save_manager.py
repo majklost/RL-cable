@@ -2,14 +2,23 @@
 import pickle
 import datetime
 from pathlib import Path
-
+from typing import TypedDict
+import shutil
 # No need for object now
+
+
+class PathsDict(TypedDict):
+    tb: Path
+    model_last: Path
+    model_best: Path
+    norm: Path
 
 
 class _Experiment:
     def __init__(self):
         self.run_cnt = 0
         self.comment = []
+        self.last_date = datetime.datetime.now()
 
     def save_comments(self, fpath):
         with open(fpath, 'w') as f:
@@ -38,6 +47,10 @@ class _SaveManager:
         :param continue_run: (bool) whether to count it as a new run or continue the previous one
 
         :return: (dict) the paths for tensorboard logs, models, and VecNormalizers
+            -- tb: (Path) the path to tensorboard logs
+            -- model_last: (Path) the path to the last model
+            -- model_best: (Path) the path to the best model
+            -- norm: (Path) the path to the VecNormalizer
         """
         if experiment_name not in self.experiments:
             self.experiments[experiment_name] = _Experiment()
@@ -47,6 +60,7 @@ class _SaveManager:
             assert experiment.run_cnt > 0, "No previous run to continue"
         if not continue_run:
             experiment.run_cnt += 1
+            experiment.last_date = datetime.datetime.now()
             experiment.comment.append(comment)
             if experiment.run_cnt % 5:
                 experiment.save_comments(
@@ -56,10 +70,10 @@ class _SaveManager:
 
         self.backup()
         return {
-            "tb": self.tb_log_dir / experiment_name / (experiment_name+"_tb"),
-            "model_last": self.model_dir / experiment_name / create_last_model_fname(experiment_name, experiment.run_cnt),
-            "model_best": self.vec_norm_dir / experiment_name / create_best_model_fname(experiment_name, experiment.run_cnt),
-            "norm": self.vec_norm_dir / experiment_name / (create_fname(experiment_name, experiment.run_cnt) + ".pkl")
+            "tb": self.tb_log_dir / experiment_name / create_fname(experiment_name, experiment.run_cnt, experiment.last_date),
+            "model_last": self.model_dir / experiment_name / create_last_model_fname(experiment_name+"_last", experiment.run_cnt, experiment.last_date),
+            "model_best": self.model_dir / experiment_name / create_best_model_fname(experiment_name+'_best', experiment.run_cnt, experiment.last_date),
+            "norm": self.vec_norm_dir / experiment_name / (create_fname(experiment_name, experiment.run_cnt, experiment.last_date) + ".pkl")
         }
 
     def force_comments(self):
@@ -118,24 +132,37 @@ class _SaveManager:
                 del self.experiments[key]
         self.backup()
 
+    def delete_experiment(self, experiment_name: str):
+        """
+        Delete the experiment.
+        """
+        tb_log_dir = self.tb_log_dir / experiment_name
+        model_dir = self.model_dir / experiment_name
+        vec_norm_dir = self.vec_norm_dir / experiment_name
+        shutil.rmtree(model_dir)
+        shutil.rmtree(tb_log_dir)
+        shutil.rmtree(vec_norm_dir)
+        del self.experiments[experiment_name]
+        self.backup()
+
     def __str__(self):
         return f"SaveManager(tb_log_dir={self.tb_log_dir}, model_dir={self.model_dir}, vec_norm_dir={self.vec_norm_dir})"
 
 
-def get_datetime_str():
-    return datetime.datetime.now().strftime("%d-%m-%H-%M-%S")
+def get_datetime_str(date: datetime.datetime):
+    return date.strftime("%d-%m-%H-%M-%S")
 
 
-def create_fname(experiment_name: str, run_cnt: int):
-    return f"{experiment_name}_r{run_cnt}_{get_datetime_str()}"
+def create_fname(experiment_name: str, run_cnt: int, date: datetime.datetime):
+    return f"{experiment_name}_r{run_cnt}_{get_datetime_str(date)}"
 
 
-def create_last_model_fname(experiment_name: str, run_cnt: int):
-    return create_fname(experiment_name, run_cnt) + "_last_model"
+def create_last_model_fname(experiment_name: str, run_cnt: int, date: datetime.datetime):
+    return create_fname(experiment_name, run_cnt, date) + "_last_model"
 
 
-def create_best_model_fname(experiment_name: str, run_cnt: int):
-    return create_fname(experiment_name, run_cnt) + "_best_model"
+def create_best_model_fname(experiment_name: str, run_cnt: int, date: datetime.datetime):
+    return create_fname(experiment_name, run_cnt, date) + "_best_model"
 
 
 try:
@@ -155,7 +182,20 @@ def reset_manager(tb_log_dir: Path, model_dir: Path, vec_norm_dir: Path):
     print("SaveManager reseted.")
 
 
-def get_paths(experiment_name: str, comment: str, continue_run: bool = False) -> dict[str, Path]:
+def get_paths(experiment_name: str, comment: str, continue_run: bool = False) -> PathsDict:
+    """
+    returns paths for tensorboard logs, models, and VecNormalizers
+    if experiment_name is new, it creates new directories
+    :param experiment_name: (str) the name of the experiment
+    :param comment: (str) the comment for the experiment
+    :param continue_run: (bool) whether to count it as a new run or continue the previous one
+
+    :return: (dict) the paths for tensorboard logs, models, and VecNormalizers
+        -- tb: (Path) the path to tensorboard logs
+        -- model_last: (Path) the path to the last model
+        -- model_best: (Path) the path to the best model
+        -- norm: (Path) the path to the VecNormalizer
+    """
     return manager.get_paths(experiment_name, comment, continue_run)
 
 
@@ -169,3 +209,7 @@ def consistency_check():
 
 def clean_keys():
     manager.clean_keys()
+
+
+def delete_experiment(experiment_name: str):
+    manager.delete_experiment(experiment_name)
