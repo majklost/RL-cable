@@ -57,7 +57,7 @@ class CableReshape(gym.Env):
 
     def _create_sampler(self):
         return BezierSampler(self.cable.length, self.cable.num_links, lower_bounds=np.array(
-            [0, 0, np.pi]), upper_bounds=np.array([self.width, self.height, np.pi]))
+            [0, 0, 0]), upper_bounds=np.array([self.width, self.height, 2*np.pi]))
 
     def _calc_distance(self, ctrl_only=False):
         # ctrl_points are in shape (num_links, 2)
@@ -187,9 +187,21 @@ class CableReshapeV2(CableReshape):
         # target_pts /= longest_dist
 
 
+class CableReshapeHardFlips(CableReshapeV2):
+    def __init__(self, sim_config=sim_cfg, threshold=20, seg_num=5, controlable_idxs=None, cable_length=300, scale_factor=200, render_mode=None, seed=None):
+        super().__init__(sim_config, threshold, seg_num, controlable_idxs,
+                         cable_length, scale_factor, render_mode, seed)
+
+    def _create_sampler(self):
+        return BezierSampler(self.cable.length, self.cable.num_links, lower_bounds=np.array(
+            [0, 0, np.pi]), upper_bounds=np.array([self.width, self.height, np.pi]))
+
+
 if __name__ == "__main__":
     from stable_baselines3.common.env_checker import check_env
     env1 = CableReshape()
     env2 = CableReshapeV2()
+    env3 = CableReshapeHardFlips()
     check_env(env1)
     check_env(env2)
+    check_env(env3)

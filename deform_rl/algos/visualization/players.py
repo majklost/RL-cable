@@ -18,9 +18,8 @@ def play_model(model_path: str, normalize_path: str, maker: Callable[[], gym.Env
     :param maker: (callable) the function to create the environment
     """
     model = PPO.load(model_path, device='cpu')
-    env = create_multi_env(maker, 1, normalize=False)
+    env = create_multi_env(maker, 1, normalize_path=normalize_path)
     if normalize_path is not None:
-        env = VecNormalize.load(normalize_path, env)
         env.training = False
     else:
         print("No VecNormalize statistics found. Playing without normalization.")

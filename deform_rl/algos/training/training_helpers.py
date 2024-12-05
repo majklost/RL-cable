@@ -34,18 +34,20 @@ def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] =
     return _init
 
 
-def create_multi_env(single_env_make: Callable[[], gym.Env], n_envs: int, normalize: bool = False):
+def create_multi_env(single_env_make: Callable[[], gym.Env], n_envs: int, normalize: bool = False, normalize_path: Path = None):
     """
     Create vectorized environment.
 
     :param single_env_make: (callable) a function that creates a single environment
     :param n_envs: (int) the number of environments to create
     """
-    envs = [single_env_make for _ in range(n_envs)]
-    if normalize:
-        envs = VecNormalize(DummyVecEnv(envs))
+    envs = DummyVecEnv([single_env_make for _ in range(n_envs)])
+    if normalize_path is not None:
+        envs = VecNormalize.load(normalize_path, envs)
+    elif normalize:
+        envs = VecNormalize(envs)
     else:
-        envs = DummyVecEnv(envs)
+        envs = envs
     return envs
 
 
@@ -81,5 +83,6 @@ class SaveModelCallback(BaseCallback):
 
     def _on_step(self) -> bool:
         if self.num_timesteps % self.save_freq == 0:
+            print(f"Saving model")
             self.model.save(self.save_path)
         return True

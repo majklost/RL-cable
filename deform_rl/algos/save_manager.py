@@ -4,6 +4,7 @@ import datetime
 from pathlib import Path
 from typing import TypedDict
 import shutil
+import warnings
 # No need for object now
 
 
@@ -12,13 +13,18 @@ class PathsDict(TypedDict):
     model_last: Path
     model_best: Path
     norm: Path
+    env_name: str
+    data: dict
 
 
 class _Experiment:
     def __init__(self):
         self.run_cnt = 0
         self.comment = []
-        self.last_date = datetime.datetime.now()
+        self.env_name = None
+        # self.last_date = datetime.datetime.now()
+        self.dates = []
+        self.data = {}
 
     def save_comments(self, fpath):
         with open(fpath, 'w') as f:
@@ -38,13 +44,14 @@ class _SaveManager:
         self.vec_norm_dir = Path(vec_norm_dir).absolute()
         self.experiments = {}
 
-    def get_paths(self, experiment_name: str, comment: str, continue_run: bool = False) -> dict[str, Path]:
+    def get_paths(self, experiment_name: str, comment: str, env_name: str, continue_run: bool = False, data={}) -> dict[str, Path]:
         """
         returns paths for tensorboard logs, models, and VecNormalizers
         if experiment_name is new, it creates new directories
         :param experiment_name: (str) the name of the experiment
         :param comment: (str) the comment for the experiment
         :param continue_run: (bool) whether to count it as a new run or continue the previous one
+        :param data: (dict) additional data to save
 
         :return: (dict) the paths for tensorboard logs, models, and VecNormalizers
             -- tb: (Path) the path to tensorboard logs
@@ -56,11 +63,18 @@ class _SaveManager:
             self.experiments[experiment_name] = _Experiment()
             self._create_folders(experiment_name)
         experiment = self.experiments[experiment_name]
+        if experiment.env_name is None:
+            experiment.env_name = env_name
+        elif experiment.env_name != env_name:
+            warnings.warn(
+                f"Environment name changed from {experiment.env_name} to {env_name}")
+            experiment.env_name = env_name
+
         if continue_run:
             assert experiment.run_cnt > 0, "No previous run to continue"
         if not continue_run:
             experiment.run_cnt += 1
-            experiment.last_date = datetime.datetime.now()
+            experiment.dates.append(datetime.datetime.now())
             experiment.comment.append(comment)
             if experiment.run_cnt % 5:
                 experiment.save_comments(
@@ -68,13 +82,56 @@ class _SaveManager:
         else:
             experiment.comment[-1] += " || " + comment
 
+        data = getattr(experiment, 'data', {})
+        if not data:
+            warnings.warn("No data found in the experiment.")
+
         self.backup()
         return {
-            "tb": self.tb_log_dir / experiment_name / create_fname(experiment_name, experiment.run_cnt, experiment.last_date),
-            "model_last": self.model_dir / experiment_name / create_last_model_fname(experiment_name+"_last", experiment.run_cnt, experiment.last_date),
-            "model_best": self.model_dir / experiment_name / create_best_model_fname(experiment_name+'_best', experiment.run_cnt, experiment.last_date),
-            "norm": self.vec_norm_dir / experiment_name / (create_fname(experiment_name, experiment.run_cnt, experiment.last_date) + ".pkl")
+            "tb": self.tb_log_dir / experiment_name / create_fname(experiment_name, experiment.run_cnt, experiment.dates[-1]),
+            "model_last": self.model_dir / experiment_name / create_last_model_fname(experiment_name+"_last", experiment.run_cnt, experiment.dates[-1]),
+            "model_best": self.model_dir / experiment_name / create_best_model_fname(experiment_name+'_best', experiment.run_cnt, experiment.dates[-1]),
+            "norm": self.vec_norm_dir / experiment_name / (create_fname(experiment_name, experiment.run_cnt, experiment.dates[-1]) + ".pkl"),
+            "env_name": experiment.env_name,
+            "data": data
         }
+
+    def get_run_paths(self, experiment_name: str, run_cnt: int = -1):
+        """
+        Get the paths for a specific run of an experiment.
+        """
+        try:
+            experiment = self.experiments[experiment_name]
+        except KeyError:
+            raise ValueError(
+                f"{experiment_name} not found in the experiments, current experiments are {list(self.experiments.keys())}")
+
+        if run_cnt == -1:
+            run_cnt = experiment.run_cnt
+
+        data = getattr(experiment, 'data', {})
+        if not data:
+            warnings.warn("No data found in the experiment.")
+
+        return {
+            "tb": self.tb_log_dir / experiment_name / create_fname(experiment_name, run_cnt, experiment.dates[run_cnt-1]),
+            "model_last": self.model_dir / experiment_name / create_last_model_fname(experiment_name+"_last", run_cnt, experiment.dates[run_cnt-1]),
+            "model_best": self.model_dir / experiment_name / create_best_model_fname(experiment_name+'_best', run_cnt, experiment.dates[run_cnt-1]),
+            "norm": self.vec_norm_dir / experiment_name / (create_fname(experiment_name, run_cnt, experiment.dates[run_cnt-1]) + ".pkl"),
+            "env_name": experiment.env_name,
+            "data": data
+        }
+
+    def forget_last_run(self, experiment_name: str):
+        """
+        Delete the last run of the experiment.
+        """
+        experiment = self.experiments[experiment_name]
+        run_cnt = experiment.run_cnt
+        experiment.run_cnt -= 1
+        experiment.dates.pop()
+        experiment.comment.pop()
+        self.backup()
 
     def force_comments(self):
         """
@@ -182,12 +239,17 @@ def reset_manager(tb_log_dir: Path, model_dir: Path, vec_norm_dir: Path):
     print("SaveManager reseted.")
 
 
-def get_paths(experiment_name: str, comment: str, continue_run: bool = False) -> PathsDict:
+def forget_last_run(experiment_name: str):
+    manager.forget_last_run(experiment_name)
+
+
+def get_paths(experiment_name: str, comment: str, env_name: str, continue_run: bool = False, data: dict = {}) -> PathsDict:
     """
     returns paths for tensorboard logs, models, and VecNormalizers
     if experiment_name is new, it creates new directories
     :param experiment_name: (str) the name of the experiment
     :param comment: (str) the comment for the experiment
+    :param env_name: (str) the name of the environment
     :param continue_run: (bool) whether to count it as a new run or continue the previous one
 
     :return: (dict) the paths for tensorboard logs, models, and VecNormalizers
@@ -195,8 +257,10 @@ def get_paths(experiment_name: str, comment: str, continue_run: bool = False) ->
         -- model_last: (Path) the path to the last model
         -- model_best: (Path) the path to the best model
         -- norm: (Path) the path to the VecNormalizer
+        -- env_name: (str) the name of the environment
+        -- data: (dict) additional data to save
     """
-    return manager.get_paths(experiment_name, comment, continue_run)
+    return manager.get_paths(experiment_name, comment, env_name, continue_run, data)
 
 
 def force_comments():
@@ -209,6 +273,18 @@ def consistency_check():
 
 def clean_keys():
     manager.clean_keys()
+
+
+def get_run_paths(experiment_name: str, run_cnt: int = -1):
+    """
+        :return: (dict) the paths for tensorboard logs, models, and VecNormalizers
+        -- tb: (Path) the path to tensorboard logs
+        -- model_last: (Path) the path to the last model
+        -- model_best: (Path) the path to the best model
+        -- norm: (Path) the path to the VecNormalizer
+        -- env_name: (str) the name of the environment
+    """
+    return manager.get_run_paths(experiment_name, run_cnt)
 
 
 def delete_experiment(experiment_name: str):
