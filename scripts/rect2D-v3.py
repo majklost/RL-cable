@@ -10,7 +10,7 @@ from deform_rl.algos.training.training_helpers import single_env_maker, create_m
 from deform_rl.envs.Rectangle_env.environment import Rectangle1D
 # delete_experiment('rect2D')
 consistency_check()
-paths = get_paths('rect2D', 'testing')
+paths = get_paths('rect2Dv3', 'testing')
 maker = single_env_maker(Rectangle1D, wrappers=[TimeLimit, Monitor], wrappers_args=[
     {'max_episode_steps': 1000}, {}], render_mode='human')
 env = create_multi_env(maker, 4, normalize=True)

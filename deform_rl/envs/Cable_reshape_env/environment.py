@@ -49,12 +49,15 @@ class CableReshape(gym.Env):
 
         self.cable = Cable([self.width/2-cable_length/2, self.height/2],
                            length=cable_length, num_links=seg_num, thickness=5)
-        self.sampler = BezierSampler(self.cable.length, seg_num, lower_bounds=np.array(
-            [0, 0, 0]), upper_bounds=np.array([self.width, self.height, 2*np.pi]))
+        self.sampler = self._create_sampler()
         self.sim = Simulator(sim_config, [self.cable], [], unstable_sim=False)
         self.exported_sim = self.sim.export()
         self.target = self._get_target()
         self.start_distance = self._calc_distance(ctrl_only=True)
+
+    def _create_sampler(self):
+        return BezierSampler(self.cable.length, self.cable.num_links, lower_bounds=np.array(
+            [0, 0, np.pi]), upper_bounds=np.array([self.width, self.height, np.pi]))
 
     def _calc_distance(self, ctrl_only=False):
         # ctrl_points are in shape (num_links, 2)
@@ -154,6 +157,19 @@ class CableReshape(gym.Env):
 
 
 class CableReshapeV2(CableReshape):
+    """
+    Cable reshape with only distance to target points as observation.
+    """
+
+    def __init__(self, sim_config=sim_cfg, threshold=20, seg_num=5, controlable_idxs=None,
+                 cable_length=300, scale_factor=200, render_mode=None, seed=None):
+        super().__init__(sim_config, threshold, seg_num, controlable_idxs,
+                         cable_length, scale_factor, render_mode, seed)
+        ctrl_num = len(self.controlable_idxs)
+        limit = max(self.width, self.height)//2
+        self.observation_space = gym.spaces.Box(
+            low=-limit, high=limit, shape=(ctrl_num*2,), dtype=np.float32)
+
     def _get_obs(self):
         all_pts = self.cable.position
         ctrl_pts = all_pts[self.controlable_idxs]
@@ -161,7 +177,9 @@ class CableReshapeV2(CableReshape):
         first_seg_pt = all_pts[0]
         target_dists = target_pts - ctrl_pts
         seg_positions = all_pts - first_seg_pt
-        return np.concatenate([target_dists.flatten(), seg_positions.flatten()], dtype=np.float32
+        # return np.concatenate([target_dists.flatten(), seg_positions.flatten()], dtype=np.float32
+        #                       )
+        return np.concatenate([target_dists.flatten()], dtype=np.float32
                               )
         # longest_dist = np.linalg.norm(
         #     np.array([self.width, self.height]))
