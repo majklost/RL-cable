@@ -5,6 +5,8 @@
 __pycache__/
 .idea/
 .vscode/
+remote/
+experiments/
 logs/
 # Jupyter Notebook
 .ipynb_checkpoints

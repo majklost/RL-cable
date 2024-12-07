@@ -25,8 +25,8 @@ else:
 
 # DEBUG
 if not experiment['data']:
-    # experiment['data'] = dict(seg_num=40, cable_length=300, scale_factor=800)
-    experiment['data'] = dict(seg_num=10, cable_length=300, scale_factor=800)
+    experiment['data'] = dict(seg_num=40, cable_length=300, scale_factor=800)
+    # experiment['data'] = dict(seg_num=10, cable_length=300, scale_factor=800)
 
 # print(f"Playing model for {experiment}")
 env_cls = globals()[env_name]

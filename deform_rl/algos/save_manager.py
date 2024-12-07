@@ -44,6 +44,15 @@ class _SaveManager:
         self.vec_norm_dir = Path(vec_norm_dir).absolute()
         self.experiments = {}
 
+    def move_dirs(self, tb_log_dir: Path | str, model_dir: Path | str, vec_norm_dir: Path | str):
+        olds = [self.tb_log_dir, self.model_dir, self.vec_norm_dir]
+        news = [Path(tb_log_dir).absolute(),
+                Path(model_dir).absolute(), Path(vec_norm_dir).absolute()]
+        for old, new in zip(olds, news):
+            shutil.move(old, new)
+        self.tb_log_dir, self.model_dir, self.vec_norm_dir = news
+        self.backup()
+
     def get_paths(self, experiment_name: str, comment: str, env_name: str, continue_run: bool = False, data={}) -> dict[str, Path]:
         """
         returns paths for tensorboard logs, models, and VecNormalizers
@@ -289,3 +298,9 @@ def get_run_paths(experiment_name: str, run_cnt: int = -1):
 
 def delete_experiment(experiment_name: str):
     manager.delete_experiment(experiment_name)
+
+
+def move_dirs(tb_log_dir: Path | str, model_dir: Path | str, vec_norm_dir: Path | str):
+    print("Moving directories")
+    manager.move_dirs(tb_log_dir, model_dir, vec_norm_dir)
+    print("Directories moved")
