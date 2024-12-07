@@ -162,5 +162,5 @@ if __name__ == "__main__":
     # posOnly(continue_run=False)
     # forget_last_run('cable-reshape-posOnlyBiggerCable40')
     # posOnlyHarder10(continue_run=True)
-    # posOnlyBiggerCable(continue_run=True)
-    posOnlyBiggerCable40(continue_run=True)
+    posOnlyBiggerCable(continue_run=False)
+    #posOnlyBiggerCable40(continue_run=True)

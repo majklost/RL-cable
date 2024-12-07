@@ -1,9 +1,9 @@
 Metadata-Version: 2.1
-Name: deform_rl
+Name: deform-rl
 Version: 0.1
-Requires-Dist: gymnasium
-Requires-Dist: numpy
-Requires-Dist: stable-baselines3
-Requires-Dist: pymunk
-Requires-Dist: pygame
-Requires-Dist: tensorboard
+Summary: UNKNOWN
+License: UNKNOWN
+Platform: UNKNOWN
+
+UNKNOWN
+
