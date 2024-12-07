@@ -17,6 +17,8 @@ from deform_rl.envs.sim.utils.seed_manager import init_manager
 # Each approach is a new function
 
 EXPERIMENTS_PATH = Path(__file__).parent.parent / "experiments"
+EXPERIMENTS_PATH.mkdir(exist_ok=True, parents=True)
+print(EXPERIMENTS_PATH)
 load_manager(EXPERIMENTS_PATH)
 
 BASE_NAME = 'cable-reshape-'
@@ -28,6 +30,7 @@ def posOnly(continue_run=False):
     kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
     paths = get_paths(get_name(), 'small cable', env_name,
                       continue_run, data=kwargs)
+    # print(paths)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
                              {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
 
@@ -163,6 +166,7 @@ def get_name():
 
 
 if __name__ == "__main__":
+    pass
     # delete_experiment('cable-reshape-posOnly')
     posOnly(continue_run=True)
     # forget_last_run('cable-reshape-posOnlyBiggerCable40')

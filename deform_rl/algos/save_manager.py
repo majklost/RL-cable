@@ -39,9 +39,9 @@ class _SaveManager:
     """
 
     def __init__(self, tb_log_dir: Path | str, model_dir: Path | str, vec_norm_dir: Path | str):
-        self.tb_log_dir = Path(tb_log_dir).absolute()
-        self.model_dir = Path(model_dir).absolute()
-        self.vec_norm_dir = Path(vec_norm_dir).absolute()
+        self.tb_log_dir = Path(tb_log_dir)
+        self.model_dir = Path(model_dir)
+        self.vec_norm_dir = Path(vec_norm_dir)
         self.experiments = {}
 
     def move_dirs(self, tb_log_dir: Path | str, model_dir: Path | str, vec_norm_dir: Path | str):
@@ -159,9 +159,9 @@ class _SaveManager:
         model_dir = self.model_dir / experiment_name
         vec_norm_dir = self.vec_norm_dir / experiment_name
 
-        tb_log_dir.mkdir(parents=True, exist_ok=True)
-        model_dir.mkdir(parents=True, exist_ok=True)
-        vec_norm_dir.mkdir(parents=True, exist_ok=True)
+        tb_log_dir.mkdir(parents=True, exist_ok=False)
+        model_dir.mkdir(parents=True, exist_ok=False)
+        vec_norm_dir.mkdir(parents=True, exist_ok=False)
 
         (model_dir / 'comments.txt').touch()
 
@@ -222,7 +222,7 @@ class _SaveManagerV2(_SaveManager):
     """
 
     def __init__(self, experiments_folder: Path | str):
-        self.experiments_folder = Path(experiments_folder).absolute()
+        self.experiments_folder = Path(experiments_folder)
         tb_log_dir = self.experiments_folder / "logs"
         model_dir = self.experiments_folder / "models"
         vec_norm_dir = self.experiments_folder / "norms"
@@ -234,6 +234,14 @@ class _SaveManagerV2(_SaveManager):
         """
         with open(self.experiments_folder/"save_manager.pkl", "wb") as f:
             pickle.dump(self, f)
+
+    def refresh_paths(self):
+        """
+        Refresh paths of the SaveManager
+        """
+        self.tb_log_dir = self.experiments_folder / "logs"
+        self.model_dir = self.experiments_folder / "models"
+        self.vec_norm_dir = self.experiments_folder / "norms"
 
 
 def get_datetime_str(date: datetime.datetime):
@@ -265,6 +273,8 @@ def load_manager(experiments_folder: Path | str):
     try:
         manager = pickle.load(
             open(experiments_folder/"save_manager.pkl", "rb"))
+        manager.experiments_folder = experiments_folder
+        manager.refresh_paths()
     except FileNotFoundError:
         print("No save_manager.pkl found. Will create a new one.")
         manager = _SaveManagerV2(experiments_folder)
