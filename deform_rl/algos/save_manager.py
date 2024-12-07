@@ -90,6 +90,7 @@ class _SaveManager:
                     self.model_dir / experiment_name / "comments.txt")
         else:
             experiment.comment[-1] += " || " + comment
+        experiment.data = data
 
         data = getattr(experiment, 'data', {})
         if not data:
@@ -158,9 +159,9 @@ class _SaveManager:
         model_dir = self.model_dir / experiment_name
         vec_norm_dir = self.vec_norm_dir / experiment_name
 
-        tb_log_dir.mkdir(parents=True, exist_ok=False)
-        model_dir.mkdir(parents=True, exist_ok=False)
-        vec_norm_dir.mkdir(parents=True, exist_ok=False)
+        tb_log_dir.mkdir(parents=True, exist_ok=True)
+        model_dir.mkdir(parents=True, exist_ok=True)
+        vec_norm_dir.mkdir(parents=True, exist_ok=True)
 
         (model_dir / 'comments.txt').touch()
 
@@ -215,6 +216,26 @@ class _SaveManager:
         return f"SaveManager(tb_log_dir={self.tb_log_dir}, model_dir={self.model_dir}, vec_norm_dir={self.vec_norm_dir})"
 
 
+class _SaveManagerV2(_SaveManager):
+    """
+    Save manager with specified folder experiments, everything is in this folder
+    """
+
+    def __init__(self, experiments_folder: Path | str):
+        self.experiments_folder = Path(experiments_folder).absolute()
+        tb_log_dir = self.experiments_folder / "logs"
+        model_dir = self.experiments_folder / "models"
+        vec_norm_dir = self.experiments_folder / "norms"
+        super().__init__(tb_log_dir, model_dir, vec_norm_dir)
+
+    def backup(self):
+        """
+        Backup the SaveManager object.
+        """
+        with open(self.experiments_folder/"save_manager.pkl", "wb") as f:
+            pickle.dump(self, f)
+
+
 def get_datetime_str(date: datetime.datetime):
     return date.strftime("%d-%m-%H-%M-%S")
 
@@ -230,22 +251,39 @@ def create_last_model_fname(experiment_name: str, run_cnt: int, date: datetime.d
 def create_best_model_fname(experiment_name: str, run_cnt: int, date: datetime.datetime):
     return create_fname(experiment_name, run_cnt, date) + "_best_model"
 
+# OLD VERSION
+# try:
+#     manager = pickle.load(open(Path(__file__).parent/"save_manager.pkl", "rb"))
+# except FileNotFoundError:
+#     print("No save_manager.pkl found. Create one with reset_manager function.")
+#     manager = None
 
-try:
-    manager = pickle.load(open(Path(__file__).parent/"save_manager.pkl", "rb"))
-except FileNotFoundError:
-    print("No save_manager.pkl found. Create one with reset_manager function.")
-    manager = None
 
-
-def reset_manager(tb_log_dir: Path, model_dir: Path, vec_norm_dir: Path):
+def load_manager(experiments_folder: Path | str):
+    experiments_folder = Path(experiments_folder)
     global manager
-    if manager is not None:
-        raise ValueError(
-            "SaveManager already exists. Delete or rename it and all it's content before creating a new one.")
-    manager = _SaveManager(tb_log_dir, model_dir, vec_norm_dir)
+    try:
+        manager = pickle.load(
+            open(experiments_folder/"save_manager.pkl", "rb"))
+    except FileNotFoundError:
+        print("No save_manager.pkl found. Will create a new one.")
+        manager = _SaveManagerV2(experiments_folder)
+    return manager
+
+
+# def reset_manager(tb_log_dir: Path, model_dir: Path, vec_norm_dir: Path):
+#     global manager
+#     if manager is not None:
+#         raise ValueError(
+#             "SaveManager already exists. Delete or rename it and all it's content before creating a new one.")
+#     manager = _SaveManager(tb_log_dir, model_dir, vec_norm_dir)
+#     manager.backup()
+#     print("SaveManager reseted.")
+def reset_manager(experiments_folder: Path | str):
+    global manager
+    manager = _SaveManagerV2(experiments_folder)
     manager.backup()
-    print("SaveManager reseted.")
+    print("SaveManager reseted. Delete the previous one if you don't need it.")
 
 
 def forget_last_run(experiment_name: str):
@@ -300,7 +338,7 @@ def delete_experiment(experiment_name: str):
     manager.delete_experiment(experiment_name)
 
 
-def move_dirs(tb_log_dir: Path | str, model_dir: Path | str, vec_norm_dir: Path | str):
-    print("Moving directories")
-    manager.move_dirs(tb_log_dir, model_dir, vec_norm_dir)
-    print("Directories moved")
+# def move_dirs(tb_log_dir: Path | str, model_dir: Path | str, vec_norm_dir: Path | str):
+#     print("Moving directories")
+#     manager.move_dirs(tb_log_dir, model_dir, vec_norm_dir)
+#     print("Directories moved")

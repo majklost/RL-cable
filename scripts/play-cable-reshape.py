@@ -1,12 +1,18 @@
+from pathlib import Path
 from argparse import ArgumentParser
 import numpy as np
 from deform_rl.algos.visualization.players import play_model
-from deform_rl.algos.save_manager import consistency_check, get_run_paths
+from deform_rl.algos.save_manager import consistency_check, get_run_paths, load_manager
 from deform_rl.algos.training.training_helpers import single_env_maker
 from gymnasium.wrappers import TimeLimit
 from stable_baselines3.common.monitor import Monitor
 from deform_rl.envs.Cable_reshape_env.environment import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
+
+
+EXPERIMENTS_PATH = Path(__file__).parent.parent / "experiments"
+load_manager(EXPERIMENTS_PATH)
+
 
 parser = ArgumentParser(prog="play_cable-reshape",
                         description="Play a model on the Cable Reshape environment.")
@@ -28,7 +34,7 @@ if not experiment['data']:
     experiment['data'] = dict(seg_num=40, cable_length=300, scale_factor=800)
     # experiment['data'] = dict(seg_num=10, cable_length=300, scale_factor=800)
 
-# print(f"Playing model for {experiment}")
+    # print(f"Playing model for {experiment}")
 env_cls = globals()[env_name]
 print(f"Playing model for {env_cls.__name__}")
 maker = single_env_maker(env_cls, seed=args.seed, wrappers=[TimeLimit, Monitor], wrappers_args=[

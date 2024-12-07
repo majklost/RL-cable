@@ -4,27 +4,32 @@ from stable_baselines3 import PPO
 from gymnasium.wrappers import TimeLimit
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import EvalCallback, CallbackList
+from pathlib import Path
 
-
-from deform_rl.algos.save_manager import get_paths, consistency_check, delete_experiment, forget_last_run
+from deform_rl.algos.save_manager import get_paths, consistency_check, delete_experiment, forget_last_run, load_manager
 from deform_rl.algos.training.training_helpers import single_env_maker, create_multi_env, SaveNormalizeCallback, SaveModelCallback
 from deform_rl.envs.Cable_reshape_env.environment import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 
 
-consistency_check()
+# consistency_check()
 # Multiple cable reshape tasks with slight changes in the environment.
 # Each approach is a new function
+
+EXPERIMENTS_PATH = Path(__file__).parent.parent / "experiments"
+load_manager(EXPERIMENTS_PATH)
+
 BASE_NAME = 'cable-reshape-'
 
 
 def posOnly(continue_run=False):
     # init_manager(25, 25)
     env_name = CableReshapeV2.__name__
+    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
     paths = get_paths(get_name(), 'small cable', env_name,
-                      continue_run)
+                      continue_run, data=kwargs)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human',)
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
 
     if not continue_run:
         env = create_multi_env(maker, 4, normalize=True)
@@ -159,8 +164,8 @@ def get_name():
 
 if __name__ == "__main__":
     # delete_experiment('cable-reshape-posOnly')
-    # posOnly(continue_run=False)
+    posOnly(continue_run=True)
     # forget_last_run('cable-reshape-posOnlyBiggerCable40')
     # posOnlyHarder10(continue_run=True)
-    posOnlyBiggerCable(continue_run=False)
-    #posOnlyBiggerCable40(continue_run=True)
+    # posOnlyBiggerCable(continue_run=False)
+    # posOnlyBiggerCable40(continue_run=True)
