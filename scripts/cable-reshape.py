@@ -168,7 +168,7 @@ def get_name():
 if __name__ == "__main__":
     pass
     # delete_experiment('cable-reshape-posOnly')
-    posOnly(continue_run=True)
+    posOnly(continue_run=False)
     # forget_last_run('cable-reshape-posOnlyBiggerCable40')
     # posOnlyHarder10(continue_run=True)
     # posOnlyBiggerCable(continue_run=False)

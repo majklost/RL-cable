@@ -28,6 +28,10 @@ class _Experiment:
 
     def save_comments(self, fpath):
         with open(fpath, 'w') as f:
+            f.write(f"Environment: {self.env_name}\n")
+            f.write(f"Total runs: {self.run_cnt}\n")
+            for k, v in self.data.items():
+                f.write(f"{k}: {v}\n")
             for c in enumerate(self.comment):
                 f.write(f"{c[0]}. {c[1]}\n")
 
@@ -270,6 +274,7 @@ def create_best_model_fname(experiment_name: str, run_cnt: int, date: datetime.d
 def load_manager(experiments_folder: Path | str):
     experiments_folder = Path(experiments_folder)
     global manager
+
     try:
         manager = pickle.load(
             open(experiments_folder/"save_manager.pkl", "rb"))
