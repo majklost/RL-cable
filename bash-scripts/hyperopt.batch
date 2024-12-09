@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH --job-name=hyperopt-PosOnly
+#SBATCH --output=hyperopt-PosOnly.out
+#SBATCH --error=hyperopt-PosOnly.err
+#SBATCH --time=1-00:00:00
+#SBATCH --ntasks=10
+ml SQLite
+ml Python/3.10
+SCRIPT=$(realpath "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+cd $SCRIPTPATH
+srun --ntasks=10  --multi-prog hyperopt.conf 
+

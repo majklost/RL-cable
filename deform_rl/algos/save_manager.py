@@ -35,6 +35,9 @@ class _Experiment:
             for c in enumerate(self.comment):
                 f.write(f"{c[0]}. {c[1]}\n")
 
+    def __str__(self):
+        return f"Experiment(run_cnt={self.run_cnt}, comment={self.comment}, env_name={self.env_name}, dates={self.dates}, data={self.data})"
+
 
 class _SaveManager:
     """
@@ -116,6 +119,7 @@ class _SaveManager:
         """
         try:
             experiment = self.experiments[experiment_name]
+            print(experiment)
         except KeyError:
             raise ValueError(
                 f"{experiment_name} not found in the experiments, current experiments are {list(self.experiments.keys())}")
