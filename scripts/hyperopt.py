@@ -8,14 +8,15 @@ from stable_baselines3.common.callbacks import EvalCallback, CallbackList, BaseC
 from stable_baselines3.common.evaluation import evaluate_policy
 from deform_rl.algos.training.training_helpers import single_env_maker, create_multi_env, SaveNormalizeCallback, SaveModelCallback
 from deform_rl.envs.Cable_reshape_env.environment import *
+from deform_rl.envs.Rectangle_env.environment import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 from deform_rl.algos.training.hyperparams import give_args
 
 PATH = Path(__file__).parent.parent / "experiments" / "hyperopt"
-TIMESTEPS = 700000
 
 
 class PruneCallback(BaseCallback):
+
     """
     Stop the training once a threshold in episodic reward
     has been reached (i.e. when the model is good enough).
@@ -44,6 +45,7 @@ class PruneCallback(BaseCallback):
 
 
 def objectivePosOnlyReshape(trial):
+    TIMESTEPS = 700000
     env_name = CableReshapeV2.__name__
     kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
@@ -64,9 +66,35 @@ def objectivePosOnlyReshape(trial):
     return rew
 
 
+def objectiveRect2D(trial):
+    TIMESTEPS = 500000
+    env_name = RenderingEnv.__name__
+    kwargs = dict()
+    maker = single_env_maker(RenderingEnv, wrappers=[TimeLimit, Monitor], wrappers_args=[
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+    n_envs = trial.suggest_categorical("n_envs", [4, 16, 32])
+    env = create_multi_env(maker, n_envs, normalize=True)
+    eval_env = create_multi_env(maker, 1, normalize=True)
+    save_norm_clb = SaveNormalizeCallback(PATH / "norm", save_freq=1)
+    prune_clb = PruneCallback(trial=trial)
+    eval_clb = EvalCallback(eval_env, best_model_save_path=PATH /
+                            "best_model", callback_on_new_best=save_norm_clb, callback_after_eval=prune_clb, n_eval_episodes=20)
+
+    args = give_args(trial)
+    model = PPO("MlpPolicy", env, verbose=0, device='cpu', **args)
+    model.learn(total_timesteps=TIMESTEPS, callback=[save_norm_clb, eval_clb])
+    rew, std = evaluate_policy(model, eval_env, n_eval_episodes=20)
+    return rew
+
+
 if __name__ == "__main__":
+    # study = optuna.load_study(
+    #     study_name="PosOnlyReshape", storage=f"sqlite:///{PATH / 'PosOnlyReshape.db'}")
+    # print("Starting optimization")
+    # study.optimize(objectivePosOnlyReshape, n_trials=100,
+    #                timeout=23*3600, show_progress_bar=True)
     study = optuna.load_study(
-        study_name="PosOnlyReshape", storage=f"sqlite:///{PATH / 'PosOnlyReshape.db'}")
+        study_name="Rect2D", storage=f"sqlite:///{PATH / 'Rect2D.db'}")
     print("Starting optimization")
-    study.optimize(objectivePosOnlyReshape, n_trials=100,
-                   timeout=23*3600, show_progress_bar=True)
+    study.optimize(objectiveRect2D, n_trials=100,
+                   timeout=None, show_progress_bar=True, gc_after_trial=True)

@@ -137,7 +137,7 @@ class _SaveManager:
 
         data = getattr(experiment, 'data', {})
         if not data:
-            warnings.warn("No data found in the experiment.")
+            warnings.warn("No data provided or found in experiment.")
 
         self.backup()
         return {
@@ -201,6 +201,7 @@ class _SaveManager:
         self.experiments[experiment_name] = _Experiment()
         self.experiments[experiment_name].manual_creation(**data)
         # self._create_folders(experiment_name)
+        all_to_json()
         self.backup()
 
     def forget_last_run(self, experiment_name: str):
@@ -212,6 +213,7 @@ class _SaveManager:
         experiment.run_cnt -= 1
         experiment.dates.pop()
         experiment.comment.pop()
+        all_to_json()
         self.backup()
 
     def force_comments(self):

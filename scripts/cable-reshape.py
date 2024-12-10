@@ -7,7 +7,7 @@ from stable_baselines3.common.callbacks import EvalCallback, CallbackList
 from pathlib import Path
 
 from deform_rl.algos.save_manager import get_paths, consistency_check, delete_experiment, forget_last_run, load_manager
-from deform_rl.algos.training.training_helpers import single_env_maker, create_multi_env, SaveNormalizeCallback, SaveModelCallback
+from deform_rl.algos.training.training_helpers import *
 from deform_rl.envs.Cable_reshape_env.environment import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 
@@ -154,12 +154,12 @@ def posOnlyBiggerCable40(continue_run=False):
     kwargs = dict(seg_num=40, cable_length=300, scale_factor=800)
     paths = get_paths(get_name(), 'bigger cable', env_name,
                       data=kwargs, continue_run=continue_run)
-    maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
     if not continue_run:
         env = create_multi_env(maker, 4, normalize=True)
         eval_env = create_multi_env(maker, 1, normalize=True)
     else:
+        maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
+            {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
         env = create_multi_env(maker, 4, normalize=True,
                                normalize_path=paths['norm'])
         eval_env = create_multi_env(
@@ -184,10 +184,7 @@ def movementCable10():
     kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
-    maker = single_env_maker(CableReshapeMovement, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
-    env = create_multi_env(maker, 4, normalize=True)
-    eval_env = create_multi_env(maker, 1, normalize=True)
+    env, eval_env = standard_envs(CableReshapeMovement, kwargs)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -200,24 +197,24 @@ def movementCable10():
 
 def movementCable10smallerThresh():
     env_name = CableReshapeMovement.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800, threshold=5)
+    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800, threshold=10)
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
-    maker = single_env_maker(CableReshapeMovement, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
-    env = create_multi_env(maker, 4, normalize=True)
-    eval_env = create_multi_env(maker, 1, normalize=True)
+    env, eval_env = standard_envs(CableReshapeMovement, kwargs)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
                 tensorboard_log=paths['tb'], device='cpu')
     print("Training model")
-    model.learn(total_timesteps=1000000, callback=[
+    model.learn(total_timesteps=2000000, callback=[
                 ch_clb, ev_clb])
     print("Training done")
 
 
 def movementCable10oldTuned():
+    """
+    Used tuned from posOnlyTuned
+    """
     tuned_params = {
         'n_steps': 512,
         'gamma': 0.99,
@@ -230,10 +227,7 @@ def movementCable10oldTuned():
     kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
-    maker = single_env_maker(CableReshapeMovement, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
-    env = create_multi_env(maker, 4, normalize=True)
-    eval_env = create_multi_env(maker, 1, normalize=True)
+    env, eval_env = standard_envs(CableReshapeMovement)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,

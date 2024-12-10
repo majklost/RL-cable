@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=hyperopt-PosOnly
-#SBATCH --output=hyperopt-PosOnly.out
-#SBATCH --error=hyperopt-PosOnly.err
+#SBATCH --job-name=hyperopt-Rect2D
+#SBATCH --output=hyperopt-Rect2D.out
+#SBATCH --error=hyperopt-Rect2D.err
 #SBATCH --time=23:00:00
 #SBATCH --ntasks=10
 #SBATCH --partition=cpu
@@ -11,7 +11,7 @@
 ml SQLite
 ml Python/3.10
 pwd
-python ../../scripts/init_hyperopt.py --name PosOnlyReshape
+python ../../scripts/init_hyperopt.py --name Rect2D
 echo "Starting hyperopt"
 srun --ntasks=10  --multi-prog ./hyperopt.conf 
 

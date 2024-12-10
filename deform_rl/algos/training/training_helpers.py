@@ -2,11 +2,13 @@
 from stable_baselines3.common.utils import set_random_seed
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from stable_baselines3.common.callbacks import BaseCallback, CallbackList, EvalCallback
-
+from gymnasium.wrappers import TimeLimit
+from stable_baselines3.common.monitor import Monitor
 import gymnasium as gym
 from pathlib import Path
 from typing import Callable
 import inspect
+import warnings
 
 
 def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] = [],  wrappers_args: list[dict] = [], **kwargs):
@@ -100,3 +102,15 @@ def create_callback_list(paths, save_freq, eval_env) -> tuple:
     eval_callback = EvalCallback(
         eval_env=eval_env, eval_freq=save_freq, callback_on_new_best=SaveModelCallback(paths['model_best']))
     return checkpoint_callback, eval_callback
+
+
+def standard_envs(env_cls, env_kwargs={}, n_train=4, n_eval=1, norm_paths=None):
+    if env_kwargs == {}:
+        warnings.warn("No environment arguments were provided")
+    maker = single_env_maker(env_cls, wrappers=[TimeLimit, Monitor], wrappers_args=[
+        {'max_episode_steps': 1000}, {}], render_mode='human', **env_kwargs)
+    env = create_multi_env(maker, n_train, normalize=True,
+                           normalize_path=norm_paths)
+    eval_env = create_multi_env(
+        maker, n_eval, normalize=True, normalize_path=norm_paths)
+    return env, eval_env

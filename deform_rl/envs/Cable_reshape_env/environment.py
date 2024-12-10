@@ -61,8 +61,9 @@ class CableReshape(gym.Env):
             low=-limit, high=limit, shape=(ctrl_num*2+self.seg_num*2,), dtype=np.float32)
 
     def _create_sampler(self):
+        PADDING = 50
         return BezierSampler(self.cable.length, self.cable.num_links, lower_bounds=np.array(
-            [0, 0, 0]), upper_bounds=np.array([self.width, self.height, 2*np.pi]))
+            [PADDING, PADDING, 0]), upper_bounds=np.array([self.width-PADDING, self.height-PADDING, 2*np.pi]))
 
     def _calc_distance(self, ctrl_only=False):
         # ctrl_points are in shape (num_links, 2)
