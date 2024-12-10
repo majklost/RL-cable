@@ -7,6 +7,7 @@ from deform_rl.algos.training.training_helpers import single_env_maker
 from gymnasium.wrappers import TimeLimit
 from stable_baselines3.common.monitor import Monitor
 from deform_rl.envs.Cable_reshape_env.environment import *
+from deform_rl.envs.Rectangle_env.environment import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 
 
@@ -30,8 +31,8 @@ else:
     init_manager(args.seed+10, args.seed+12)
 
 # DEBUG
-if not experiment['data']:
-    experiment['data'] = dict(seg_num=40, cable_length=300, scale_factor=800)
+# if not experiment['data']:
+    # experiment['data'] = dict(seg_num=40, cable_length=300, scale_factor=800)
     # experiment['data'] = dict(seg_num=10, cable_length=300, scale_factor=800)
 
     # print(f"Playing model for {experiment}")

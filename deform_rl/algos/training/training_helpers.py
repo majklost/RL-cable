@@ -1,10 +1,12 @@
 # basic training functions
 from stable_baselines3.common.utils import set_random_seed
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
-from stable_baselines3.common.callbacks import BaseCallback
+from stable_baselines3.common.callbacks import BaseCallback, CallbackList, EvalCallback
+
 import gymnasium as gym
 from pathlib import Path
 from typing import Callable
+import inspect
 
 
 def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] = [],  wrappers_args: list[dict] = [], **kwargs):
@@ -86,3 +88,15 @@ class SaveModelCallback(BaseCallback):
             print(f"Saving model")
             self.model.save(self.save_path)
         return True
+
+
+def get_name(base_name):
+    return base_name + str(inspect.stack()[1][3])
+
+
+def create_callback_list(paths, save_freq, eval_env) -> tuple:
+    checkpoint_callback = CallbackList([SaveModelCallback(
+        paths['model_last'], save_freq=save_freq), SaveNormalizeCallback(paths['norm'], save_freq=save_freq)])
+    eval_callback = EvalCallback(
+        eval_env=eval_env, eval_freq=save_freq, callback_on_new_best=SaveModelCallback(paths['model_best']))
+    return checkpoint_callback, eval_callback

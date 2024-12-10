@@ -18,6 +18,7 @@ def play_model(model_path: str, normalize_path: str, maker: Callable[[], gym.Env
     :param maker: (callable) the function to create the environment
     """
     model = PPO.load(model_path, device='cpu')
+    print(model.policy)
     env = create_multi_env(maker, 1, normalize_path=normalize_path)
     if normalize_path is not None:
         env.training = False

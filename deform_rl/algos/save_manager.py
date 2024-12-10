@@ -4,6 +4,7 @@ import datetime
 from pathlib import Path
 from typing import TypedDict
 import shutil
+import json
 import warnings
 # No need for object now
 
@@ -14,6 +15,14 @@ class PathsDict(TypedDict):
     model_best: Path
     norm: Path
     env_name: str
+    data: dict
+
+
+class ExperimentDict(TypedDict):
+    run_cnt: int
+    comment: list[str]
+    env_name: str
+    dates: list[datetime.datetime]
     data: dict
 
 
@@ -34,6 +43,33 @@ class _Experiment:
                 f.write(f"{k}: {v}\n")
             for c in enumerate(self.comment):
                 f.write(f"{c[0]}. {c[1]}\n")
+
+    def manual_creation(self, run_cnt, comment, env_name, dates, data):
+        self.run_cnt = run_cnt
+        self.comment = comment
+        self.env_name = env_name
+        self.dates = dates
+        self.data = data
+
+    def to_json(self, fpath):
+        with open(fpath, 'w') as f:
+            json.dump({
+                "run_cnt": self.run_cnt,
+                "comment": self.comment,
+                "env_name": self.env_name,
+                "dates": [date.strftime("%d-%m-%H-%M-%S") for date in self.dates],
+                "data": self.data
+            }, f)
+
+    def from_json(self, fpath):
+        with open(fpath, 'r') as f:
+            data = json.load(f)
+            self.run_cnt = data["run_cnt"]
+            self.comment = data["comment"]
+            self.env_name = data["env_name"]
+            self.dates = [datetime.datetime.strptime(
+                date, "%d-%m-%H-%M-%S") for date in data["dates"]]
+            self.data = data["data"]
 
     def __str__(self):
         return f"Experiment(run_cnt={self.run_cnt}, comment={self.comment}, env_name={self.env_name}, dates={self.dates}, data={self.data})"
@@ -113,6 +149,27 @@ class _SaveManager:
             "data": data
         }
 
+    def _get_json_path(self, experiment_name):
+        return self.model_dir / experiment_name / "experiment.json"
+
+    def all_to_json(self):
+        for experiment_name, experiment in self.experiments.items():
+            experiment.to_json(self._get_json_path(experiment_name))
+
+    def load_experiment_from_json(self, experiment_name: str):
+        try:
+            experiment = self.experiments[experiment_name]
+        except KeyError:
+            warnings.warn(
+                f"{experiment_name} not found in the experiments, current experiments are {list(self.experiments.keys())}")
+            experiment = _Experiment()
+        experiment.from_json(self._get_json_path(experiment_name))
+
+    def load_all_from_json(self):
+        for experiment_name in self.experiments.keys():
+            self.load_experiment_from_json(experiment_name)
+        self.backup()
+
     def get_run_paths(self, experiment_name: str, run_cnt: int = -1):
         """
         Get the paths for a specific run of an experiment.
@@ -139,6 +196,12 @@ class _SaveManager:
             "env_name": experiment.env_name,
             "data": data
         }
+
+    def manual_creation(self, experiment_name, data: ExperimentDict):
+        self.experiments[experiment_name] = _Experiment()
+        self.experiments[experiment_name].manual_creation(**data)
+        # self._create_folders(experiment_name)
+        self.backup()
 
     def forget_last_run(self, experiment_name: str):
         """
@@ -220,6 +283,16 @@ class _SaveManager:
         del self.experiments[experiment_name]
         self.backup()
 
+    def print_experiment(self, experiment_name: str):
+        """
+        Print the experiment.
+        """
+        try:
+            print(self.experiments[experiment_name])
+        except KeyError:
+            print(
+                f"{experiment_name} not found in the experiments, current experiments are {list(self.experiments.keys())}")
+
     def __str__(self):
         return f"SaveManager(tb_log_dir={self.tb_log_dir}, model_dir={self.model_dir}, vec_norm_dir={self.vec_norm_dir})"
 
@@ -252,8 +325,24 @@ class _SaveManagerV2(_SaveManager):
         self.vec_norm_dir = self.experiments_folder / "norms"
 
 
+def all_to_json():
+    manager.all_to_json()
+
+
+def load_all_from_json():
+    manager.load_all_from_json()
+
+
+def print_experiment(experiment_name: str):
+    manager.print_experiment(experiment_name)
+
+
 def get_datetime_str(date: datetime.datetime):
     return date.strftime("%d-%m-%H-%M-%S")
+
+
+def manual_creation(experiment_name: str, data: ExperimentDict):
+    manager.manual_creation(experiment_name, data)
 
 
 def create_fname(experiment_name: str, run_cnt: int, date: datetime.datetime):

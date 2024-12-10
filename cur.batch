@@ -2,8 +2,8 @@
 #SBATCH --partition=cpu
 #SBATCH --time=3:00:00
 #SBATCH --nodes=1 --ntasks=1 --cpus-per-task=1
-#SBATCH --error=../../submitted.err
-#SBATCH --output=../../submitted.out
+#SBATCH --error=../../submitted%j.err
+#SBATCH --output=../../submitted%j.out
 # This script is used to run the batch job
 cd /mnt/personal/mrkosmic/synced/RL-cable
 ml Python/3.10

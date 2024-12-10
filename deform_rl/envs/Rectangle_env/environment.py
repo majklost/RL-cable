@@ -33,12 +33,7 @@ class Rectangle1D(gym.Env):
         #     'velocity': gym.spaces.Box(low=np.array([-np.inf, -np.inf]), high=np.array([np.inf, np.inf]), dtype=np.float64),
         #     'target': gym.spaces.Box(low=np.array([0, 0]), high=np.array([self.width, self.height]), dtype=np.float64),
         # })
-        self.observation_space = gym.spaces.Box(
-            low=np.array([-self.width, -self.height, -
-                         np.inf, -np.inf], dtype=np.float32),
-            high=np.array([self.width, self.height, np.inf,
-                          np.inf], dtype=np.float32),
-        )
+        self.observation_space = self._get_obs_space()
 
         self.threshold = threshold
 
@@ -65,6 +60,14 @@ class Rectangle1D(gym.Env):
     #         'velocity': self.rect.velocity,
     #         'target': self.target
     #     }
+    def _get_obs_space(self):
+        return gym.spaces.Box(
+            low=np.array([-self.width, -self.height, -
+                         np.inf, -np.inf], dtype=np.float32),
+            high=np.array([self.width, self.height, np.inf,
+                          np.inf], dtype=np.float32),
+        )
+
     def _get_obs(self):
         return np.concatenate([self.rect.position-self.target, self.rect.velocity], dtype=np.float32)
 
@@ -143,6 +146,42 @@ class Rectangle1D(gym.Env):
             pygame.quit()
             self.screen = None
             self.clock = None
+
+
+class RectangleNoVel(Rectangle1D):
+    """
+    Class where No velocity is observed.
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def _get_obs_space(self):
+        return gym.spaces.Box(
+            low=np.array([-self.width, -self.height], dtype=np.float32),
+            high=np.array([self.width, self.height], dtype=np.float32),
+        )
+
+    def _get_obs(self):
+        return np.concatenate([self.rect.position-self.target], dtype=np.float32)
+
+
+class RectangleVelDirOnly(Rectangle1D):
+    """
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def _get_obs_space(self):
+        return gym.spaces.Box(
+            low=np.array([-self.width, -self.height, -1, -1],
+                         dtype=np.float32),
+            high=np.array([self.width, self.height, 1, 1], dtype=np.float32),
+        )
+
+    def _get_obs(self):
+        return np.concatenate([self.rect.position-self.target, self.rect.velocity/(np.linalg.norm(self.rect.velocity)+1e-6)], dtype=np.float32)
 
 
 if __name__ == "__main__":

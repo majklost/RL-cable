@@ -57,6 +57,34 @@ def posOnly(continue_run=False):
     print("Training done")
 
 
+def posOnlyTuned():
+    tuned_params = {
+        'n_steps': 512,
+        'gamma': 0.99,
+        'learning_rate': 0.00010575621210188617,
+        'batch_size': 512,
+        'clip_range': 0.2,
+        'n_epochs': 20,
+    }
+    env_name = CableReshapeV2.__name__
+    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    paths = get_paths(get_name(), 'small cable', env_name,
+                      False, data=kwargs)
+    maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
+        {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+    env = create_multi_env(maker, 4, normalize=True)
+    eval_env = create_multi_env(maker, 1, normalize=True)
+
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu', **tuned_params)
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
 def posOnlyHarder10(continue_run=False):
     # init_manager(25, 25)
     env_name = CableReshapeHardFlips.__name__
@@ -150,6 +178,72 @@ def posOnlyBiggerCable40(continue_run=False):
                 ch_clb, ev_clb], reset_num_timesteps=not continue_run)
     print("Training done")
 
+
+def movementCable10():
+    env_name = CableReshapeMovement.__name__
+    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    paths = get_paths(get_name(), 'movement cable', env_name,
+                      data=kwargs, continue_run=False)
+    maker = single_env_maker(CableReshapeMovement, wrappers=[TimeLimit, Monitor], wrappers_args=[
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+    env = create_multi_env(maker, 4, normalize=True)
+    eval_env = create_multi_env(maker, 1, normalize=True)
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def movementCable10smallerThresh():
+    env_name = CableReshapeMovement.__name__
+    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800, threshold=5)
+    paths = get_paths(get_name(), 'movement cable', env_name,
+                      data=kwargs, continue_run=False)
+    maker = single_env_maker(CableReshapeMovement, wrappers=[TimeLimit, Monitor], wrappers_args=[
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+    env = create_multi_env(maker, 4, normalize=True)
+    eval_env = create_multi_env(maker, 1, normalize=True)
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def movementCable10oldTuned():
+    tuned_params = {
+        'n_steps': 512,
+        'gamma': 0.99,
+        'learning_rate': 0.00010575621210188617,
+        'batch_size': 512,
+        'clip_range': 0.2,
+        'n_epochs': 20,
+    }
+    env_name = CableReshapeMovement.__name__
+    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    paths = get_paths(get_name(), 'movement cable', env_name,
+                      data=kwargs, continue_run=False)
+    maker = single_env_maker(CableReshapeMovement, wrappers=[TimeLimit, Monitor], wrappers_args=[
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+    env = create_multi_env(maker, 4, normalize=True)
+    eval_env = create_multi_env(maker, 1, normalize=True)
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu', **tuned_params)
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
 # HELPERS
 
 
@@ -168,8 +262,13 @@ def get_name():
 if __name__ == "__main__":
     pass
     # delete_experiment('cable-reshape-posOnly')
-    posOnly(continue_run=False)
+    # posOnly(continue_run=False)
+    # posOnlyTuned()
+    # posOnly()
+    # movementCable10()
     # forget_last_run('cable-reshape-posOnlyBiggerCable40')
     # posOnlyHarder10(continue_run=True)
     # posOnlyBiggerCable(continue_run=False)
     # posOnlyBiggerCable40(continue_run=True)
+    # movementCable10oldTuned()
+    movementCable10smallerThresh()

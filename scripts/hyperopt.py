@@ -12,7 +12,7 @@ from deform_rl.envs.sim.utils.seed_manager import init_manager
 from deform_rl.algos.training.hyperparams import give_args
 
 PATH = Path(__file__).parent.parent / "experiments" / "hyperopt"
-TIMESTEPS = 70000
+TIMESTEPS = 700000
 
 
 class PruneCallback(BaseCallback):
@@ -67,5 +67,6 @@ def objectivePosOnlyReshape(trial):
 if __name__ == "__main__":
     study = optuna.load_study(
         study_name="PosOnlyReshape", storage=f"sqlite:///{PATH / 'PosOnlyReshape.db'}")
-    study.optimize(objectivePosOnlyReshape, n_trials=2,
+    print("Starting optimization")
+    study.optimize(objectivePosOnlyReshape, n_trials=100,
                    timeout=23*3600, show_progress_bar=True)
