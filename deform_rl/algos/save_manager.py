@@ -282,7 +282,11 @@ class _SaveManager:
         shutil.rmtree(model_dir)
         shutil.rmtree(tb_log_dir)
         shutil.rmtree(vec_norm_dir)
-        del self.experiments[experiment_name]
+        try:
+            del self.experiments[experiment_name]
+        except KeyError:
+            print(
+                f"{experiment_name} not found in the experiments, current experiments are {list(self.experiments.keys())}")
         self.backup()
 
     def print_experiment(self, experiment_name: str):

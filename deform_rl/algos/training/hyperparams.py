@@ -6,15 +6,15 @@ import torch.nn as nn
 def give_args(trial):
     # Define the search space
     batch_size = trial.suggest_categorical(
-        "batch_size", [32, 64, 128, 256, 512])
+        "batch_size", [32, 64, 128, 256, 512, 1024, 2048])
     n_steps = 512
     gamma = trial.suggest_categorical("gamma", [0.9, 0.95, 0.99, 0.9999])
     learning_rate = trial.suggest_float("learning_rate", 1e-5, 1, log=True)
     clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
-    n_epochs = trial.suggest_categorical("n_epochs", [4, 10, 20])
+    n_epochs = trial.suggest_categorical("n_epochs", [4, 10, 20, 30])
     gae_lambda = trial.suggest_categorical(
         "gae_lambda", [0.8, 0.9, 0.95, 0.98])
-    use_sde = trial.suggest_categorical("use_sde", [False, True])
+    # use_sde = trial.suggest_categorical("use_sde", [False, True])
     # if use_sde:
     #     log_std_init = trial.suggest_float("log_std_init", -4, 1)
     #     sde_sample_freq = trial.suggest_categorical(
@@ -25,6 +25,7 @@ def give_args(trial):
         "tiny": dict(pi=[64], vf=[64]),
         "small": dict(pi=[64, 64], vf=[64, 64]),
         "medium": dict(pi=[256, 256], vf=[256, 256]),
+        "large": dict(pi=[400, 400], vf=[400, 400]),
     }[net_arch_type]
     activation_fn = nn.ReLU
     return {
@@ -39,7 +40,6 @@ def give_args(trial):
             net_arch=net_arch,
             activation_fn=activation_fn,
         ),
-        "use_sde": use_sde,
     }
 
 

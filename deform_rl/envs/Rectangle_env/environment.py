@@ -36,8 +36,7 @@ class Rectangle1D(gym.Env):
             self.action_space = gym.spaces.Box(low=np.array(
                 [-1]), high=np.array([1]), dtype=np.float32)
         else:
-            self.action_space = gym.spaces.Box(low=np.array(
-                [-1, -1]), high=np.array([1, 1]), dtype=np.float32)
+            self.action_space = self._get_action_space()
 
         self.rect = Rectangle([self.width/2, self.height/2],
                               20, 20, pymunk.Body.DYNAMIC)
@@ -54,6 +53,12 @@ class Rectangle1D(gym.Env):
                          np.inf, -np.inf], dtype=np.float32),
             high=np.array([self.width, self.height, np.inf,
                           np.inf], dtype=np.float32),
+        )
+
+    def _get_action_space(self):
+        return gym.spaces.Box(
+            low=np.array([-1, -1], dtype=np.float32),
+            high=np.array([1, 1], dtype=np.float32),
         )
 
     def _get_obs(self):
@@ -89,16 +94,20 @@ class Rectangle1D(gym.Env):
         info = self._get_info()
         return self._get_obs(), info
 
+    def _action_modifier(self, action):
+        if np.linalg.norm(action) > 1:
+            action = action/np.linalg.norm(action)
+        return self.scale_factor * action
+
     def step(self, action):
         self.step_count += 1
         prev_distance = self._calc_distance()
         if self.oneD:
             self.rect.apply_force_middle((self.scale_factor * action, 0))
         else:
-            if np.linalg.norm(action) > 1:
-                action = action/np.linalg.norm(action)
+            action = self._action_modifier(action)
             self.rect.apply_force_middle(
-                self.scale_factor * action)
+                action)
             # self.rect.velocity = self.scale_factor/100 * action
         self.sim.step()
         distance = self._calc_distance()
@@ -113,13 +122,13 @@ class Rectangle1D(gym.Env):
             reward = -500
         else:
             # reward = -1*distance
-            reward = -5*distance/self.start_distance
+            reward = -5*distance/self.start_distance-10
         obs = self._get_obs()
         info = self._get_info()
         return obs, reward, done, False, info
 
     def _on_finish_reward(self):
-        return 500
+        return 1000
 
     def render(self):
         if self.render_mode != 'human':
@@ -193,6 +202,24 @@ class RenderingEnv(Rectangle1D):
 
     def _get_target(self):
         return np.array([self.width/2, self.height/2])
+
+
+class RectPolar(Rectangle1D):
+    """
+    Action space is polar coordinates.
+    """
+
+    def _get_action_space(self):
+        # first is R and second is theta
+        return gym.spaces.Box(
+            low=np.array([0, -1], dtype=np.float32),
+            high=np.array([1, 1], dtype=np.float32),
+        )
+
+    def _action_modifier(self, action):
+        r = action[0] * self.scale_factor
+        theta = action[1] * np.pi
+        return np.array([r*np.cos(theta), r*np.sin(theta)])
 
 
 if __name__ == "__main__":
