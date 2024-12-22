@@ -6,12 +6,15 @@ from deform_rl.algos.save_manager import consistency_check, get_run_paths, load_
 from deform_rl.algos.training.training_helpers import single_env_maker
 from gymnasium.wrappers import TimeLimit
 from stable_baselines3.common.monitor import Monitor
-from deform_rl.envs.Cable_reshape_env.environment import *
-from deform_rl.envs.Rectangle_env.environment import *
+from deform_rl.envs.Rectangle_env.debug_env import *
+
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 
 
-EXPERIMENTS_PATH = Path(__file__).parent.parent / "experiments"
+EXPERIMENTS_PATH = Path(__file__).parent.parent.parent / \
+    "experiments"/'debugging'
+EXPERIMENTS_PATH.mkdir(exist_ok=True, parents=True)
+print(EXPERIMENTS_PATH)
 load_manager(EXPERIMENTS_PATH)
 
 
@@ -39,7 +42,7 @@ else:
 env_cls = globals()[env_name]
 print(f"Playing model for {env_cls.__name__}")
 maker = single_env_maker(env_cls, seed=args.seed, wrappers=[TimeLimit, Monitor], wrappers_args=[
-    {'max_episode_steps': 1000}, {}], render_mode='human', **experiment['data']['env_kwargs'])
+    {'max_episode_steps': 1000}, {}], render_mode='human', **(experiment['data']['env_kwargs']))
 
 play_model(experiment['model_best'], experiment['norm'],
-           maker, normalize=True)
+           maker, normalize=experiment['data'].get('normalize', True))

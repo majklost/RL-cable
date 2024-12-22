@@ -28,7 +28,8 @@ BASE_NAME = 'cable-reshape-'
 def posOnly(continue_run=False):
     # init_manager(25, 25)
     env_name = CableReshapeV2.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'small cable', env_name,
                       continue_run, data=kwargs)
     # print(paths)
@@ -68,7 +69,8 @@ def posOnlyTuned():
         'n_epochs': 20,
     }
     env_name = CableReshapeV2.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'small cable', env_name,
                       False, data=kwargs)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
@@ -90,7 +92,8 @@ def posOnlyHarder10(continue_run=False):
     # init_manager(25, 25)
     env_name = CableReshapeHardFlips.__name__
 
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'bigger cable', env_name,
                       continue_run, data=kwargs)
 
@@ -122,7 +125,8 @@ def posOnlyHarder10(continue_run=False):
 
 def posOnlyBiggerCable(continue_run=False):
     env_name = CableReshapeV2.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'bigger cable', env_name,
                       data=kwargs, continue_run=continue_run)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
@@ -152,7 +156,8 @@ def posOnlyBiggerCable(continue_run=False):
 
 def posOnlyBiggerCable40(continue_run=False):
     env_name = CableReshapeV2.__name__
-    kwargs = dict(seg_num=40, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=40, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'bigger cable', env_name,
                       data=kwargs, continue_run=continue_run)
     if not continue_run:
@@ -182,7 +187,8 @@ def posOnlyBiggerCable40(continue_run=False):
 
 def movementCable10():
     env_name = CableReshapeMovement.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
     env, eval_env = standard_envs(CableReshapeMovement, kwargs)
@@ -198,7 +204,8 @@ def movementCable10():
 
 def movementCable10smallerThresh():
     env_name = CableReshapeMovement.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800, threshold=10)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800, threshold=10))
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
     env, eval_env = standard_envs(CableReshapeMovement, kwargs)
@@ -230,7 +237,8 @@ def movementCable10Tuned():
         )
     }
     env_name = CableReshapeMovement.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
     env, eval_env = standard_envs(CableReshapeMovement, kwargs)
@@ -249,7 +257,8 @@ def reshapeNeighbour():
     Reshape where there is information about the neighbours
     """
     env_name = CableReshapeNeighbourObs.__name__
-    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'neighbour obs', env_name,
                       data=kwargs, continue_run=False)
     env, eval_env = standard_envs(CableReshapeNeighbourObs, kwargs)

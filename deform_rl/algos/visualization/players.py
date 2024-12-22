@@ -9,7 +9,7 @@ import pygame
 from typing import Callable
 
 
-def play_model(model_path: str | Path, normalize_path: str, maker: Callable[[], gym.Env],):
+def play_model(model_path: str | Path, normalize_path: str, maker: Callable[[], gym.Env], normalize=True):
     """
     Play a model on the environment.
 
@@ -20,7 +20,8 @@ def play_model(model_path: str | Path, normalize_path: str, maker: Callable[[], 
     model = PPO.load(model_path, device='cpu')
     pygame.display.set_caption(model_path.name)
     # print(model.policy)
-    env = create_multi_env(maker, 1, normalize_path=normalize_path)
+    env = create_multi_env(
+        maker, 1, normalize_path=normalize_path, normalize=normalize)
     if normalize_path is not None:
         env.training = False
     else:
@@ -31,8 +32,10 @@ def play_model(model_path: str | Path, normalize_path: str, maker: Callable[[], 
     for _ in range(1000):
         action, _ = model.predict(obs, deterministic=True)
         obs, reward, done, info = env.step(action)
-
-        cum_reward += VecNormalize.get_original_reward(env)
+        if normalize:
+            cum_reward += VecNormalize.get_original_reward(env)
+        else:
+            cum_reward += reward
         cnt += 1
         if done:
             obs = env.reset()

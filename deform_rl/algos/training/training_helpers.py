@@ -27,6 +27,7 @@ def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] =
 
     def _init():
         nonlocal call_num
+
         env = ENV_CREATOR(**kwargs)
         for wrapper, wrapper_args in zip(wrappers, wrappers_args):
             env = wrapper(env, **wrapper_args)
@@ -46,7 +47,7 @@ def create_multi_env(single_env_make: Callable[[], gym.Env], n_envs: int, normal
     :param n_envs: (int) the number of environments to create
     """
     envs = DummyVecEnv([single_env_make for _ in range(n_envs)])
-    if normalize_path is not None:
+    if normalize and normalize_path is not None:
         envs = VecNormalize.load(normalize_path, envs)
     elif normalize:
         envs = VecNormalize(envs)
@@ -69,7 +70,8 @@ class SaveNormalizeCallback(BaseCallback):
 
     def _on_step(self) -> bool:
         if self.num_timesteps % self.save_freq == 0:
-            self.model.get_vec_normalize_env().save(self.save_path)
+            if self.model.get_vec_normalize_env() is not None:
+                self.model.get_vec_normalize_env().save(self.save_path)
         return True
 
 
@@ -104,13 +106,13 @@ def create_callback_list(paths, save_freq, eval_env) -> tuple:
     return checkpoint_callback, eval_callback
 
 
-def standard_envs(env_cls, env_kwargs={}, n_train=4, n_eval=1, norm_paths=None):
+def standard_envs(env_cls, env_kwargs={}, n_train=4, n_eval=1, normalize=True, norm_paths=None):
     if env_kwargs == {}:
         warnings.warn("No environment arguments were provided")
     maker = single_env_maker(env_cls, wrappers=[TimeLimit, Monitor], wrappers_args=[
         {'max_episode_steps': 1000}, {}], render_mode='human', **env_kwargs)
-    env = create_multi_env(maker, n_train, normalize=True,
+    env = create_multi_env(maker, n_train, normalize=normalize,
                            normalize_path=norm_paths)
     eval_env = create_multi_env(
-        maker, n_eval, normalize=True, normalize_path=norm_paths)
+        maker, n_eval, normalize=normalize, normalize_path=norm_paths)
     return env, eval_env

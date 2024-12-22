@@ -314,6 +314,7 @@ class _SaveManagerV2(_SaveManager):
         model_dir = self.experiments_folder / "models"
         vec_norm_dir = self.experiments_folder / "norms"
         super().__init__(tb_log_dir, model_dir, vec_norm_dir)
+        self.backup()
 
     def backup(self):
         """
