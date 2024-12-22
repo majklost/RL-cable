@@ -19,6 +19,7 @@ class Rectangle1D(gym.Env):
         pygame.init()
         # rendering
         self.screen = None
+        self.launch_cnt = 0
         self.scale_factor = scale_factor
         self.render_mode = render_mode
         self.step_count = 0
@@ -198,10 +199,74 @@ class RenderingEnv(Rectangle1D):
 
     def _get_position(self):
         PADDING = 20
+        print(self.launch_cnt)
+        # return np.array([41, 783])
+        if self.launch_cnt == 0:
+            self.launch_cnt += 1
+            return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
+        elif self.launch_cnt == 1:
+            self.launch_cnt += 1
+            return np.array([301, 429])
+        elif self.launch_cnt == 2:
+            self.launch_cnt += 1
+            return np.array([301, 429])
+        elif self.launch_cnt == 3:
+            self.launch_cnt += 1
+            return np.array([41, 783])
+            # return np.array([200, 200])
+        elif self.launch_cnt == 4:
+            self.launch_cnt += 1
+            return np.array([41, 783])
+            # return np.array([200, 200])
+        else:
+            raise ValueError()
+            # return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
+
+    def _get_target(self):
+        return np.array([self.width/2, self.height/2])
+
+
+class RenderingEnvVelocity(RectangleNoVel):
+    """
+    Movement is created not be force but by velocity
+    """
+
+    def _get_position(self):
+        PADDING = 20
         return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
 
     def _get_target(self):
         return np.array([self.width/2, self.height/2])
+
+    def _action_modifier(self, action):
+        if np.linalg.norm(action) > 1:
+            action = action/np.linalg.norm(action)
+        return action
+
+    def step(self, action):
+        self.step_count += 1
+        action = self._action_modifier(action)
+        # self.rect.apply_force_middle(
+        #     action)
+        self.rect.velocity = 1500*action
+        print(action)
+        self.sim.step()
+        distance = self._calc_distance()
+        reward = 0
+        done = False
+        if distance < self.threshold:
+            done = True
+            reward = self._on_finish_reward()
+            # reward = 500-np.linalg.norm(self.rect.velocity)
+        elif self.rect.position[0] < 0 or self.rect.position[0] > self.width or self.rect.position[1] < 0 or self.rect.position[1] > self.height:
+            done = True
+            reward = -500
+        else:
+            # reward = -1*distance
+            reward = -5*distance/self.start_distance-10
+        obs = self._get_obs()
+        info = self._get_info()
+        return obs, reward, done, False, info
 
 
 class RectPolar(Rectangle1D):
@@ -212,12 +277,12 @@ class RectPolar(Rectangle1D):
     def _get_action_space(self):
         # first is R and second is theta
         return gym.spaces.Box(
-            low=np.array([0, -1], dtype=np.float32),
+            low=np.array([-1, -1], dtype=np.float32),
             high=np.array([1, 1], dtype=np.float32),
         )
 
     def _action_modifier(self, action):
-        r = action[0] * self.scale_factor
+        r = (action[0]+1) * self.scale_factor
         theta = action[1] * np.pi
         return np.array([r*np.cos(theta), r*np.sin(theta)])
 

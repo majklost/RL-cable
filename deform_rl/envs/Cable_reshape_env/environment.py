@@ -39,12 +39,12 @@ class CableReshape(gym.Env):
         # threshold for mean distance to target to consider the task solved
         self.threshold = threshold
 
-        ctrl_num = len(self.controlable_idxs)
+        self.ctrl_num = len(self.controlable_idxs)
         # ctrl_num*2 for distance to targets + segnum*2 for relative positions to CoG of cable
         self.observation_space = self._create_observation_space()
 
         self.action_space = gym.spaces.Box(
-            low=-1, high=1, shape=(ctrl_num*2,), dtype=np.float32)
+            low=-1, high=1, shape=(self.ctrl_num*2,), dtype=np.float32)
 
         self.cable = Cable([self.width/2-cable_length/2, self.height/2],
                            length=cable_length, num_links=seg_num, thickness=5)
@@ -56,7 +56,7 @@ class CableReshape(gym.Env):
 
     def _create_observation_space(self):
         ctrl_num = len(self.controlable_idxs)
-        limit = max(self.width, self.height)//2
+        limit = max(self.width, self.height)
         return gym.spaces.Box(
             low=-limit, high=limit, shape=(ctrl_num*2+self.seg_num*2,), dtype=np.float32)
 
@@ -171,9 +171,13 @@ class CableReshapeV2(CableReshape):
                  cable_length=300, scale_factor=200, render_mode=None, seed=None):
         super().__init__(sim_config, threshold, seg_num, controlable_idxs,
                          cable_length, scale_factor, render_mode, seed)
+
+        self.observation_space = self._create_observation_space()
+
+    def _create_observation_space(self):
         ctrl_num = len(self.controlable_idxs)
         limit = max(self.width, self.height)//2
-        self.observation_space = gym.spaces.Box(
+        return gym.spaces.Box(
             low=-limit, high=limit, shape=(ctrl_num*2,), dtype=np.float32)
 
     def _get_obs(self):
@@ -205,7 +209,7 @@ class CableReshapeMovement(CableReshapeV2):
         return self.sampler.sample()
 
 
-class CableReshapeNeighbourObs(CableReshape):
+class CableReshapeNeighbourObs(CableReshapeV2):
     """
     Cable reshape distance to target and relative position of neighbours as observation.
     """
@@ -215,15 +219,24 @@ class CableReshapeNeighbourObs(CableReshape):
                          cable_length, scale_factor, render_mode, seed)
 
     def _create_observation_space(self):
-        return super()._create_observation_space()
+        limit = max(self.width, self.height)
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=((self.ctrl_num+self.ctrl_num)*2,), dtype=np.float32)
 
     def _get_obs(self):
         all_pts = self.cable.position
         ctrl_pts = all_pts[self.controlable_idxs]
         target_pts = self.target[self.controlable_idxs]
         target_dists = target_pts - ctrl_pts
-        for i in range(self.seg_num):
-            next_pts_idx = (i+1) % self.seg_num
+        next_pts_idx = (np.arange(self.ctrl_num) + 1) % self.ctrl_num
+        next_pts = ctrl_pts[next_pts_idx]
+        rel_pts = next_pts - all_pts
+        return np.concatenate([target_dists.flatten(), rel_pts.flatten()], dtype=np.float32)
+
+        # for i in range(self.seg_num):
+        #     next_pts_idx = (i+1) % self.seg_num
+        #     next_pts_pos = all_pts[next_pts_idx]
+        #     cur_pts_pos = all_pts[i]
 
 
 if __name__ == "__main__":
@@ -231,7 +244,10 @@ if __name__ == "__main__":
     env1 = CableReshape()
     env2 = CableReshapeV2()
     env3 = CableReshapeHardFlips()
-    env4 = CableReshapeMovement()
+    env4 = CableReshapeMovement()  # TODO: fix this after hyperopt
+    env5 = CableReshapeNeighbourObs()
     check_env(env1)
     check_env(env2)
     check_env(env3)
+    check_env(env4)
+    check_env(env5)

@@ -9,6 +9,7 @@ from torch import nn
 from deform_rl.algos.save_manager import get_paths, consistency_check, delete_experiment, load_manager
 from deform_rl.algos.training.training_helpers import *
 from deform_rl.envs.Rectangle_env.environment import *
+from deform_rl.algos.lego.networks import *
 # delete_experiment('rect2D')
 
 EXPERIMENTS_PATH = Path(__file__).parent.parent / "experiments"
@@ -100,6 +101,37 @@ def velRewAfter():
 
 
 def madeForRender():
+    """
+    ActorCriticPolicy(
+    (features_extractor): FlattenExtractor(
+        (flatten): Flatten(start_dim=1, end_dim=-1)
+    )
+    (pi_features_extractor): FlattenExtractor(
+        (flatten): Flatten(start_dim=1, end_dim=-1)
+    )
+    (vf_features_extractor): FlattenExtractor(
+        (flatten): Flatten(start_dim=1, end_dim=-1)
+    )
+    (mlp_extractor): MlpExtractor(
+        (policy_net): Sequential(
+        (0): Linear(in_features=4, out_features=64, bias=True)
+        (1): Tanh()
+        (2): Linear(in_features=64, out_features=64, bias=True)
+        (3): Tanh()
+        )
+        (value_net): Sequential(
+        (0): Linear(in_features=4, out_features=64, bias=True)
+        (1): Tanh()
+        (2): Linear(in_features=64, out_features=64, bias=True)
+        (3): Tanh()
+        )
+    )
+    (action_net): Linear(in_features=64, out_features=2, bias=True)
+    (value_net): Linear(in_features=64, out_features=1, bias=True)
+    )
+
+    """
+
     env_name = RenderingEnv.__name__
     paths = get_paths(get_name(BASE_NAME), 'first_run',
                       env_name, continue_run=False)
@@ -108,14 +140,19 @@ def madeForRender():
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
                 tensorboard_log=paths['tb'], device='cpu')
+    print(model.policy)
     print("Training model")
-    model.learn(total_timesteps=500000, callback=[
+    model.learn(total_timesteps=10000, callback=[
                 ch_clb, ev_clb])
+
     print("Training done")
 # Helpers
 
 
 def madeForRenderTuned():
+    """
+    Still artifacts
+    """
     env_name = RenderingEnv.__name__
     tuned = {
         'n_steps': 512,
@@ -147,6 +184,9 @@ def madeForRenderTuned():
 
 
 def polar():
+    """
+    Totally bad
+    """
     env_name = RectPolar.__name__
     paths = get_paths(get_name(BASE_NAME), 'first_run',
                       env_name, continue_run=False)
@@ -155,6 +195,38 @@ def polar():
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
                 tensorboard_log=paths['tb'], device='cpu')
+    print("Training model")
+    model.learn(total_timesteps=700000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def linearPolicy():
+    env_name = RenderingEnvVelocity.__name__
+    paths = get_paths(get_name(BASE_NAME), 'first_run',
+                      env_name, continue_run=False)
+    env, eval_env = standard_envs(RenderingEnvVelocity)
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO(UniversalPolicy, env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu', policy_kwargs={"my_net": LinearActor})
+    print(model.policy)
+    print("Training model")
+    model.learn(total_timesteps=500000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def velocityMovement():
+    env_name = RenderingEnvVelocity.__name__
+    paths = get_paths(get_name(BASE_NAME), 'first_run',
+                      env_name, continue_run=False)
+    env, eval_env = standard_envs(RenderingEnvVelocity)
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
+    print(model.policy)
     print("Training model")
     model.learn(total_timesteps=500000, callback=[
                 ch_clb, ev_clb])
@@ -168,6 +240,8 @@ if __name__ == "__main__":
     # delete_experiment(BASE_NAME+'velRewAfter')
     # velRewAfter()
     # madeForRender()
-    # madeForRenderTuned()
+    # linearPolicy()
+    # velocityMovement()
+    madeForRenderTuned()
     # delete_experiment(BASE_NAME+'polar')
-    polar()
+    # polar()

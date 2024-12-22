@@ -5,6 +5,7 @@ from gymnasium.wrappers import TimeLimit
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import EvalCallback, CallbackList
 from pathlib import Path
+from torch import nn
 
 from deform_rl.algos.save_manager import get_paths, consistency_check, delete_experiment, forget_last_run, load_manager
 from deform_rl.algos.training.training_helpers import *
@@ -211,27 +212,51 @@ def movementCable10smallerThresh():
     print("Training done")
 
 
-def movementCable10oldTuned():
+def movementCable10Tuned():
     """
     Used tuned from posOnlyTuned
     """
     tuned_params = {
         'n_steps': 512,
         'gamma': 0.99,
-        'learning_rate': 0.00010575621210188617,
-        'batch_size': 512,
-        'clip_range': 0.2,
-        'n_epochs': 20,
+        'learning_rate': 0.00026650142315084497,
+        'batch_size': 256,
+        'clip_range': 0.1,
+        'n_epochs': 4,
+        'gae_lambda': 0.95,
+        'policy_kwargs': dict(
+            net_arch=dict(pi=[256, 256], vf=[256, 256]),
+            activation_fn=nn.ReLU,
+        )
     }
     env_name = CableReshapeMovement.__name__
     kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
-    env, eval_env = standard_envs(CableReshapeMovement)
+    env, eval_env = standard_envs(CableReshapeMovement, kwargs)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
                 tensorboard_log=paths['tb'], device='cpu', **tuned_params)
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def reshapeNeighbour():
+    """
+    Reshape where there is information about the neighbours
+    """
+    env_name = CableReshapeNeighbourObs.__name__
+    kwargs = dict(seg_num=10, cable_length=300, scale_factor=800)
+    paths = get_paths(get_name(), 'neighbour obs', env_name,
+                      data=kwargs, continue_run=False)
+    env, eval_env = standard_envs(CableReshapeNeighbourObs, kwargs)
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
     print("Training model")
     model.learn(total_timesteps=1000000, callback=[
                 ch_clb, ev_clb])
@@ -255,7 +280,6 @@ def get_name():
 
 if __name__ == "__main__":
     pass
-    # delete_experiment('cable-reshape-posOnly')
     # posOnly(continue_run=False)
     # posOnlyTuned()
     # posOnly()
@@ -264,5 +288,7 @@ if __name__ == "__main__":
     # posOnlyHarder10(continue_run=True)
     # posOnlyBiggerCable(continue_run=False)
     # posOnlyBiggerCable40(continue_run=True)
-    # movementCable10oldTuned()
-    movementCable10smallerThresh()
+    # movementCable10Tuned()
+    # movementCable10smallerThresh()
+    # delete_experiment(BASE_NAME+'reshapeNeighbour')
+    reshapeNeighbour()

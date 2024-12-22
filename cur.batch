@@ -7,5 +7,5 @@
 # This script is used to run the batch job
 cd /mnt/personal/mrkosmic/synced/RL-cable
 ml Python/3.10
-# python ./scripts/cable-reshape.py
-python ./scripts/rect2D-v3.py
+python ./scripts/cable-reshape.py
+# python ./scripts/rect2D-v3.py
