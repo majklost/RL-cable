@@ -21,7 +21,7 @@ load_manager(EXPERIMENTS_PATH)
 BASE_NAME = 'debug-'
 
 GAMMA = 0.99
-TIMESTEPS = 60000
+TIMESTEPS = 600000
 
 
 def noVel():
@@ -29,7 +29,8 @@ def noVel():
     NORMALIZE = True
     data = dict(env_kwargs=dict(gamma=GAMMA), normalize=NORMALIZE)
     paths = get_paths(get_name(BASE_NAME), 'first_run', env_name, data=data)
-    env, eval_env = standard_envs(RectNoVel, data, normalize=NORMALIZE)
+    env, eval_env = standard_envs(
+        RectNoVel, data['env_kwargs'], normalize=NORMALIZE)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -45,7 +46,8 @@ def noNormNoVel():
     NORMALIZE = False
     data = dict(env_kwargs=dict(gamma=GAMMA), normalize=NORMALIZE)
     paths = get_paths(get_name(BASE_NAME), 'first_run', env_name, data=data)
-    env, eval_env = standard_envs(RectNoVel, data, normalize=NORMALIZE)
+    env, eval_env = standard_envs(
+        RectNoVel, data['env_kwargs'], normalize=NORMALIZE)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -61,7 +63,8 @@ def vel():
     NORMALIZE = True
     data = dict(env_kwargs=dict(gamma=GAMMA), normalize=NORMALIZE)
     paths = get_paths(get_name(BASE_NAME), 'first_run', env_name, data=data)
-    env, eval_env = standard_envs(RectVel, data, normalize=NORMALIZE)
+    env, eval_env = standard_envs(
+        RectVel, data['env_kwargs'], normalize=NORMALIZE)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -77,7 +80,25 @@ def noNormVel():
     NORMALIZE = False
     data = dict(env_kwargs=dict(gamma=GAMMA), normalize=NORMALIZE)
     paths = get_paths(get_name(BASE_NAME), 'first_run', env_name, data=data)
-    env, eval_env = standard_envs(RectVel, data, normalize=NORMALIZE)
+    env, eval_env = standard_envs(
+        RectVel, data['env_kwargs'], normalize=NORMALIZE)
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu', gamma=GAMMA)
+    print("Training model")
+    model.learn(total_timesteps=TIMESTEPS, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def trajectoryVel():
+    env_name = TrajectoryVel.__name__
+    NORMALIZE = True
+    data = dict(env_kwargs=dict(gamma=GAMMA), normalize=NORMALIZE)
+    paths = get_paths(get_name(BASE_NAME), 'first_run', env_name, data=data)
+    env, eval_env = standard_envs(
+        TrajectoryVel, data['env_kwargs'], normalize=NORMALIZE)
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -89,7 +110,8 @@ def noNormVel():
 
 
 if __name__ == '__main__':
-    vel()
-    noVel()
-    noNormNoVel()
-    noNormVel()
+    # vel()
+    # noVel()
+    # noNormNoVel()
+    # noNormVel()
+    trajectoryVel()

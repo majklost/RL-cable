@@ -48,6 +48,7 @@ def create_multi_env(single_env_make: Callable[[], gym.Env], n_envs: int, normal
     """
     envs = DummyVecEnv([single_env_make for _ in range(n_envs)])
     if normalize and normalize_path is not None:
+        print(f"Loading VecNormalize from {normalize_path}")
         envs = VecNormalize.load(normalize_path, envs)
     elif normalize:
         envs = VecNormalize(envs)
@@ -100,9 +101,11 @@ def get_name(base_name):
 
 def create_callback_list(paths, save_freq, eval_env) -> tuple:
     checkpoint_callback = CallbackList([SaveModelCallback(
-        paths['model_last'], save_freq=save_freq), SaveNormalizeCallback(paths['norm'], save_freq=save_freq)])
+        paths['model_last'], save_freq=save_freq)])
+    tst = CallbackList([SaveModelCallback(paths['model_best']),
+                       SaveNormalizeCallback(paths['norm'], save_freq=save_freq)])
     eval_callback = EvalCallback(
-        eval_env=eval_env, eval_freq=save_freq, callback_on_new_best=SaveModelCallback(paths['model_best']))
+        eval_env=eval_env, eval_freq=save_freq, callback_on_new_best=tst)
     return checkpoint_callback, eval_callback
 
 
