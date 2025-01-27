@@ -3,11 +3,13 @@ import numpy as np
 
 
 from .pm_singlebody import PMSingleBodyObject
+
+
 class Rectangle(PMSingleBodyObject):
     def __init__(self,
-                 pos:np.array,
-                 w:float,
-                 h:float,
+                 pos: np.array,
+                 w: float,
+                 h: float,
                  body_type,
                  sensor=False):
         super().__init__(body_type=body_type)
@@ -15,4 +17,3 @@ class Rectangle(PMSingleBodyObject):
         shape.sensor = sensor
         self.shapes = [shape]
         self.position = pos
-

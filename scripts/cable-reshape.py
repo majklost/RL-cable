@@ -24,6 +24,11 @@ load_manager(EXPERIMENTS_PATH)
 
 BASE_NAME = 'cable-reshape-'
 
+"""
+Default arch net_arch = dict(pi=[64, 64], vf=[64, 64])
+activation nn.Tanh
+"""
+
 
 def posOnly(continue_run=False):
     # init_manager(25, 25)
@@ -34,7 +39,7 @@ def posOnly(continue_run=False):
                       continue_run, data=kwargs)
     # print(paths)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **(kwargs['env_kwargs']))
 
     if not continue_run:
         env = create_multi_env(maker, 4, normalize=True)
@@ -74,7 +79,7 @@ def posOnlyTuned():
     paths = get_paths(get_name(), 'small cable', env_name,
                       False, data=kwargs)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
-        {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+        {'max_episode_steps': 1000}, {}], render_mode='human', **(kwargs['env_kwargs']))
     env = create_multi_env(maker, 4, normalize=True)
     eval_env = create_multi_env(maker, 1, normalize=True)
 
@@ -98,7 +103,7 @@ def posOnlyHarder10(continue_run=False):
                       continue_run, data=kwargs)
 
     maker = single_env_maker(CableReshapeHardFlips, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **(kwargs['env_kwargs']))
 
     if not continue_run:
         env = create_multi_env(maker, 4, normalize=True)
@@ -130,7 +135,7 @@ def posOnlyBiggerCable(continue_run=False):
     paths = get_paths(get_name(), 'bigger cable', env_name,
                       data=kwargs, continue_run=continue_run)
     maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
-                             {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+                             {'max_episode_steps': 1000}, {}], render_mode='human', **(kwargs['env_kwargs']))
     if not continue_run:
         env = create_multi_env(maker, 4, normalize=True)
         eval_env = create_multi_env(maker, 1, normalize=True)
@@ -165,7 +170,7 @@ def posOnlyBiggerCable40(continue_run=False):
         eval_env = create_multi_env(maker, 1, normalize=True)
     else:
         maker = single_env_maker(CableReshapeV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
-            {'max_episode_steps': 1000}, {}], render_mode='human', **kwargs)
+            {'max_episode_steps': 1000}, {}], render_mode='human', **(kwargs['env_kwargs']))
         env = create_multi_env(maker, 4, normalize=True,
                                normalize_path=paths['norm'])
         eval_env = create_multi_env(
@@ -186,12 +191,13 @@ def posOnlyBiggerCable40(continue_run=False):
 
 
 def movementCable10():
-    env_name = CableReshapeMovement.__name__
+    env_name = CableReshapeMovementOld.__name__
     kwargs = dict(env_kwargs=dict(
         seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
-    env, eval_env = standard_envs(CableReshapeMovement, kwargs)
+    env, eval_env = standard_envs(
+        CableReshapeMovementOld, env_kwargs=kwargs['env_kwargs'])
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -203,12 +209,13 @@ def movementCable10():
 
 
 def movementCable10smallerThresh():
-    env_name = CableReshapeMovement.__name__
+    env_name = CableReshapeMovementOld.__name__
     kwargs = dict(env_kwargs=dict(
         seg_num=10, cable_length=300, scale_factor=800, threshold=10))
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
-    env, eval_env = standard_envs(CableReshapeMovement, kwargs)
+    env, eval_env = standard_envs(
+        CableReshapeMovementOld, env_kwargs=kwargs['env_kwargs'])
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -236,12 +243,13 @@ def movementCable10Tuned():
             activation_fn=nn.ReLU,
         )
     }
-    env_name = CableReshapeMovement.__name__
+    env_name = CableReshapeMovementOld.__name__
     kwargs = dict(env_kwargs=dict(
         seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'movement cable', env_name,
                       data=kwargs, continue_run=False)
-    env, eval_env = standard_envs(CableReshapeMovement, kwargs)
+    env, eval_env = standard_envs(
+        CableReshapeMovementOld, env_kwargs=kwargs['env_kwargs'])
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
@@ -261,13 +269,100 @@ def reshapeNeighbour():
         seg_num=10, cable_length=300, scale_factor=800))
     paths = get_paths(get_name(), 'neighbour obs', env_name,
                       data=kwargs, continue_run=False)
-    env, eval_env = standard_envs(CableReshapeNeighbourObs, kwargs)
+    env, eval_env = standard_envs(
+        CableReshapeNeighbourObs, env_kwargs=kwargs['env_kwargs'])
     SAVE_FREQ = 10000
     ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
     model = PPO("MlpPolicy", env, verbose=0,
                 tensorboard_log=paths['tb'], device='cpu')
     print("Training model")
     model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def reshapePotentialRewardPosOnly():
+    """
+    Reshape with potential reward
+    """
+    env_name = CableReshapeV3.__name__
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
+    paths = get_paths(get_name(), 'potential reward', env_name,
+                      data=kwargs, continue_run=False)
+    env, eval_env = standard_envs(
+        CableReshapeV3, env_kwargs=kwargs['env_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def reshapePotentialRewardMovement():
+    """
+    Reshape with potential reward
+    """
+    env_name = CableReshapeMovement.__name__
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
+    paths = get_paths(get_name(), 'potential reward', env_name,
+                      data=kwargs, continue_run=False)
+    env, eval_env = standard_envs(
+        CableReshapeMovement, env_kwargs=kwargs['env_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def PotentialMovementVel():
+    env_name = CableReshapeMovementVel.__name__
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
+    paths = get_paths(get_name(), 'potential reward', env_name,
+                      data=kwargs, continue_run=False)
+    env, eval_env = standard_envs(
+        CableReshapeMovementVel, env_kwargs=kwargs['env_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu',
+                policy_kwargs=dict(
+                    net_arch=dict(pi=[256, 256], vf=[256, 256]),
+                    activation_fn=nn.ReLU,
+                ))
+    print("Training model")
+    model.learn(total_timesteps=1500000, callback=[
+                ch_clb, ev_clb])
+    print("Training done")
+
+
+def PotentialMovementNeighbourVel():
+    env_name = CableReshapeMovementNeighbourObs.__name__
+    kwargs = dict(env_kwargs=dict(
+        seg_num=10, cable_length=300, scale_factor=800))
+    paths = get_paths(get_name(), 'potential reward', env_name,
+                      data=kwargs, continue_run=False)
+    env, eval_env = standard_envs(
+        CableReshapeMovementNeighbourObs, env_kwargs=kwargs['env_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, ev_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu',
+                policy_kwargs=dict(
+                    net_arch=dict(pi=[256, 256], vf=[256, 256]),
+                    activation_fn=nn.ReLU,
+                ))
+    print("Training model")
+    model.learn(total_timesteps=1500000, callback=[
                 ch_clb, ev_clb])
     print("Training done")
 
@@ -300,4 +395,8 @@ if __name__ == "__main__":
     # movementCable10Tuned()
     # movementCable10smallerThresh()
     # delete_experiment(BASE_NAME+'reshapeNeighbour')
-    reshapeNeighbour()
+    # reshapeNeighbour()
+    # reshapePotentialRewardPosOnly()
+    # reshapePotentialRewardMovement()
+    PotentialMovementVel()
+    # PotentialMovementNeighbourVel()

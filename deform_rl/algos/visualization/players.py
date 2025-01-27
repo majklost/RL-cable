@@ -27,6 +27,7 @@ def play_model(model_path: str | Path, normalize_path: str, maker: Callable[[], 
     else:
         print("No VecNormalize statistics found. Playing without normalization.")
     obs = env.reset()
+    # print(obs.shape)
     cum_reward = cnt = 0
     episode_cnt = 0
     for _ in range(1000):

@@ -199,28 +199,28 @@ class RenderingEnv(Rectangle1D):
 
     def _get_position(self):
         PADDING = 20
-        print(self.launch_cnt)
+        # print(self.launch_cnt)
         # return np.array([41, 783])
-        if self.launch_cnt == 0:
-            self.launch_cnt += 1
-            return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
-        elif self.launch_cnt == 1:
-            self.launch_cnt += 1
-            return np.array([301, 429])
-        elif self.launch_cnt == 2:
-            self.launch_cnt += 1
-            return np.array([301, 429])
-        elif self.launch_cnt == 3:
-            self.launch_cnt += 1
-            return np.array([41, 783])
-            # return np.array([200, 200])
-        elif self.launch_cnt == 4:
-            self.launch_cnt += 1
-            return np.array([41, 783])
-            # return np.array([200, 200])
-        else:
-            raise ValueError()
-            # return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
+        # if self.launch_cnt == 0:
+        #     self.launch_cnt += 1
+        #     return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
+        # elif self.launch_cnt == 1:
+        #     self.launch_cnt += 1
+        #     return np.array([301, 429])
+        # elif self.launch_cnt == 2:
+        #     self.launch_cnt += 1
+        #     return np.array([301, 429])
+        # elif self.launch_cnt == 3:
+        #     self.launch_cnt += 1
+        #     return np.array([41, 783])
+        #     # return np.array([200, 200])
+        # elif self.launch_cnt == 4:
+        #     self.launch_cnt += 1
+        #     return np.array([41, 783])
+        #     # return np.array([200, 200])
+        # else:
+        #     raise ValueError()
+        return np.array([self.np_random.integers(PADDING, self.width-PADDING), self.np_random.integers(PADDING, self.height-PADDING)])
 
     def _get_target(self):
         return np.array([self.width/2, self.height/2])

@@ -152,3 +152,8 @@ class Cable(PMMultiBodyObject):
     def position(self):
         """Returns position of all segments"""
         return np.array([b.position for b in self.bodies])
+
+    @property
+    def velocity(self):
+        """Returns vector of velocities of all segments"""
+        return np.array([b.velocity for b in self.bodies])

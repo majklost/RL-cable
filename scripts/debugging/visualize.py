@@ -21,7 +21,7 @@ parser.add_argument('--seed', type=int, default=0)
 
 args = parser.parse_args()
 EXPERIMENTS_PATH = Path(__file__).parent.parent.parent / \
-    "experiments"/'debugging'
+    "experiments"
 load_manager(EXPERIMENTS_PATH)
 
 # Use trained rect2D model to visualize which paths it takes

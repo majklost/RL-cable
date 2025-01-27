@@ -8,6 +8,7 @@ from gymnasium.wrappers import TimeLimit
 from stable_baselines3.common.monitor import Monitor
 from deform_rl.envs.Cable_reshape_env.environment import *
 from deform_rl.envs.Rectangle_env.environment import *
+from deform_rl.envs.Rectangle_env.debug_env import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 
 
@@ -21,10 +22,14 @@ parser = ArgumentParser(prog="play_cable-reshape",
 parser.add_argument("experiment_name", type=str)
 parser.add_argument('--seed', type=int, default=-1)
 parser.add_argument('--run', type=int, default=-1)
+parser.add_argument('--env', type=str, default=None)
 args = parser.parse_args()
 consistency_check()
 experiment = get_run_paths(args.experiment_name, args.run)
-env_name = experiment['env_name']
+if args.env is not None:
+    env_name = args.env
+else:
+    env_name = experiment['env_name']
 if args.seed == -1:
     args.seed = np.random.randint(0, 100)
 else:

@@ -26,6 +26,7 @@ class CableReshape(gym.Env):
             controlable_idxs = list(range(seg_num))
         self.controlable_idxs = np.array(controlable_idxs)
         self.seed = seed
+        self.prev_points = None
         # rendering
         self.seg_num = seg_num
         self.screen = None
@@ -110,8 +111,14 @@ class CableReshape(gym.Env):
         info = self._get_info()
         return self._get_obs(), info
 
+    def _get_standard_reward(self):
+        distance = self._calc_distance(ctrl_only=True)
+        reward = float(-5*np.mean(distance)/np.mean(self.start_distance))
+        return reward
+
     def step(self, action):
         self.step_count += 1
+        self.prev_points = self.cable.position
         # print(action)
         for i in range(len(self.controlable_idxs)):
             idx = self.controlable_idxs[i]
@@ -128,9 +135,9 @@ class CableReshape(gym.Env):
         done = False
         if np.all(distance < self.threshold):
             done = True
-            reward = 500
-        else:
-            reward = float(-5*np.mean(distance)/np.mean(self.start_distance))
+            reward = 1000
+
+        reward += self._get_standard_reward()
         obs = self._get_obs()
         info = self._get_info()
         return obs, reward, done, False, info
@@ -187,6 +194,7 @@ class CableReshapeV2(CableReshape):
         first_seg_pt = all_pts[0]
         target_dists = target_pts - ctrl_pts
         seg_positions = all_pts - first_seg_pt
+        # print(ctrl_pts.shape)
         # return np.concatenate([target_dists.flatten(), seg_positions.flatten()], dtype=np.float32
         #                       )
         return np.concatenate([target_dists.flatten()], dtype=np.float32
@@ -197,6 +205,68 @@ class CableReshapeV2(CableReshape):
         # target_pts /= longest_dist
 
 
+class CableReshapeV3(CableReshapeV2):
+    """
+    Cable with reward shaping inspired by debug learn
+    """
+
+    def calc_potential(self, position):
+        target_pts = self.target[self.controlable_idxs]
+        # max_distance = np.sqrt(self.width**2 + self.height**2)
+        return -np.sum(np.linalg.norm(position-self.target, axis=1))
+
+    def _get_standard_reward(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        prev_pts = self.prev_points[self.controlable_idxs]
+        prev_potential = self.calc_potential(prev_pts)
+        now_potential = self.calc_potential(ctrl_pts)
+        return now_potential - prev_potential-5
+
+
+class CableReshapeMovement(CableReshapeV3):
+    def _get_target(self):
+        return self.sampler.sample()
+
+
+class CableReshapeMovementVel(CableReshapeMovement):
+    def _create_observation_space(self):
+        ctrl_num = len(self.controlable_idxs)
+        limit = np.inf
+
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=(ctrl_num*4,), dtype=np.float32)
+
+    def _get_obs(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        target_pts = self.target[self.controlable_idxs]
+        target_dists = target_pts - ctrl_pts
+        vel = self.cable.velocity[self.controlable_idxs]
+        return np.concatenate([target_dists.flatten(), vel.flatten()], dtype=np.float32
+                              )
+
+
+class CableReshapeMovementNeighbourObs(CableReshapeMovement):
+    def _create_observation_space(self):
+        ctrl_num = len(self.controlable_idxs)
+        limit = np.inf
+
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=(ctrl_num*6,), dtype=np.float32)
+
+    def _get_obs(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        target_pts = self.target[self.controlable_idxs]
+        target_dists = target_pts - ctrl_pts
+        next_pts_idx = (np.arange(self.ctrl_num) + 1) % self.ctrl_num
+        next_pts = ctrl_pts[next_pts_idx]
+        rel_pts = next_pts - all_pts
+        vel = self.cable.velocity[self.controlable_idxs]
+        return np.concatenate([target_dists.flatten(), rel_pts.flatten(), vel.flatten()], dtype=np.float32)
+
+
 class CableReshapeHardFlips(CableReshapeV2):
 
     def _create_sampler(self):
@@ -204,7 +274,7 @@ class CableReshapeHardFlips(CableReshapeV2):
             [0, 0, np.pi]), upper_bounds=np.array([self.width, self.height, np.pi]))
 
 
-class CableReshapeMovement(CableReshapeV2):
+class CableReshapeMovementOld(CableReshapeV2):
     def _get_target(self):
         return self.sampler.sample()
 

@@ -30,6 +30,7 @@ experiment = get_run_paths(args.experiment_name, -1)
 ENV_CLS = RenderingEnv
 # ENV_CLS = RenderingEnvVelocity
 
+
 maker = single_env_maker(ENV_CLS, seed=args.seed, wrappers=[TimeLimit, Monitor], wrappers_args=[
     {'max_episode_steps': 1000}, {}], render_mode='human')
 model = PPO.load(experiment['model_best'], device='cpu')
@@ -43,7 +44,7 @@ trajectories = []
 for i in range(args.num):
     obs = env.reset()
     trajectory = []
-    print("NEXT")
+    # print("NEXT")
     while True:
         action, _ = model.predict(obs, deterministic=True)
         obs, reward, done, info = env.step(action)

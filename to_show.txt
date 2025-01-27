@@ -1,0 +1,9 @@
+1) obrazky
+
+python ./scripts/debugging/visualize.py debug-trajectoryVel --num 50
+python ./scripts/debugging/visualize.py debug-Vel --num 50       
+python ./scripts/play-cable-reshape.py debug-trajectoryVel --env RectVel
+
+python ./scripts/play-cable-reshape.py cable-reshape-PotentialMovementVel --run 3
+python ./scripts/play-cable-reshape.py cable-reshape-reshapePotentialRewardMovement
+

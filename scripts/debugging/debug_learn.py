@@ -13,7 +13,7 @@ from deform_rl.algos.lego.networks import *
 # delete_experiment('rect2D')
 
 EXPERIMENTS_PATH = Path(__file__).parent.parent.parent / \
-    "experiments"/'debugging'
+    "experiments"
 EXPERIMENTS_PATH.mkdir(exist_ok=True, parents=True)
 print(EXPERIMENTS_PATH)
 load_manager(EXPERIMENTS_PATH)
@@ -110,8 +110,8 @@ def trajectoryVel():
 
 
 if __name__ == '__main__':
-    # vel()
-    # noVel()
-    # noNormNoVel()
-    # noNormVel()
+    vel()
+    noVel()
+    noNormNoVel()
+    noNormVel()
     trajectoryVel()
