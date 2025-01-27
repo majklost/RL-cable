@@ -180,6 +180,16 @@ class Simulator(BaseSimulator):
         """
         pass
 
+    def point_query_nearest(self, point: tuple | list, max_distance, filter):
+        """
+        Find the nearest object to the point
+        :param point: point to search from
+        :param max_distance: maximum distance to search
+        :param filter: filter to apply
+        :return:
+        """
+        return self._space.point_query_nearest(point, max_distance, filter)
+
     def _untested_import(self, fake_space):
         self._space.iterations = fake_space["iterations"]
         self._space.gravity = fake_space["gravity"]

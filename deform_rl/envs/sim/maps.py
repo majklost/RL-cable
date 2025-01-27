@@ -1,5 +1,5 @@
 import numpy as np
-
+import pymunk
 from .objects import *
 from .utils.PM_rectangle_controller import PMRectangleController
 from .utils.PM_cable_controller import PMCableController
@@ -10,7 +10,6 @@ from .simulator import Simulator
 from .utils.PM_debug_viewer import DebugViewer
 from .samplers.bezier_sampler import BezierSampler
 from .samplers.ndim_sampler import NDIMSampler
-from pymunk import Body
 
 
 # suggested config for these maps
@@ -34,6 +33,7 @@ UPDATED_CFG = {
 EMPTY = 320
 START = (EMPTY - 10, HEIGHT // 2 - CABLE_LENGTH // 2)
 END = (WIDTH - EMPTY // 2, HEIGHT // 2)
+MARGIN = 50
 
 
 def deg2rad(deg):
@@ -48,8 +48,7 @@ class EmptyWorld:
     def __init__(self, cfg=UPDATED_CFG, rectangle=False):
         self.cfg = cfg
         self.cfg.update(UPDATED_CFG)
-        seed_env = 90
-        init_manager(seed_env, 30)
+        self._init_manager()
         self.fixed = []
         self.movable = []
         self._add_basic()
@@ -60,8 +59,8 @@ class EmptyWorld:
             print("cable")
             self._add_cable()
 
-        self._sampler = BezierSampler(CABLE_LENGTH, NUM, np.array(
-            [0, 0, 0]), np.array([cfg["width"], cfg["height"], 2 * np.pi]))
+        self._sampler = BezierSampler(self.cable.length, NUM, np.array(
+            [MARGIN, MARGIN, 0]), np.array([cfg["width"] - MARGIN, cfg["height"] - MARGIN, 2 * np.pi]))
         self._goal_points = self._sampler.sample(
             x=END[0], y=END[1], angle=0, fixed_shape=True)
         self._in_cnt = 0
@@ -69,6 +68,10 @@ class EmptyWorld:
     @staticmethod
     def get_movable_idx():
         return 0
+
+    def _init_manager(self):
+        seed_env = 90
+        init_manager(seed_env, 30)
 
     def _begin_col(self, arbiter, space, data):
         self._in_cnt += 1
@@ -120,10 +123,10 @@ class EmptyWorld:
         return self._goal_points
 
     def get_sim(self):
-        sim = Simulator(self.cfg, self.movable, self.fixed,
-                        threaded=False, unstable_sim=True)
-        sim.add_custom_handler(self._begin_col, self._on_exit, 1, 5)
-        return sim
+        self.sim = Simulator(self.cfg, self.movable, self.fixed,
+                             threaded=False, unstable_sim=True)
+        self.sim.add_custom_handler(self._begin_col, self._on_exit, 1, 5)
+        return self.sim
 
 
 class PipedWorld(EmptyWorld):
@@ -225,6 +228,59 @@ class StandardStones(EmptyWorld):
         self.fixed.append(stones)
 
 
+class AlmostEmptyWorld(EmptyWorld):
+    """
+    World with a few obstacles
+    """
+
+    def __init__(self):
+        super().__init__()
+        self._add_obstacles()
+
+    def _init_manager(self):
+        # init_manager(10, 20)
+        pass
+
+    def _add_obstacles(self):
+        stones = RandomObstacleGroup(
+            np.array([EMPTY + 120, 60]), WIDTH // 4, HEIGHT // 2.5, 3, 3, radius=100)
+        stones.color = (100, 100, 100)
+        self.fixed.append(stones)
+
+    def _check_validity(self, pos):
+        if not hasattr(self, "sim"):
+            raise ValueError("Simulator not initialized, use get_sim() first")
+
+        b = pymunk.Body()
+        circ = pymunk.Circle(b, 10)
+
+        for p in pos:
+            if not (MARGIN < p[0] < WIDTH - MARGIN and MARGIN < p[1] < HEIGHT - MARGIN):
+                return False
+
+            b.position = p.tolist()
+            res = self.sim._space.shape_query(circ)
+            if res:
+                return False
+        return True
+
+    def reset_start(self):
+        valid = False
+        while not valid:
+            self._start_points = self._sampler.sample()
+            valid = self._check_validity(self._start_points)
+        self.cable.position = self._start_points
+
+    def reset_goal(self):
+        valid = False
+        while not valid:
+            self._goal_points = self._sampler.sample()
+            valid = self._check_validity(self._goal_points)
+
+    def get_goal_points(self):
+        return self._goal_points
+
+
 class NonConvexWorld(EmptyWorld):
     """
     World with non-convex obstacles
@@ -296,9 +352,12 @@ if __name__ == "__main__":
     # ew = EmptyWorld()
     # ew = StandardStones(cfg)
     # ew = NonConvexWorld(cfg)
-    ew = ThickStones()
-    # ew = PipedWorld(cfg)
+    # ew = ThickStones()
+    ew = AlmostEmptyWorld()
     sim = ew.get_sim()
+    ew.reset_start()
+    ew.reset_goal()
+    # ew = PipedWorld(cfg)
     mover = PMCableController(ew.cable, moving_force=1000)
     # mover = PMRectangleController(ew.cable, moving_force=1000)
     dbg = DebugViewer(sim, realtime=True)
@@ -315,4 +374,8 @@ if __name__ == "__main__":
         # print(calc_stretch_index(cable.position, dist_matrix))
         if sim.step():
             break
+        if ew.cable.outer_collision_idxs:
+            ew.reset_start()
+            ew.reset_goal()
+
     # show_sim(ew.sim)

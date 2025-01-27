@@ -151,7 +151,7 @@ class PMMultiBodyObject(BaseMultiBodyObject):
                 return
             self._handle_self_collision(cd)
         else:
-            # print("Add: ", cd.other_body_idx)
+            print("Add: ", cd.other_body_idx)
             self.outer_collision_idxs.add(cd.my_body_idx)
             self.bodies[cd.my_body_idx[cd.read_level]].collision_start(cd)
 

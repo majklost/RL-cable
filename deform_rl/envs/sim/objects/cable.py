@@ -106,7 +106,7 @@ def spring_fnc(spring, dist):
 
 
 class Cable(PMMultiBodyObject):
-    def __init__(self, pos, length, num_links, thickness, angle=0, max_angle=np.pi/2):
+    def __init__(self, pos, length, num_links, thickness, angle=0, max_angle=np.pi / 2):
         super().__init__()
         self.angle = angle
         self.num_links = num_links
@@ -119,9 +119,10 @@ class Cable(PMMultiBodyObject):
         self.angular_springs = []
         # the length of the empty space between segments so cable can bend
         self.empty_len = self.thickness / \
-            (3 * np.tan((np.pi-self.max_angle)/2))
+            (3 * np.tan((np.pi - self.max_angle) / 2))
         self.length = length + 2 * (self.num_links - 1) * self.empty_len
         self._create_cable(pos)
+        self.track_colisions = True
 
     def _create_cable(self, pos):
         self._create_objects(pos)
@@ -140,7 +141,7 @@ class Cable(PMMultiBodyObject):
         # print(x)
         for i in range(self.num_links - 1):
             pivot = pymunk.constraints.PivotJoint(
-                self.bodies[i].body, self.bodies[i + 1].body, (x+self.segment_length/2, 0), (-x-self.segment_length/2, 0))
+                self.bodies[i].body, self.bodies[i + 1].body, (x + self.segment_length / 2, 0), (-x - self.segment_length / 2, 0))
             self.pivots.append(pivot)
 
     def add_to_space(self, space):
@@ -157,3 +158,15 @@ class Cable(PMMultiBodyObject):
     def velocity(self):
         """Returns vector of velocities of all segments"""
         return np.array([b.velocity for b in self.bodies])
+
+    @position.setter
+    def position(self, pos):
+        assert len(pos) == len(self.bodies)
+        prev = pos[0]
+        for i in range(len(self.bodies)):
+            self.bodies[i].position = pos[i]
+            diff = pos[i] - prev
+            angle = np.arctan2(diff[1], diff[0])
+            self.bodies[i].orientation = angle
+
+            prev = pos[i]
