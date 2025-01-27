@@ -119,7 +119,7 @@ class Cable(PMMultiBodyObject):
         self.angular_springs = []
         # the length of the empty space between segments so cable can bend
         self.empty_len = self.thickness / \
-            (2 * np.tan((np.pi-self.max_angle)/2))
+            (3 * np.tan((np.pi-self.max_angle)/2))
         self.length = length + 2 * (self.num_links - 1) * self.empty_len
         self._create_cable(pos)
 
@@ -152,3 +152,8 @@ class Cable(PMMultiBodyObject):
     def position(self):
         """Returns position of all segments"""
         return np.array([b.position for b in self.bodies])
+
+    @property
+    def velocity(self):
+        """Returns vector of velocities of all segments"""
+        return np.array([b.velocity for b in self.bodies])

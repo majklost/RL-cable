@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --job-name=hyperopt-CableMoving
+#SBATCH --output=hyperopt-CableMoving.out
+#SBATCH --error=hyperopt-CableMoving.err
+#SBATCH --time=23:00:00
+#SBATCH --ntasks=11
+#SBATCH --partition=cpu
+#SBATCH --cpus-per-task=2
+
+ml SQLite
+ml Python/3.10
+pwd
+python ../../scripts/init_hyperopt.py --name CableMoving
+echo "Starting hyperopt"
+srun --ntasks=10  --multi-prog ./hyperopt.conf 
+

@@ -13,7 +13,6 @@ from .objects.base_simulator import Simulator as BaseSimulator, BaseSimulatorExp
 from .collision_data import CollisionData
 
 
-
 def placer_start(a, s, d):
     return d['obj']._begin_collision(a, s, d)
 
@@ -25,7 +24,7 @@ def placer_end(a, s, d):
 class Simulator(BaseSimulator):
 
     def __init__(self,
-                 config: dict ,
+                 config: dict,
                  movable_objects: List[PMSingleBodyObject | PMMultiBodyObject],
                  fixed_objects: List[PMSingleBodyObject | PMMultiBodyObject],
                  threaded=False,
@@ -77,6 +76,7 @@ class Simulator(BaseSimulator):
         for i, obj in enumerate(self.movable_objects):
             obj.set_ID((i,), moveable=True)
             obj.add_to_space(self._space)
+        # print(self._space.bodies)
 
     def _begin_collision(self, arbiter: pymunk.Arbiter, space, data):
         b1 = arbiter.shapes[0]
@@ -162,7 +162,7 @@ class Simulator(BaseSimulator):
         :return:
         """
         # t1 = time.time()
-        self._space.step(1/self._FPS)
+        self._space.step(1 / self._FPS)
         # t2 = time.time()
         # self.SIMTIME += t2-t1
         self._steps += 1

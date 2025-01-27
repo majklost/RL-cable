@@ -26,7 +26,9 @@ class CableReshape(gym.Env):
             controlable_idxs = list(range(seg_num))
         self.controlable_idxs = np.array(controlable_idxs)
         self.seed = seed
+        self.prev_points = None
         # rendering
+        self.seg_num = seg_num
         self.screen = None
         self.scale_factor = scale_factor
         self.render_mode = render_mode
@@ -38,23 +40,31 @@ class CableReshape(gym.Env):
         # threshold for mean distance to target to consider the task solved
         self.threshold = threshold
 
-        ctrl_num = len(self.controlable_idxs)
-        limit = max(self.width, self.height)//2
+        self.ctrl_num = len(self.controlable_idxs)
         # ctrl_num*2 for distance to targets + segnum*2 for relative positions to CoG of cable
-        self.observation_space = gym.spaces.Box(
-            low=-limit, high=limit, shape=(ctrl_num*2+seg_num*2,), dtype=np.float32)
+        self.observation_space = self._create_observation_space()
 
         self.action_space = gym.spaces.Box(
-            low=-1, high=1, shape=(ctrl_num*2,), dtype=np.float32)
+            low=-1, high=1, shape=(self.ctrl_num*2,), dtype=np.float32)
 
         self.cable = Cable([self.width/2-cable_length/2, self.height/2],
                            length=cable_length, num_links=seg_num, thickness=5)
-        self.sampler = BezierSampler(self.cable.length, seg_num, lower_bounds=np.array(
-            [0, 0, 0]), upper_bounds=np.array([self.width, self.height, 2*np.pi]))
+        self.sampler = self._create_sampler()
         self.sim = Simulator(sim_config, [self.cable], [], unstable_sim=False)
         self.exported_sim = self.sim.export()
         self.target = self._get_target()
         self.start_distance = self._calc_distance(ctrl_only=True)
+
+    def _create_observation_space(self):
+        ctrl_num = len(self.controlable_idxs)
+        limit = max(self.width, self.height)
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=(ctrl_num*2+self.seg_num*2,), dtype=np.float32)
+
+    def _create_sampler(self):
+        PADDING = 50
+        return BezierSampler(self.cable.length, self.cable.num_links, lower_bounds=np.array(
+            [PADDING, PADDING, 0]), upper_bounds=np.array([self.width-PADDING, self.height-PADDING, 2*np.pi]))
 
     def _calc_distance(self, ctrl_only=False):
         # ctrl_points are in shape (num_links, 2)
@@ -101,8 +111,14 @@ class CableReshape(gym.Env):
         info = self._get_info()
         return self._get_obs(), info
 
+    def _get_standard_reward(self):
+        distance = self._calc_distance(ctrl_only=True)
+        reward = float(-5*np.mean(distance)/np.mean(self.start_distance))
+        return reward
+
     def step(self, action):
         self.step_count += 1
+        self.prev_points = self.cable.position
         # print(action)
         for i in range(len(self.controlable_idxs)):
             idx = self.controlable_idxs[i]
@@ -119,9 +135,9 @@ class CableReshape(gym.Env):
         done = False
         if np.all(distance < self.threshold):
             done = True
-            reward = 500
-        else:
-            reward = float(-5*np.mean(distance)/np.mean(self.start_distance))
+            reward = 1000
+
+        reward += self._get_standard_reward()
         obs = self._get_obs()
         info = self._get_info()
         return obs, reward, done, False, info
@@ -154,6 +170,23 @@ class CableReshape(gym.Env):
 
 
 class CableReshapeV2(CableReshape):
+    """
+    Cable reshape with only distance to target points as observation.
+    """
+
+    def __init__(self, sim_config=sim_cfg, threshold=20, seg_num=5, controlable_idxs=None,
+                 cable_length=300, scale_factor=200, render_mode=None, seed=None):
+        super().__init__(sim_config, threshold, seg_num, controlable_idxs,
+                         cable_length, scale_factor, render_mode, seed)
+
+        self.observation_space = self._create_observation_space()
+
+    def _create_observation_space(self):
+        ctrl_num = len(self.controlable_idxs)
+        limit = max(self.width, self.height)//2
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=(ctrl_num*2,), dtype=np.float32)
+
     def _get_obs(self):
         all_pts = self.cable.position
         ctrl_pts = all_pts[self.controlable_idxs]
@@ -161,7 +194,10 @@ class CableReshapeV2(CableReshape):
         first_seg_pt = all_pts[0]
         target_dists = target_pts - ctrl_pts
         seg_positions = all_pts - first_seg_pt
-        return np.concatenate([target_dists.flatten(), seg_positions.flatten()], dtype=np.float32
+        # print(ctrl_pts.shape)
+        # return np.concatenate([target_dists.flatten(), seg_positions.flatten()], dtype=np.float32
+        #                       )
+        return np.concatenate([target_dists.flatten()], dtype=np.float32
                               )
         # longest_dist = np.linalg.norm(
         #     np.array([self.width, self.height]))
@@ -169,9 +205,119 @@ class CableReshapeV2(CableReshape):
         # target_pts /= longest_dist
 
 
+class CableReshapeV3(CableReshapeV2):
+    """
+    Cable with reward shaping inspired by debug learn
+    """
+
+    def calc_potential(self, position):
+        target_pts = self.target[self.controlable_idxs]
+        # max_distance = np.sqrt(self.width**2 + self.height**2)
+        return -np.sum(np.linalg.norm(position-self.target, axis=1))
+
+    def _get_standard_reward(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        prev_pts = self.prev_points[self.controlable_idxs]
+        prev_potential = self.calc_potential(prev_pts)
+        now_potential = self.calc_potential(ctrl_pts)
+        return now_potential - prev_potential-5
+
+
+class CableReshapeMovement(CableReshapeV3):
+    def _get_target(self):
+        return self.sampler.sample()
+
+
+class CableReshapeMovementVel(CableReshapeMovement):
+    def _create_observation_space(self):
+        ctrl_num = len(self.controlable_idxs)
+        limit = np.inf
+
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=(ctrl_num*4,), dtype=np.float32)
+
+    def _get_obs(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        target_pts = self.target[self.controlable_idxs]
+        target_dists = target_pts - ctrl_pts
+        vel = self.cable.velocity[self.controlable_idxs]
+        return np.concatenate([target_dists.flatten(), vel.flatten()], dtype=np.float32
+                              )
+
+
+class CableReshapeMovementNeighbourObs(CableReshapeMovement):
+    def _create_observation_space(self):
+        ctrl_num = len(self.controlable_idxs)
+        limit = np.inf
+
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=(ctrl_num*6,), dtype=np.float32)
+
+    def _get_obs(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        target_pts = self.target[self.controlable_idxs]
+        target_dists = target_pts - ctrl_pts
+        next_pts_idx = (np.arange(self.ctrl_num) + 1) % self.ctrl_num
+        next_pts = ctrl_pts[next_pts_idx]
+        rel_pts = next_pts - all_pts
+        vel = self.cable.velocity[self.controlable_idxs]
+        return np.concatenate([target_dists.flatten(), rel_pts.flatten(), vel.flatten()], dtype=np.float32)
+
+
+class CableReshapeHardFlips(CableReshapeV2):
+
+    def _create_sampler(self):
+        return BezierSampler(self.cable.length, self.cable.num_links, lower_bounds=np.array(
+            [0, 0, np.pi]), upper_bounds=np.array([self.width, self.height, np.pi]))
+
+
+class CableReshapeMovementOld(CableReshapeV2):
+    def _get_target(self):
+        return self.sampler.sample()
+
+
+class CableReshapeNeighbourObs(CableReshapeV2):
+    """
+    Cable reshape distance to target and relative position of neighbours as observation.
+    """
+
+    def __init__(self, sim_config=sim_cfg, threshold=20, seg_num=5, controlable_idxs=None, cable_length=300, scale_factor=200, render_mode=None, seed=None):
+        super().__init__(sim_config, threshold, seg_num, controlable_idxs,
+                         cable_length, scale_factor, render_mode, seed)
+
+    def _create_observation_space(self):
+        limit = max(self.width, self.height)
+        return gym.spaces.Box(
+            low=-limit, high=limit, shape=((self.ctrl_num+self.ctrl_num)*2,), dtype=np.float32)
+
+    def _get_obs(self):
+        all_pts = self.cable.position
+        ctrl_pts = all_pts[self.controlable_idxs]
+        target_pts = self.target[self.controlable_idxs]
+        target_dists = target_pts - ctrl_pts
+        next_pts_idx = (np.arange(self.ctrl_num) + 1) % self.ctrl_num
+        next_pts = ctrl_pts[next_pts_idx]
+        rel_pts = next_pts - all_pts
+        return np.concatenate([target_dists.flatten(), rel_pts.flatten()], dtype=np.float32)
+
+        # for i in range(self.seg_num):
+        #     next_pts_idx = (i+1) % self.seg_num
+        #     next_pts_pos = all_pts[next_pts_idx]
+        #     cur_pts_pos = all_pts[i]
+
+
 if __name__ == "__main__":
     from stable_baselines3.common.env_checker import check_env
     env1 = CableReshape()
     env2 = CableReshapeV2()
+    env3 = CableReshapeHardFlips()
+    env4 = CableReshapeMovement()  # TODO: fix this after hyperopt
+    env5 = CableReshapeNeighbourObs()
     check_env(env1)
     check_env(env2)
+    check_env(env3)
+    check_env(env4)
+    check_env(env5)
