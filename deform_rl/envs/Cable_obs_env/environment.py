@@ -16,7 +16,7 @@ class CableObsV0(gym.Env):
     """
     metadata = {'render.modes': ['human', None], 'render_fps': 60}
 
-    def __init__(self, controllable_idxs=None, threshold=20):
+    def __init__(self, controllable_idxs=None, threshold=20, render_mode=None):
         super().__init__()
         pygame.init()
         self.map = AlmostEmptyWorld()
@@ -24,6 +24,7 @@ class CableObsV0(gym.Env):
         self.screen = None
         self.width = self.map.cfg['width']
         self.height = self.map.cfg['height']
+        self.render_mode = render_mode
 
         # logic
         if controllable_idxs is None:
@@ -141,10 +142,12 @@ class CableObsV0(gym.Env):
         self.sim.draw_on(self.options)
         self._additional_render(self.screen)
         pygame.display.flip()
-        self.clock.tick(self.render_fps)
+        self.clock.tick(self.metadata['render_fps'])
 
     def _additional_render(self, screen):
-        pass
+        gpoints = self.map.get_goal_points()
+        for i in range(len(gpoints)):
+            pygame.draw.circle(screen, (0, 255, 0), gpoints[i], 5)
 
     def close(self):
         if self.screen is not None:

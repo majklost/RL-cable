@@ -8,6 +8,7 @@ from gymnasium.wrappers import TimeLimit
 from stable_baselines3.common.monitor import Monitor
 from deform_rl.envs.Cable_reshape_env.environment import *
 from deform_rl.envs.Rectangle_env.environment import *
+from deform_rl.envs.Cable_obs_env.environment import *
 from deform_rl.envs.Rectangle_env.debug_env import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 
@@ -33,7 +34,7 @@ else:
 if args.seed == -1:
     args.seed = np.random.randint(0, 100)
 else:
-    init_manager(args.seed+10, args.seed+12)
+    init_manager(args.seed + 10, args.seed + 12)
 
 # DEBUG
 # if not experiment['data']:
