@@ -15,7 +15,6 @@ from deform_rl.envs.sim.utils.seed_manager import init_manager
 
 
 EXPERIMENTS_PATH = Path(__file__).parent.parent / "experiments"
-load_manager(EXPERIMENTS_PATH)
 
 
 parser = ArgumentParser(prog="play_cable-reshape",
@@ -25,7 +24,9 @@ parser.add_argument("experiment_name", type=str)
 parser.add_argument('--seed', type=int, default=-1)
 parser.add_argument('--run', type=int, default=-1)
 parser.add_argument('--env', type=str, default=None)
+parser.add_argument('--experiments_path', type=str, default=EXPERIMENTS_PATH)
 args = parser.parse_args()
+load_manager(args.experiments_path)
 consistency_check()
 experiment = get_run_paths(args.experiment_name, args.run)
 if args.env is not None:

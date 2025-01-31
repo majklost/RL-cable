@@ -1,0 +1,16 @@
+Environment: CableReshapeNeighbourObs
+Total runs: 11
+seg_num: 10
+cable_length: 300
+scale_factor: 800
+0. neighbour obs
+1. neighbour obs
+2. neighbour obs
+3. neighbour obs
+4. neighbour obs
+5. neighbour obs
+6. neighbour obs
+7. neighbour obs
+8. neighbour obs
+9. neighbour obs
+10. neighbour obs

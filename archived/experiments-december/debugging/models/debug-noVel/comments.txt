@@ -1,0 +1,8 @@
+Environment: RectNoVel
+Total runs: 4
+env_kwargs: {'gamma': 0.99}
+normalize: True
+0. first_run
+1. first_run
+2. first_run
+3. first_run

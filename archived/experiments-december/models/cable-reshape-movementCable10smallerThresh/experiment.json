@@ -1,0 +1,1 @@
+{"run_cnt": 5, "comment": ["movement cable", "movement cable", "movement cable", "movement cable", "movement cable"], "env_name": "CableReshapeMovement", "dates": ["10-12-17-59-52", "10-12-18-20-44", "10-12-18-46-38", "10-12-19-24-28", "10-12-19-37-32"], "data": {"seg_num": 10, "cable_length": 300, "scale_factor": 800, "threshold": 10}}

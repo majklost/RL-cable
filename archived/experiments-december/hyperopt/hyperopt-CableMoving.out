@@ -1,0 +1,2343 @@
+/mnt/personal/mrkosmic/synced/RL-cable/experiments/hyperopt
+Starting hyperopt
+Starting optimization
+Starting optimization
+Starting optimization
+Starting optimization
+Starting optimization
+Starting optimization
+Starting optimization
+Starting optimization
+Starting optimization
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  5336
+seed for  NDIMSampler  is  2075
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  8531
+seed for  NDIMSampler  is  6697
+Starting optimization
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  5553
+seed for  NDIMSampler  is  2081
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  3095
+seed for  NDIMSampler  is  6856
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  9900
+seed for  NDIMSampler  is  9022
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  5993
+seed for  NDIMSampler  is  6320
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  8398
+seed for  NDIMSampler  is  3704
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  1112
+seed for  NDIMSampler  is  7077
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  6142
+seed for  NDIMSampler  is  6031
+Environment will not be deterministic
+Planning will not be deterministic
+seed for  BezierSampler  is  4092
+seed for  NDIMSampler  is  2820
+Eval num_timesteps=80000, episode_reward=-12122.24 +/- 5776.13
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-50168.02 +/- 39540.79
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-21627.00 +/- 24147.88
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-35229.12 +/- 37747.63
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-14530.18 +/- 9689.50
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=320000, episode_reward=-533.94 +/- 816.11
+Episode length: 556.70 +/- 447.82
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-48399.26 +/- 29192.72
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-11806.58 +/- 11312.67
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-6323.60 +/- 4889.33
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-118934.70 +/- 83094.92
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3557.44 +/- 1571.30
+Episode length: 960.05 +/- 174.14
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-3135.67 +/- 646.83
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-10310.34 +/- 7236.61
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-78202.36 +/- 46141.68
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=320000, episode_reward=-3415.34 +/- 632.91
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=240000, episode_reward=-5591.79 +/- 1537.13
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-31095.20 +/- 32237.57
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=640000, episode_reward=235.42 +/- 111.44
+Episode length: 113.75 +/- 59.26
+New best mean reward!
+[I 2024-12-12 09:31:33,355] Trial 2 finished with value: 159.20691949999997 and parameters: {'n_envs': 16, 'batch_size': 1024, 'gamma': 0.99, 'learning_rate': 0.0003741519275774555, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=400000, episode_reward=-2883.18 +/- 382.87
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-65590.02 +/- 31493.41
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=320000, episode_reward=-4674.10 +/- 2366.81
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-9880.63 +/- 7669.43
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=320000, episode_reward=-45624.05 +/- 38277.02
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-109168.11 +/- 83946.72
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-2140.97 +/- 1899.90
+Episode length: 955.40 +/- 194.41
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=-2443.00 +/- 445.32
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:34:17,757] Trial 5 finished with value: -78594.34781305 and parameters: {'n_envs': 16, 'batch_size': 512, 'gamma': 0.9999, 'learning_rate': 0.8453673459518106, 'clip_range': 0.4, 'n_epochs': 30, 'gae_lambda': 0.9, 'net_arch': 'tiny'}. Best is trial 2 with value: 159.20691949999997.
+[I 2024-12-12 09:34:27,308] Trial 9 finished with value: -2137.013103 and parameters: {'n_envs': 16, 'batch_size': 128, 'gamma': 0.95, 'learning_rate': 5.2867515584211223e-05, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.8, 'net_arch': 'tiny'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=400000, episode_reward=-49503.73 +/- 39815.23
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=400000, episode_reward=-4485.95 +/- 1681.55
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-6803.86 +/- 3793.88
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=560000, episode_reward=-2131.80 +/- 758.46
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-21591.94 +/- 12426.17
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=480000, episode_reward=-82817.74 +/- 52969.25
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=480000, episode_reward=-2561.94 +/- 1071.87
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-4849.54 +/- 6862.03
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=480000, episode_reward=-40802.02 +/- 30979.56
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=80000, episode_reward=-53591.93 +/- 52690.17
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:39:12,302] Trial 8 finished with value: -1970.3618963000001 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00013679077279235905, 'clip_range': 0.2, 'n_epochs': 4, 'gae_lambda': 0.8, 'net_arch': 'small'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=560000, episode_reward=-47858.67 +/- 34693.27
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=-2228.25 +/- 1212.56
+Episode length: 869.35 +/- 311.32
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=-49075.58 +/- 38873.18
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=640000, episode_reward=-100128.56 +/- 56208.02
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=160000, episode_reward=-104232.27 +/- 108158.16
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=640000, episode_reward=-1406.06 +/- 743.74
+Episode length: 890.30 +/- 275.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-67750.70 +/- 40403.91
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-21292.29 +/- 9899.79
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=640000, episode_reward=-40819.60 +/- 24964.10
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-10615.92 +/- 5814.04
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:43:27,990] Trial 4 finished with value: -6088.4819397 and parameters: {'n_envs': 4, 'batch_size': 512, 'gamma': 0.9999, 'learning_rate': 0.21574765218644348, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=240000, episode_reward=-15561.39 +/- 7942.92
+Episode length: 1000.00 +/- 0.00
+[I 2024-12-12 09:44:07,033] Trial 7 finished with value: -1525.71784405 and parameters: {'n_envs': 4, 'batch_size': 1024, 'gamma': 0.95, 'learning_rate': 0.0012576401467273232, 'clip_range': 0.3, 'n_epochs': 10, 'gae_lambda': 0.8, 'net_arch': 'medium'}. Best is trial 2 with value: 159.20691949999997.
+[I 2024-12-12 09:44:31,333] Trial 6 finished with value: -23758.07599125 and parameters: {'n_envs': 4, 'batch_size': 128, 'gamma': 0.9, 'learning_rate': 0.0072658960525787296, 'clip_range': 0.1, 'n_epochs': 20, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 2 with value: 159.20691949999997.
+[I 2024-12-12 09:45:13,741] Trial 3 finished with value: -36838.76523795 and parameters: {'n_envs': 16, 'batch_size': 64, 'gamma': 0.9, 'learning_rate': 0.21413528147420519, 'clip_range': 0.1, 'n_epochs': 30, 'gae_lambda': 0.9, 'net_arch': 'tiny'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=240000, episode_reward=-50265.59 +/- 52067.99
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:45:56,409] Trial 11 pruned. 
+Eval num_timesteps=80000, episode_reward=-10335.86 +/- 7651.42
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-92290.81 +/- 64871.99
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:48:14,460] Trial 18 pruned. 
+Eval num_timesteps=160000, episode_reward=-8726.11 +/- 4687.28
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-74915.30 +/- 60632.30
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:49:15,802] Trial 10 pruned. 
+Eval num_timesteps=640000, episode_reward=-3633.48 +/- 1699.98
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-9816.64 +/- 7442.43
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:50:11,272] Trial 13 pruned. 
+[I 2024-12-12 09:50:23,428] Trial 14 finished with value: -3479.7025355000005 and parameters: {'n_envs': 32, 'batch_size': 512, 'gamma': 0.9999, 'learning_rate': 1.3600386415987694e-05, 'clip_range': 0.3, 'n_epochs': 4, 'gae_lambda': 0.95, 'net_arch': 'small'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=320000, episode_reward=-17689.04 +/- 9464.92
+Episode length: 1000.00 +/- 0.00
+[I 2024-12-12 09:50:51,594] Trial 1 pruned. 
+Eval num_timesteps=240000, episode_reward=-5311.96 +/- 2507.52
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-38718.19 +/- 32493.15
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:51:23,722] Trial 12 pruned. 
+Eval num_timesteps=640000, episode_reward=-15070.36 +/- 10306.82
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:53:04,048] Trial 15 pruned. 
+Eval num_timesteps=320000, episode_reward=-11427.39 +/- 9884.56
+Episode length: 951.75 +/- 210.32
+Eval num_timesteps=640000, episode_reward=-3364.74 +/- 1023.57
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-5635.49 +/- 3979.72
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=640000, episode_reward=-105923.72 +/- 61288.22
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:55:23,971] Trial 16 pruned. 
+[I 2024-12-12 09:55:32,513] Trial 19 finished with value: -3540.4811152 and parameters: {'n_envs': 32, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 1.6416485317725047e-05, 'clip_range': 0.4, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=320000, episode_reward=-34444.77 +/- 21957.91
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:55:34,435] Trial 21 pruned. 
+Eval num_timesteps=320000, episode_reward=-50460.28 +/- 39840.90
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:55:52,943] Trial 22 pruned. 
+Eval num_timesteps=320000, episode_reward=-64790.98 +/- 47807.29
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:56:20,769] Trial 23 pruned. 
+Eval num_timesteps=480000, episode_reward=-2288.66 +/- 1772.50
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-550.64 +/- 800.11
+Episode length: 572.00 +/- 429.25
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-6938.41 +/- 3163.57
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-148.48 +/- 872.41
+Episode length: 302.25 +/- 353.92
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-9591.27 +/- 4332.87
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 09:58:26,572] Trial 20 pruned. 
+Eval num_timesteps=560000, episode_reward=-6830.41 +/- 7259.02
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=160000, episode_reward=-3653.76 +/- 1520.60
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-9343.26 +/- 7724.64
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-572.36 +/- 712.55
+Episode length: 543.85 +/- 364.17
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-9728.16 +/- 8679.93
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:00:42,574] Trial 28 pruned. 
+Eval num_timesteps=320000, episode_reward=-41662.58 +/- 45686.20
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:00:46,495] Trial 27 pruned. 
+Eval num_timesteps=320000, episode_reward=-7300.19 +/- 6120.81
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:01:11,763] Trial 29 pruned. 
+Eval num_timesteps=640000, episode_reward=-1802.32 +/- 738.59
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-2833.63 +/- 494.27
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-6828.26 +/- 3967.14
+Episode length: 952.35 +/- 207.70
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-8946.85 +/- 5927.43
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-8316.14 +/- 3240.48
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:02:53,966] Trial 17 finished with value: -2231.371208 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.9, 'learning_rate': 7.017900961866456e-05, 'clip_range': 0.4, 'n_epochs': 20, 'gae_lambda': 0.95, 'net_arch': 'tiny'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=80000, episode_reward=-6831.58 +/- 2261.90
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2703.62 +/- 480.31
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=98.33 +/- 561.59
+Episode length: 186.20 +/- 231.45
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-26912.69 +/- 21844.60
+Episode length: 1000.00 +/- 0.00
+[I 2024-12-12 10:03:38,769] Trial 0 pruned. 
+Eval num_timesteps=240000, episode_reward=-3752.03 +/- 851.73
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=138.49 +/- 464.18
+Episode length: 162.35 +/- 202.29
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-3875.36 +/- 858.62
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-3949.19 +/- 1379.53
+Episode length: 952.00 +/- 209.23
+New best mean reward!
+[I 2024-12-12 10:04:21,290] Trial 25 finished with value: 68.04833824999997 and parameters: {'n_envs': 16, 'batch_size': 1024, 'gamma': 0.99, 'learning_rate': 0.0007356363564768421, 'clip_range': 0.3, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 2 with value: 159.20691949999997.
+Eval num_timesteps=80000, episode_reward=-14139.32 +/- 7620.20
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-5346.57 +/- 2670.72
+Episode length: 952.40 +/- 207.48
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-2381.10 +/- 805.23
+Episode length: 951.05 +/- 213.37
+New best mean reward!
+[I 2024-12-12 10:05:11,808] Trial 24 finished with value: 164.16223155000003 and parameters: {'n_envs': 16, 'batch_size': 1024, 'gamma': 0.99, 'learning_rate': 0.0003138688600296089, 'clip_range': 0.3, 'n_epochs': 10, 'gae_lambda': 0.8, 'net_arch': 'medium'}. Best is trial 24 with value: 164.16223155000003.
+Eval num_timesteps=640000, episode_reward=110.75 +/- 118.86
+Episode length: 196.45 +/- 89.05
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-7906.82 +/- 4072.09
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2693.15 +/- 1216.71
+Episode length: 957.90 +/- 183.51
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-3538.18 +/- 695.62
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-3430.35 +/- 775.06
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:06:12,272] Trial 26 finished with value: -75.06030040000002 and parameters: {'n_envs': 16, 'batch_size': 1024, 'gamma': 0.99, 'learning_rate': 0.0012130796850142419, 'clip_range': 0.3, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 24 with value: 164.16223155000003.
+Eval num_timesteps=160000, episode_reward=-6787.19 +/- 2924.38
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-3535.59 +/- 902.51
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=-2677.67 +/- 582.08
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=160000, episode_reward=-12522.46 +/- 10781.05
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=400000, episode_reward=-2983.24 +/- 1041.85
+Episode length: 1000.00 +/- 0.00
+Eval num_timesteps=320000, episode_reward=-1277.04 +/- 1960.52
+Episode length: 764.70 +/- 360.09
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3515.14 +/- 888.05
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3133.33 +/- 538.52
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-5523.09 +/- 2255.03
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3494.83 +/- 684.64
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=-2314.03 +/- 604.28
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:08:28,492] Trial 30 pruned. 
+Eval num_timesteps=240000, episode_reward=-6957.78 +/- 4477.62
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:08:47,976] Trial 36 pruned. 
+Eval num_timesteps=320000, episode_reward=-1813.28 +/- 882.85
+Episode length: 907.00 +/- 279.04
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=-2637.10 +/- 959.35
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:09:06,097] Trial 31 pruned. 
+Eval num_timesteps=400000, episode_reward=-2783.31 +/- 316.18
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1502.78 +/- 551.85
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-3017.83 +/- 797.29
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-5072.95 +/- 1084.93
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:09:38,333] Trial 35 pruned. 
+Eval num_timesteps=400000, episode_reward=-2763.54 +/- 1046.55
+Episode length: 951.35 +/- 212.06
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=102.67 +/- 387.39
+Episode length: 205.15 +/- 229.06
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=-2669.59 +/- 400.49
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:11:08,892] Trial 32 pruned. 
+Eval num_timesteps=480000, episode_reward=-2913.16 +/- 640.99
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:11:12,278] Trial 33 pruned. 
+Eval num_timesteps=480000, episode_reward=-2551.90 +/- 922.77
+Episode length: 952.00 +/- 209.23
+New best mean reward!
+[I 2024-12-12 10:11:37,355] Trial 37 finished with value: 263.4524489 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.00032692124362229376, 'clip_range': 0.2, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 37 with value: 263.4524489.
+Eval num_timesteps=640000, episode_reward=-171.17 +/- 680.65
+Episode length: 336.70 +/- 291.24
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=7.71 +/- 415.91
+Episode length: 307.10 +/- 351.54
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=-2333.84 +/- 1062.37
+Episode length: 957.30 +/- 186.12
+New best mean reward!
+[I 2024-12-12 10:12:59,658] Trial 34 pruned. 
+Eval num_timesteps=320000, episode_reward=-706.81 +/- 765.16
+Episode length: 708.20 +/- 399.44
+New best mean reward!
+[I 2024-12-12 10:13:28,184] Trial 39 finished with value: -87.36307910000001 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.0002591366985094423, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 37 with value: 263.4524489.
+[I 2024-12-12 10:13:42,305] Trial 38 finished with value: 88.3382832 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.0002180376342465031, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 37 with value: 263.4524489.
+Eval num_timesteps=320000, episode_reward=-3329.66 +/- 2679.12
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:13:48,590] Trial 41 pruned. 
+Eval num_timesteps=320000, episode_reward=-1905.39 +/- 1039.55
+Episode length: 913.30 +/- 260.26
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-4657.07 +/- 1768.90
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:14:35,978] Trial 43 pruned. 
+Eval num_timesteps=320000, episode_reward=-3581.69 +/- 857.79
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:16:11,439] Trial 44 pruned. 
+Eval num_timesteps=320000, episode_reward=-7899.46 +/- 3603.57
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:16:21,558] Trial 45 pruned. 
+Eval num_timesteps=320000, episode_reward=-4665.73 +/- 2459.83
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:16:45,172] Trial 46 pruned. 
+Eval num_timesteps=320000, episode_reward=-6275.50 +/- 1286.66
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:17:27,673] Trial 50 pruned. 
+Eval num_timesteps=320000, episode_reward=-5367.16 +/- 1519.70
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:17:59,665] Trial 49 pruned. 
+Eval num_timesteps=320000, episode_reward=-8181.07 +/- 6199.65
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:18:02,804] Trial 47 pruned. 
+Eval num_timesteps=320000, episode_reward=-7557.92 +/- 3563.47
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:18:09,777] Trial 51 pruned. 
+Eval num_timesteps=640000, episode_reward=288.81 +/- 85.72
+Episode length: 92.90 +/- 43.95
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-274.53 +/- 776.61
+Episode length: 348.95 +/- 262.15
+New best mean reward!
+[I 2024-12-12 10:19:09,092] Trial 40 finished with value: 296.16343555 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.0001519766388632914, 'clip_range': 0.3, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=320000, episode_reward=-5079.75 +/- 815.31
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:19:24,997] Trial 52 pruned. 
+Eval num_timesteps=320000, episode_reward=-5589.17 +/- 2283.63
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:19:44,572] Trial 53 pruned. 
+[I 2024-12-12 10:19:58,150] Trial 42 finished with value: -1595.81005445 and parameters: {'n_envs': 16, 'batch_size': 1024, 'gamma': 0.99, 'learning_rate': 0.0016406601134371238, 'clip_range': 0.3, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=320000, episode_reward=-4749.30 +/- 2236.97
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:22:10,313] Trial 48 pruned. 
+Eval num_timesteps=320000, episode_reward=-859.51 +/- 981.52
+Episode length: 711.40 +/- 394.70
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-845.21 +/- 928.16
+Episode length: 699.45 +/- 411.49
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-23844.33 +/- 34280.29
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:24:54,430] Trial 57 pruned. 
+Eval num_timesteps=320000, episode_reward=-34187.62 +/- 30338.61
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:25:11,350] Trial 58 pruned. 
+Eval num_timesteps=320000, episode_reward=188.08 +/- 82.82
+Episode length: 144.60 +/- 46.83
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-8239.44 +/- 6830.80
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:26:16,262] Trial 59 pruned. 
+Eval num_timesteps=320000, episode_reward=-12291.46 +/- 9205.27
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:26:24,402] Trial 60 pruned. 
+Eval num_timesteps=320000, episode_reward=-5306.49 +/- 4455.06
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:26:35,606] Trial 56 pruned. 
+Eval num_timesteps=320000, episode_reward=-327.52 +/- 797.38
+Episode length: 487.95 +/- 421.45
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-19863.84 +/- 10947.40
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:28:58,302] Trial 62 pruned. 
+Eval num_timesteps=320000, episode_reward=-915.27 +/- 1145.75
+Episode length: 626.10 +/- 419.54
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=13.15 +/- 773.66
+Episode length: 200.15 +/- 275.56
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=84.03 +/- 563.92
+Episode length: 161.30 +/- 197.40
+Eval num_timesteps=320000, episode_reward=-299.34 +/- 1209.45
+Episode length: 329.80 +/- 286.42
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3109.56 +/- 1281.32
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:31:07,901] Trial 67 pruned. 
+Eval num_timesteps=640000, episode_reward=269.89 +/- 83.11
+Episode length: 110.95 +/- 56.86
+New best mean reward!
+[I 2024-12-12 10:31:27,867] Trial 63 finished with value: 260.76404565 and parameters: {'n_envs': 16, 'batch_size': 512, 'gamma': 0.99, 'learning_rate': 0.0003301421628554272, 'clip_range': 0.4, 'n_epochs': 30, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+[I 2024-12-12 10:31:43,894] Trial 54 finished with value: 260.79097649999994 and parameters: {'n_envs': 16, 'batch_size': 64, 'gamma': 0.99, 'learning_rate': 3.8740023534380816e-05, 'clip_range': 0.1, 'n_epochs': 20, 'gae_lambda': 0.9, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=320000, episode_reward=-574.02 +/- 1639.13
+Episode length: 468.15 +/- 395.57
+New best mean reward!
+[I 2024-12-12 10:32:58,211] Trial 55 finished with value: 218.21985640000003 and parameters: {'n_envs': 16, 'batch_size': 64, 'gamma': 0.99, 'learning_rate': 2.6267072984600413e-05, 'clip_range': 0.1, 'n_epochs': 20, 'gae_lambda': 0.9, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=323.14 +/- 80.77
+Episode length: 79.95 +/- 54.78
+New best mean reward!
+[I 2024-12-12 10:34:06,120] Trial 64 finished with value: 291.65962585 and parameters: {'n_envs': 16, 'batch_size': 512, 'gamma': 0.99, 'learning_rate': 8.891190173193058e-05, 'clip_range': 0.3, 'n_epochs': 30, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=280.48 +/- 87.99
+Episode length: 90.00 +/- 48.03
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=276.27 +/- 72.74
+Episode length: 106.55 +/- 50.83
+New best mean reward!
+[I 2024-12-12 10:35:13,201] Trial 65 finished with value: 27.566877299999994 and parameters: {'n_envs': 16, 'batch_size': 512, 'gamma': 0.99, 'learning_rate': 8.512770213331326e-05, 'clip_range': 0.3, 'n_epochs': 30, 'gae_lambda': 0.98, 'net_arch': 'small'}. Best is trial 40 with value: 296.16343555.
+[I 2024-12-12 10:36:07,798] Trial 66 finished with value: 159.80263050000002 and parameters: {'n_envs': 16, 'batch_size': 512, 'gamma': 0.9999, 'learning_rate': 8.90696144507579e-05, 'clip_range': 0.3, 'n_epochs': 30, 'gae_lambda': 0.98, 'net_arch': 'small'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=-10031.95 +/- 4490.57
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:37:05,062] Trial 69 pruned. 
+Eval num_timesteps=320000, episode_reward=-2091.62 +/- 1087.72
+Episode length: 954.65 +/- 197.68
+New best mean reward!
+[I 2024-12-12 10:37:19,832] Trial 70 pruned. 
+Eval num_timesteps=640000, episode_reward=189.73 +/- 87.10
+Episode length: 132.95 +/- 47.77
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-75086.40 +/- 138112.78
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:37:46,675] Trial 61 pruned. 
+Eval num_timesteps=320000, episode_reward=-9819.52 +/- 5477.64
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:38:22,468] Trial 71 pruned. 
+[I 2024-12-12 10:38:32,217] Trial 68 finished with value: 209.2301473 and parameters: {'n_envs': 16, 'batch_size': 512, 'gamma': 0.9999, 'learning_rate': 8.624532733500033e-05, 'clip_range': 0.3, 'n_epochs': 30, 'gae_lambda': 0.95, 'net_arch': 'small'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=255.10 +/- 120.12
+Episode length: 117.60 +/- 71.18
+New best mean reward!
+[I 2024-12-12 10:39:51,202] Trial 72 finished with value: -2.592924549999998 and parameters: {'n_envs': 32, 'batch_size': 512, 'gamma': 0.99, 'learning_rate': 9.182142441362181e-05, 'clip_range': 0.4, 'n_epochs': 30, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=-1677.77 +/- 1548.06
+Episode length: 958.15 +/- 182.42
+New best mean reward!
+[I 2024-12-12 10:40:29,564] Trial 73 pruned. 
+Eval num_timesteps=320000, episode_reward=-1748.12 +/- 800.30
+Episode length: 910.45 +/- 269.16
+New best mean reward!
+[I 2024-12-12 10:41:26,799] Trial 77 pruned. 
+Eval num_timesteps=640000, episode_reward=-2336.10 +/- 1356.57
+Episode length: 954.35 +/- 198.98
+New best mean reward!
+[I 2024-12-12 10:41:40,739] Trial 74 pruned. 
+Eval num_timesteps=640000, episode_reward=-1788.46 +/- 1831.79
+Episode length: 761.95 +/- 363.90
+New best mean reward!
+[I 2024-12-12 10:42:47,093] Trial 75 pruned. 
+Eval num_timesteps=320000, episode_reward=-3184.04 +/- 941.88
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:43:00,222] Trial 80 pruned. 
+Eval num_timesteps=640000, episode_reward=-2874.60 +/- 337.56
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:43:04,720] Trial 76 pruned. 
+Eval num_timesteps=320000, episode_reward=-3162.53 +/- 869.33
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:43:56,413] Trial 81 pruned. 
+Eval num_timesteps=640000, episode_reward=-1410.55 +/- 1040.01
+Episode length: 820.25 +/- 360.33
+New best mean reward!
+[I 2024-12-12 10:44:29,192] Trial 79 pruned. 
+Eval num_timesteps=640000, episode_reward=-1932.65 +/- 1046.76
+Episode length: 908.20 +/- 275.48
+New best mean reward!
+[I 2024-12-12 10:44:40,523] Trial 78 pruned. 
+Eval num_timesteps=320000, episode_reward=-2735.34 +/- 955.89
+Episode length: 951.60 +/- 210.97
+New best mean reward!
+[I 2024-12-12 10:45:17,611] Trial 84 pruned. 
+Eval num_timesteps=320000, episode_reward=-1630.90 +/- 800.58
+Episode length: 906.80 +/- 279.60
+New best mean reward!
+[I 2024-12-12 10:47:22,547] Trial 85 pruned. 
+Eval num_timesteps=320000, episode_reward=-2254.54 +/- 2172.10
+Episode length: 905.10 +/- 284.71
+New best mean reward!
+[I 2024-12-12 10:50:21,220] Trial 91 pruned. 
+Eval num_timesteps=320000, episode_reward=-804.06 +/- 738.63
+Episode length: 755.85 +/- 374.87
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3674.01 +/- 3225.79
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:54:28,423] Trial 89 pruned. 
+Eval num_timesteps=320000, episode_reward=-3067.56 +/- 2292.23
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:56:01,606] Trial 86 pruned. 
+Eval num_timesteps=320000, episode_reward=-1851.67 +/- 2821.98
+Episode length: 867.95 +/- 314.68
+New best mean reward!
+[I 2024-12-12 10:56:08,731] Trial 87 pruned. 
+Eval num_timesteps=320000, episode_reward=-1702.27 +/- 1296.08
+Episode length: 892.20 +/- 258.12
+New best mean reward!
+[I 2024-12-12 10:56:18,080] Trial 88 pruned. 
+Eval num_timesteps=320000, episode_reward=-2007.98 +/- 854.63
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 10:58:22,990] Trial 82 pruned. 
+Eval num_timesteps=320000, episode_reward=-2233.21 +/- 1197.76
+Episode length: 957.50 +/- 185.25
+New best mean reward!
+[I 2024-12-12 11:01:46,091] Trial 99 pruned. 
+Eval num_timesteps=320000, episode_reward=-5462.70 +/- 2632.96
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:03:06,100] Trial 90 pruned. 
+Eval num_timesteps=320000, episode_reward=-33710.80 +/- 27748.59
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:03:50,988] Trial 92 pruned. 
+Eval num_timesteps=320000, episode_reward=-4108.72 +/- 1864.56
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:04:50,045] Trial 97 pruned. 
+Eval num_timesteps=320000, episode_reward=-2010.02 +/- 581.43
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:04:55,797] Trial 100 pruned. 
+Eval num_timesteps=320000, episode_reward=-11133.61 +/- 10951.16
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:05:02,186] Trial 98 pruned. 
+Eval num_timesteps=320000, episode_reward=-3967.95 +/- 1965.69
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:05:55,693] Trial 93 pruned. 
+Eval num_timesteps=320000, episode_reward=-634.67 +/- 887.11
+Episode length: 590.40 +/- 453.36
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=281.20 +/- 67.68
+Episode length: 108.85 +/- 46.73
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-720.04 +/- 860.99
+Episode length: 630.70 +/- 453.19
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-222.31 +/- 658.33
+Episode length: 379.10 +/- 363.31
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-589.51 +/- 925.67
+Episode length: 536.70 +/- 419.90
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2432.39 +/- 492.52
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:08:14,872] Trial 105 pruned. 
+Eval num_timesteps=320000, episode_reward=-2599.90 +/- 954.14
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:09:11,661] Trial 106 pruned. 
+Eval num_timesteps=320000, episode_reward=-104578.83 +/- 80027.68
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:09:12,140] Trial 94 pruned. 
+Eval num_timesteps=640000, episode_reward=101.77 +/- 675.39
+Episode length: 159.20 +/- 203.34
+New best mean reward!
+[I 2024-12-12 11:09:31,291] Trial 83 finished with value: 265.58158815 and parameters: {'n_envs': 16, 'batch_size': 32, 'gamma': 0.9999, 'learning_rate': 2.0377332470009038e-05, 'clip_range': 0.3, 'n_epochs': 20, 'gae_lambda': 0.95, 'net_arch': 'small'}. Best is trial 40 with value: 296.16343555.
+[I 2024-12-12 11:09:52,741] Trial 101 finished with value: 246.69919915000006 and parameters: {'n_envs': 16, 'batch_size': 1024, 'gamma': 0.99, 'learning_rate': 0.00031271996181660546, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=212.33 +/- 173.98
+Episode length: 124.05 +/- 83.75
+New best mean reward!
+[I 2024-12-12 11:10:42,908] Trial 102 finished with value: 124.8916193 and parameters: {'n_envs': 16, 'batch_size': 1024, 'gamma': 0.99, 'learning_rate': 0.0006382787132967985, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=36.05 +/- 629.89
+Episode length: 178.05 +/- 200.93
+New best mean reward!
+[I 2024-12-12 11:10:58,120] Trial 103 pruned. 
+Eval num_timesteps=640000, episode_reward=-38.67 +/- 810.04
+Episode length: 204.65 +/- 271.54
+New best mean reward!
+[I 2024-12-12 11:11:09,158] Trial 104 pruned. 
+Eval num_timesteps=320000, episode_reward=-1022.48 +/- 883.03
+Episode length: 742.20 +/- 394.91
+New best mean reward!
+[I 2024-12-12 11:12:51,484] Trial 107 pruned. 
+Eval num_timesteps=320000, episode_reward=-1153.39 +/- 799.07
+Episode length: 823.30 +/- 354.17
+New best mean reward!
+[I 2024-12-12 11:13:51,373] Trial 109 pruned. 
+Eval num_timesteps=320000, episode_reward=-2065.52 +/- 558.24
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:13:55,505] Trial 108 pruned. 
+Eval num_timesteps=320000, episode_reward=-691.74 +/- 824.01
+Episode length: 636.40 +/- 402.71
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-895.47 +/- 954.31
+Episode length: 657.55 +/- 420.76
+New best mean reward!
+[I 2024-12-12 11:14:31,534] Trial 111 pruned. 
+Eval num_timesteps=320000, episode_reward=-5039.20 +/- 4311.67
+Episode length: 853.65 +/- 348.39
+New best mean reward!
+[I 2024-12-12 11:14:38,793] Trial 96 pruned. 
+Eval num_timesteps=320000, episode_reward=-668.91 +/- 764.59
+Episode length: 669.30 +/- 450.75
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-68.83 +/- 877.02
+Episode length: 206.60 +/- 267.53
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3347.16 +/- 596.41
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-106931.27 +/- 61726.07
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:16:28,581] Trial 113 pruned. 
+Eval num_timesteps=320000, episode_reward=-89330.52 +/- 66666.10
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:17:50,506] Trial 117 pruned. 
+Eval num_timesteps=160000, episode_reward=-2637.21 +/- 1439.84
+Episode length: 952.35 +/- 207.70
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2334.97 +/- 937.57
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:18:28,970] Trial 118 pruned. 
+Eval num_timesteps=640000, episode_reward=270.25 +/- 82.35
+Episode length: 100.90 +/- 48.80
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-50338.61 +/- 36006.63
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:19:06,468] Trial 115 pruned. 
+Eval num_timesteps=320000, episode_reward=-9578.98 +/- 5179.30
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:19:18,285] Trial 95 pruned. 
+Eval num_timesteps=80000, episode_reward=-8216.14 +/- 2350.74
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:19:29,911] Trial 110 finished with value: 260.0321959 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.0006037072894307212, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=240000, episode_reward=-1557.30 +/- 553.55
+Episode length: 955.90 +/- 192.23
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1608.05 +/- 844.12
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:19:48,154] Trial 116 pruned. 
+Eval num_timesteps=80000, episode_reward=-2421.07 +/- 1125.88
+Episode length: 954.55 +/- 198.11
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1870.44 +/- 569.42
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:20:18,996] Trial 120 pruned. 
+Eval num_timesteps=80000, episode_reward=-3428.40 +/- 1173.19
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-4228.22 +/- 982.44
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=261.54 +/- 109.54
+Episode length: 98.20 +/- 62.74
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2133.48 +/- 2298.01
+Episode length: 958.85 +/- 179.37
+[I 2024-12-12 11:21:26,361] Trial 119 pruned. 
+Eval num_timesteps=80000, episode_reward=-1859.34 +/- 993.83
+Episode length: 960.85 +/- 170.65
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=76.30 +/- 700.14
+Episode length: 170.60 +/- 279.41
+New best mean reward!
+[I 2024-12-12 11:21:36,924] Trial 114 pruned. 
+Eval num_timesteps=80000, episode_reward=-1736.68 +/- 635.11
+Episode length: 955.50 +/- 193.97
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1903.84 +/- 873.16
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2309.26 +/- 933.63
+Episode length: 953.10 +/- 204.43
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2582.43 +/- 420.83
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:22:25,399] Trial 112 finished with value: 265.9976815499999 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 7.045934456031993e-05, 'clip_range': 0.1, 'n_epochs': 20, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=240000, episode_reward=-3829.46 +/- 925.54
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3013.36 +/- 572.56
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:23:21,437] Trial 124 pruned. 
+Eval num_timesteps=160000, episode_reward=-645.53 +/- 602.96
+Episode length: 727.75 +/- 416.18
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-990.21 +/- 919.69
+Episode length: 823.10 +/- 354.18
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-983.08 +/- 744.44
+Episode length: 841.25 +/- 319.38
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-1196.76 +/- 624.65
+Episode length: 867.85 +/- 314.65
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-3783.25 +/- 726.30
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:24:14,412] Trial 121 pruned. 
+Eval num_timesteps=160000, episode_reward=-1101.64 +/- 491.95
+Episode length: 907.85 +/- 276.63
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=40.66 +/- 555.68
+Episode length: 211.55 +/- 193.31
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-1055.99 +/- 2383.22
+Episode length: 526.40 +/- 430.24
+Eval num_timesteps=320000, episode_reward=-948.41 +/- 806.16
+Episode length: 774.65 +/- 391.04
+New best mean reward!
+[I 2024-12-12 11:25:25,746] Trial 123 pruned. 
+Eval num_timesteps=240000, episode_reward=-63.80 +/- 549.75
+Episode length: 325.60 +/- 340.35
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-395.71 +/- 800.54
+Episode length: 459.55 +/- 412.56
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-239.88 +/- 799.87
+Episode length: 358.40 +/- 383.25
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=56.73 +/- 388.02
+Episode length: 295.05 +/- 356.25
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1226.24 +/- 792.20
+Episode length: 858.15 +/- 337.69
+New best mean reward!
+[I 2024-12-12 11:26:53,048] Trial 130 pruned. 
+Eval num_timesteps=320000, episode_reward=-1676.33 +/- 1527.06
+Episode length: 814.45 +/- 325.05
+New best mean reward!
+[I 2024-12-12 11:27:09,601] Trial 129 pruned. 
+Eval num_timesteps=320000, episode_reward=-11.27 +/- 561.53
+Episode length: 296.60 +/- 300.59
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=115.80 +/- 475.11
+Episode length: 167.30 +/- 197.18
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-667.24 +/- 1085.98
+Episode length: 563.20 +/- 441.03
+Eval num_timesteps=480000, episode_reward=145.06 +/- 447.64
+Episode length: 171.00 +/- 202.54
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=107.15 +/- 357.03
+Episode length: 188.65 +/- 274.58
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=156.29 +/- 401.28
+Episode length: 161.15 +/- 199.78
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-40096.70 +/- 30813.22
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:29:26,601] Trial 132 pruned. 
+Eval num_timesteps=400000, episode_reward=148.46 +/- 477.47
+Episode length: 177.40 +/- 201.17
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-41.09 +/- 622.79
+Episode length: 248.90 +/- 199.91
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=226.91 +/- 149.59
+Episode length: 135.40 +/- 78.29
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1178.71 +/- 669.99
+Episode length: 861.70 +/- 329.32
+New best mean reward!
+[I 2024-12-12 11:30:29,618] Trial 133 pruned. 
+Eval num_timesteps=640000, episode_reward=136.92 +/- 636.39
+Episode length: 146.75 +/- 205.57
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=236.05 +/- 98.72
+Episode length: 122.90 +/- 54.75
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=284.08 +/- 106.07
+Episode length: 104.10 +/- 68.92
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=168.70 +/- 466.42
+Episode length: 154.45 +/- 207.82
+[I 2024-12-12 11:31:46,414] Trial 128 finished with value: 104.29004945000001 and parameters: {'n_envs': 16, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 9.731561312637432e-05, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=480000, episode_reward=160.72 +/- 282.46
+Episode length: 174.85 +/- 197.06
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-146255.56 +/- 104393.58
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:32:29,350] Trial 135 pruned. 
+Eval num_timesteps=560000, episode_reward=244.07 +/- 78.29
+Episode length: 125.70 +/- 51.55
+New best mean reward!
+[I 2024-12-12 11:33:02,023] Trial 122 finished with value: 288.8230511 and parameters: {'n_envs': 4, 'batch_size': 64, 'gamma': 0.99, 'learning_rate': 0.00019385180476522946, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=560000, episode_reward=49.44 +/- 718.58
+Episode length: 201.70 +/- 270.83
+Eval num_timesteps=560000, episode_reward=207.42 +/- 231.03
+Episode length: 170.25 +/- 198.88
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2684.04 +/- 496.34
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:34:42,450] Trial 136 pruned. 
+Eval num_timesteps=640000, episode_reward=294.64 +/- 90.93
+Episode length: 91.65 +/- 51.92
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=64.16 +/- 589.95
+Episode length: 174.00 +/- 196.68
+Eval num_timesteps=640000, episode_reward=115.50 +/- 614.01
+Episode length: 165.95 +/- 196.58
+Eval num_timesteps=320000, episode_reward=-1716.67 +/- 1187.39
+Episode length: 784.55 +/- 374.57
+New best mean reward!
+[I 2024-12-12 11:35:21,336] Trial 134 pruned. 
+Eval num_timesteps=80000, episode_reward=-4897.62 +/- 2478.95
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-133.65 +/- 720.75
+Episode length: 333.40 +/- 386.90
+[I 2024-12-12 11:36:10,402] Trial 125 finished with value: 253.59814705000002 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 9.026983618615596e-05, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+[I 2024-12-12 11:36:15,871] Trial 131 finished with value: 242.41294745 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.00018730874392464413, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+[I 2024-12-12 11:36:37,085] Trial 126 finished with value: 295.81537675 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00020629621592551975, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+[I 2024-12-12 11:37:07,088] Trial 127 finished with value: 246.06401620000003 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 9.227614977169787e-05, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=80000, episode_reward=-7646.84 +/- 6149.10
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-12526.64 +/- 12924.11
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:37:52,579] Trial 138 pruned. 
+Eval num_timesteps=80000, episode_reward=-2869.71 +/- 1066.21
+Episode length: 954.90 +/- 196.59
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2284.42 +/- 835.14
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-4774.11 +/- 3196.27
+Episode length: 959.45 +/- 176.75
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3314.72 +/- 940.21
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2040.12 +/- 434.04
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-19108.34 +/- 9365.22
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:38:42,379] Trial 137 pruned. 
+Eval num_timesteps=80000, episode_reward=-1920.65 +/- 764.07
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-4845.32 +/- 3426.96
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1254.01 +/- 815.80
+Episode length: 914.90 +/- 255.68
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2097.65 +/- 1128.10
+Episode length: 907.95 +/- 276.18
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2341.29 +/- 1167.44
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1922.80 +/- 1242.67
+Episode length: 952.50 +/- 207.05
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-437.25 +/- 632.50
+Episode length: 573.35 +/- 429.89
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2467.80 +/- 420.49
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-3342.65 +/- 1969.61
+Episode length: 923.95 +/- 228.19
+New best mean reward!
+[I 2024-12-12 11:40:54,016] Trial 140 pruned. 
+Eval num_timesteps=320000, episode_reward=-1541.24 +/- 1106.17
+Episode length: 906.75 +/- 279.75
+New best mean reward!
+[I 2024-12-12 11:41:03,502] Trial 139 pruned. 
+Eval num_timesteps=160000, episode_reward=-533.31 +/- 893.79
+Episode length: 568.95 +/- 432.97
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-151.75 +/- 930.06
+Episode length: 296.70 +/- 301.94
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1002.19 +/- 846.05
+Episode length: 771.60 +/- 396.67
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-6623.32 +/- 8254.78
+Episode length: 1000.00 +/- 0.00
+[I 2024-12-12 11:42:20,165] Trial 141 pruned. 
+Eval num_timesteps=240000, episode_reward=-1728.15 +/- 756.84
+Episode length: 953.45 +/- 202.91
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=64.49 +/- 413.51
+Episode length: 210.05 +/- 185.33
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-417.14 +/- 731.24
+Episode length: 544.85 +/- 390.47
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=131.97 +/- 534.05
+Episode length: 163.55 +/- 201.52
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1891.07 +/- 772.48
+Episode length: 956.90 +/- 187.87
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1992.37 +/- 666.28
+Episode length: 953.55 +/- 202.47
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-159.46 +/- 758.28
+Episode length: 346.75 +/- 345.24
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2923.94 +/- 1153.08
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-406.00 +/- 768.30
+Episode length: 499.20 +/- 416.08
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=109.39 +/- 507.61
+Episode length: 193.45 +/- 274.38
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1878.13 +/- 1963.68
+Episode length: 729.25 +/- 375.72
+[I 2024-12-12 11:44:35,530] Trial 144 pruned. 
+Eval num_timesteps=80000, episode_reward=-3599.39 +/- 1715.29
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=252.65 +/- 128.50
+Episode length: 125.25 +/- 75.97
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=227.14 +/- 82.58
+Episode length: 130.15 +/- 45.82
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-787.52 +/- 661.08
+Episode length: 779.00 +/- 383.56
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2614.57 +/- 2508.27
+Episode length: 870.25 +/- 309.90
+Eval num_timesteps=320000, episode_reward=-114.37 +/- 901.08
+Episode length: 277.75 +/- 319.37
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2328.92 +/- 700.75
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=172.23 +/- 408.82
+Episode length: 165.85 +/- 199.33
+Eval num_timesteps=320000, episode_reward=-41.04 +/- 442.52
+Episode length: 365.30 +/- 368.69
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=216.18 +/- 123.45
+Episode length: 151.30 +/- 119.32
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2987.17 +/- 586.97
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3284.03 +/- 725.25
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=182.32 +/- 82.95
+Episode length: 145.40 +/- 48.94
+Eval num_timesteps=320000, episode_reward=-44.95 +/- 505.00
+Episode length: 283.15 +/- 307.16
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-39.10 +/- 403.24
+Episode length: 368.10 +/- 369.37
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-88.31 +/- 988.68
+Episode length: 217.25 +/- 266.53
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=152.98 +/- 476.35
+Episode length: 153.85 +/- 207.35
+Eval num_timesteps=240000, episode_reward=-1867.88 +/- 645.22
+Episode length: 951.75 +/- 210.32
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=227.33 +/- 74.93
+Episode length: 130.55 +/- 52.81
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=283.09 +/- 65.04
+Episode length: 97.35 +/- 50.90
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-2550.50 +/- 416.03
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=71.57 +/- 415.72
+Episode length: 261.55 +/- 314.39
+Eval num_timesteps=400000, episode_reward=224.13 +/- 55.23
+Episode length: 119.30 +/- 37.34
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=325.83 +/- 71.65
+Episode length: 74.35 +/- 47.21
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=216.60 +/- 109.96
+Episode length: 147.00 +/- 83.55
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2589.07 +/- 571.89
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1241.98 +/- 520.83
+Episode length: 908.30 +/- 275.25
+New best mean reward!
+[I 2024-12-12 11:50:12,116] Trial 150 pruned. 
+Eval num_timesteps=480000, episode_reward=173.15 +/- 281.24
+Episode length: 183.95 +/- 201.41
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=190.45 +/- 218.54
+Episode length: 180.15 +/- 193.27
+[I 2024-12-12 11:50:41,302] Trial 143 finished with value: 131.46818264999996 and parameters: {'n_envs': 4, 'batch_size': 64, 'gamma': 0.99, 'learning_rate': 0.0003711586924776741, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=560000, episode_reward=208.72 +/- 257.22
+Episode length: 177.55 +/- 223.54
+Eval num_timesteps=560000, episode_reward=167.07 +/- 459.97
+Episode length: 155.95 +/- 200.44
+Eval num_timesteps=480000, episode_reward=233.25 +/- 76.35
+Episode length: 136.40 +/- 59.54
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2462.78 +/- 371.14
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:51:26,333] Trial 151 pruned. 
+Eval num_timesteps=400000, episode_reward=235.16 +/- 116.66
+Episode length: 144.90 +/- 117.18
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-2260.66 +/- 496.12
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:51:57,440] Trial 152 pruned. 
+Eval num_timesteps=560000, episode_reward=175.43 +/- 379.46
+Episode length: 153.45 +/- 199.45
+Eval num_timesteps=80000, episode_reward=-2185.68 +/- 1003.03
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=199.76 +/- 194.79
+Episode length: 139.20 +/- 90.05
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=127.62 +/- 558.28
+Episode length: 162.75 +/- 200.10
+Eval num_timesteps=80000, episode_reward=-1349.04 +/- 1109.67
+Episode length: 868.85 +/- 312.57
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=131.48 +/- 440.78
+Episode length: 169.45 +/- 197.28
+Eval num_timesteps=560000, episode_reward=225.13 +/- 99.30
+Episode length: 149.30 +/- 109.73
+Eval num_timesteps=480000, episode_reward=26.01 +/- 803.72
+Episode length: 183.00 +/- 275.47
+Eval num_timesteps=80000, episode_reward=-2340.80 +/- 386.61
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:54:05,753] Trial 145 finished with value: 294.7090308 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00037345896061673277, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=640000, episode_reward=255.46 +/- 51.08
+Episode length: 124.80 +/- 39.32
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-6114.65 +/- 1263.66
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:54:19,374] Trial 156 pruned. 
+Eval num_timesteps=160000, episode_reward=-966.80 +/- 1012.75
+Episode length: 667.65 +/- 375.18
+New best mean reward!
+[I 2024-12-12 11:54:39,914] Trial 146 finished with value: 272.6740717 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00014599435832963033, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=160000, episode_reward=-213.41 +/- 521.85
+Episode length: 479.90 +/- 426.79
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=223.82 +/- 123.46
+Episode length: 147.65 +/- 98.52
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=113.62 +/- 473.90
+Episode length: 175.70 +/- 192.95
+Eval num_timesteps=560000, episode_reward=42.28 +/- 716.18
+Episode length: 207.05 +/- 273.41
+Eval num_timesteps=160000, episode_reward=-362.23 +/- 868.28
+Episode length: 455.40 +/- 445.39
+New best mean reward!
+[I 2024-12-12 11:55:48,865] Trial 147 finished with value: 279.15107115 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00013118503581316062, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=80000, episode_reward=-2362.59 +/- 688.53
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=47.65 +/- 623.70
+Episode length: 220.70 +/- 266.00
+New best mean reward!
+[I 2024-12-12 11:56:39,935] Trial 142 finished with value: 264.02496985 and parameters: {'n_envs': 4, 'batch_size': 64, 'gamma': 0.99, 'learning_rate': 0.0001350657256503678, 'clip_range': 0.4, 'n_epochs': 20, 'gae_lambda': 0.98, 'net_arch': 'tiny'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=240000, episode_reward=273.99 +/- 92.00
+Episode length: 111.90 +/- 63.92
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1932.92 +/- 682.89
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:56:49,299] Trial 148 finished with value: 83.0871243 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00013499539069736897, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=80000, episode_reward=-2000.34 +/- 443.32
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=312.35 +/- 109.35
+Episode length: 94.90 +/- 104.32
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-65.74 +/- 466.82
+Episode length: 307.35 +/- 315.66
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2183.35 +/- 792.10
+Episode length: 954.05 +/- 200.29
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=98.17 +/- 521.18
+Episode length: 195.45 +/- 191.82
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-810.32 +/- 1087.40
+Episode length: 583.95 +/- 416.22
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=160.32 +/- 539.47
+Episode length: 146.25 +/- 201.82
+[I 2024-12-12 11:58:52,443] Trial 149 finished with value: 294.80505905 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00025608415267211574, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=80000, episode_reward=-2047.95 +/- 440.92
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-403.73 +/- 793.07
+Episode length: 524.00 +/- 431.78
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2657.59 +/- 795.51
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 11:59:06,838] Trial 162 pruned. 
+Eval num_timesteps=160000, episode_reward=-1084.18 +/- 860.36
+Episode length: 878.15 +/- 291.61
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=133.35 +/- 374.81
+Episode length: 194.80 +/- 271.55
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-380.81 +/- 649.24
+Episode length: 532.60 +/- 426.19
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-35.73 +/- 736.47
+Episode length: 232.90 +/- 274.25
+[I 2024-12-12 12:00:30,147] Trial 153 pruned. 
+Eval num_timesteps=240000, episode_reward=85.16 +/- 263.96
+Episode length: 253.25 +/- 254.53
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=144.42 +/- 628.02
+Episode length: 142.35 +/- 202.29
+Eval num_timesteps=240000, episode_reward=224.76 +/- 115.62
+Episode length: 131.80 +/- 61.54
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1314.79 +/- 803.80
+Episode length: 858.65 +/- 336.56
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1162.37 +/- 2126.28
+Episode length: 655.30 +/- 424.48
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-198.48 +/- 730.35
+Episode length: 350.95 +/- 378.84
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2268.53 +/- 783.16
+Episode length: 954.55 +/- 198.11
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=156.02 +/- 387.79
+Episode length: 170.45 +/- 199.30
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-93.52 +/- 551.80
+Episode length: 304.60 +/- 286.37
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=191.06 +/- 242.06
+Episode length: 162.55 +/- 199.85
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=273.15 +/- 70.95
+Episode length: 107.30 +/- 50.77
+Eval num_timesteps=80000, episode_reward=-2591.22 +/- 1914.31
+Episode length: 955.80 +/- 192.66
+New best mean reward!
+[I 2024-12-12 12:02:52,818] Trial 165 pruned. 
+Eval num_timesteps=320000, episode_reward=252.65 +/- 76.25
+Episode length: 112.05 +/- 47.57
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=272.69 +/- 94.77
+Episode length: 105.80 +/- 60.14
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=3.40 +/- 330.03
+Episode length: 308.95 +/- 296.71
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2620.47 +/- 2899.98
+Episode length: 914.90 +/- 255.57
+Eval num_timesteps=480000, episode_reward=115.62 +/- 385.84
+Episode length: 191.15 +/- 194.84
+[I 2024-12-12 12:03:45,300] Trial 155 pruned. 
+Eval num_timesteps=160000, episode_reward=-1520.45 +/- 1007.68
+Episode length: 911.45 +/- 266.90
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=169.35 +/- 210.80
+Episode length: 183.55 +/- 192.18
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=237.18 +/- 68.40
+Episode length: 129.85 +/- 45.55
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=278.64 +/- 101.91
+Episode length: 113.70 +/- 76.62
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-6228.03 +/- 8030.88
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:05:07,248] Trial 166 pruned. 
+Eval num_timesteps=400000, episode_reward=136.40 +/- 538.87
+Episode length: 160.75 +/- 199.47
+Eval num_timesteps=400000, episode_reward=201.40 +/- 117.88
+Episode length: 135.15 +/- 68.76
+Eval num_timesteps=320000, episode_reward=58.13 +/- 394.27
+Episode length: 231.40 +/- 264.15
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=17.49 +/- 509.65
+Episode length: 256.30 +/- 273.82
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-524.48 +/- 827.24
+Episode length: 511.60 +/- 400.70
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2337.97 +/- 946.92
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=238.53 +/- 117.26
+Episode length: 138.35 +/- 81.51
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=267.10 +/- 223.81
+Episode length: 121.25 +/- 207.10
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=312.63 +/- 83.55
+Episode length: 84.75 +/- 52.95
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=217.40 +/- 95.05
+Episode length: 136.45 +/- 63.39
+Eval num_timesteps=480000, episode_reward=157.35 +/- 487.56
+Episode length: 158.60 +/- 198.69
+Eval num_timesteps=400000, episode_reward=-12.62 +/- 785.42
+Episode length: 229.65 +/- 298.85
+[I 2024-12-12 12:07:19,142] Trial 161 pruned. 
+Eval num_timesteps=80000, episode_reward=-44084.02 +/- 35472.36
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:07:28,247] Trial 168 pruned. 
+Eval num_timesteps=320000, episode_reward=-56.27 +/- 705.11
+Episode length: 255.80 +/- 254.74
+Eval num_timesteps=320000, episode_reward=-202.69 +/- 558.15
+Episode length: 424.40 +/- 384.22
+New best mean reward!
+[I 2024-12-12 12:08:10,632] Trial 154 finished with value: 277.6736757 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00026566701734902893, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 40 with value: 296.16343555.
+Eval num_timesteps=480000, episode_reward=240.49 +/- 131.34
+Episode length: 114.30 +/- 67.54
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-2876.58 +/- 2679.42
+Episode length: 924.35 +/- 227.05
+[I 2024-12-12 12:08:17,446] Trial 167 pruned. 
+Eval num_timesteps=560000, episode_reward=144.48 +/- 615.79
+Episode length: 140.30 +/- 202.10
+Eval num_timesteps=560000, episode_reward=244.24 +/- 123.50
+Episode length: 128.45 +/- 72.39
+Eval num_timesteps=560000, episode_reward=260.86 +/- 143.10
+Episode length: 127.40 +/- 124.58
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=45.85 +/- 440.35
+Episode length: 234.30 +/- 213.79
+New best mean reward!
+[I 2024-12-12 12:09:29,947] Trial 163 pruned. 
+Eval num_timesteps=80000, episode_reward=-2638.64 +/- 1423.36
+Episode length: 863.55 +/- 324.89
+New best mean reward!
+[I 2024-12-12 12:09:30,461] Trial 169 pruned. 
+Eval num_timesteps=80000, episode_reward=-1929.77 +/- 640.59
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=72.87 +/- 358.75
+Episode length: 257.80 +/- 279.61
+New best mean reward!
+[I 2024-12-12 12:09:57,821] Trial 164 pruned. 
+Eval num_timesteps=560000, episode_reward=169.33 +/- 449.87
+Episode length: 151.55 +/- 204.71
+Eval num_timesteps=80000, episode_reward=-1632.83 +/- 1432.22
+Episode length: 885.90 +/- 273.08
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=250.60 +/- 108.09
+Episode length: 120.00 +/- 60.34
+Eval num_timesteps=80000, episode_reward=-2916.62 +/- 1657.15
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:10:29,494] Trial 172 pruned. 
+Eval num_timesteps=640000, episode_reward=95.71 +/- 562.33
+Episode length: 186.30 +/- 194.75
+Eval num_timesteps=640000, episode_reward=152.12 +/- 627.06
+Episode length: 139.80 +/- 204.32
+Eval num_timesteps=80000, episode_reward=-2414.09 +/- 1111.40
+Episode length: 908.40 +/- 274.80
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1592.15 +/- 815.71
+Episode length: 912.30 +/- 263.52
+New best mean reward!
+[I 2024-12-12 12:11:53,103] Trial 157 finished with value: 326.4785243 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00026650142315084497, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=160000, episode_reward=-696.78 +/- 1111.73
+Episode length: 564.95 +/- 436.22
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=160.90 +/- 500.30
+Episode length: 160.75 +/- 199.23
+Eval num_timesteps=80000, episode_reward=-2453.18 +/- 507.60
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:12:18,554] Trial 175 pruned. 
+Eval num_timesteps=160000, episode_reward=-707.43 +/- 1311.50
+Episode length: 582.90 +/- 419.54
+New best mean reward!
+[I 2024-12-12 12:12:36,307] Trial 159 finished with value: 223.66594649999996 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.000534978380139436, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=80000, episode_reward=-5353.19 +/- 1881.58
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:12:46,383] Trial 176 pruned. 
+[I 2024-12-12 12:12:53,416] Trial 158 finished with value: 221.17083789999998 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.0002615660875018241, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+[I 2024-12-12 12:13:39,231] Trial 160 finished with value: 292.69226205 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.00025325708451216024, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=160000, episode_reward=-1371.78 +/- 835.28
+Episode length: 863.55 +/- 325.02
+New best mean reward!
+[I 2024-12-12 12:13:57,459] Trial 174 pruned. 
+Eval num_timesteps=160000, episode_reward=-1532.61 +/- 2576.24
+Episode length: 601.40 +/- 443.55
+New best mean reward!
+[I 2024-12-12 12:14:00,100] Trial 173 pruned. 
+Eval num_timesteps=240000, episode_reward=12.48 +/- 392.01
+Episode length: 275.95 +/- 309.34
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-5942.12 +/- 2034.26
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:14:13,889] Trial 177 pruned. 
+Eval num_timesteps=240000, episode_reward=155.56 +/- 248.43
+Episode length: 177.30 +/- 195.34
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-7711.85 +/- 5874.01
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:14:35,601] Trial 178 pruned. 
+Eval num_timesteps=80000, episode_reward=-2611.41 +/- 269.63
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:14:45,765] Trial 179 pruned. 
+Eval num_timesteps=80000, episode_reward=-2445.93 +/- 840.20
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:15:00,267] Trial 180 pruned. 
+Eval num_timesteps=80000, episode_reward=-2439.55 +/- 751.84
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:15:14,575] Trial 181 pruned. 
+Eval num_timesteps=80000, episode_reward=-2002.24 +/- 780.35
+Episode length: 954.40 +/- 198.77
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=55.02 +/- 636.54
+Episode length: 192.00 +/- 191.72
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1246.81 +/- 969.78
+Episode length: 769.10 +/- 400.11
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2099.26 +/- 639.12
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=215.53 +/- 90.03
+Episode length: 140.15 +/- 53.66
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1867.44 +/- 1231.86
+Episode length: 912.15 +/- 264.39
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3533.70 +/- 1086.01
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:16:35,747] Trial 188 pruned. 
+Eval num_timesteps=80000, episode_reward=-3470.91 +/- 1766.88
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:16:38,116] Trial 187 pruned. 
+Eval num_timesteps=80000, episode_reward=-2040.53 +/- 615.25
+Episode length: 956.20 +/- 190.92
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2897.51 +/- 811.55
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:17:06,549] Trial 189 pruned. 
+Eval num_timesteps=160000, episode_reward=-680.25 +/- 942.55
+Episode length: 603.55 +/- 439.86
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=-82.45 +/- 737.39
+Episode length: 266.40 +/- 256.16
+[I 2024-12-12 12:18:08,043] Trial 170 pruned. 
+Eval num_timesteps=160000, episode_reward=-611.25 +/- 985.83
+Episode length: 584.70 +/- 417.12
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=262.04 +/- 76.40
+Episode length: 110.00 +/- 47.66
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1065.25 +/- 995.53
+Episode length: 725.20 +/- 420.42
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1157.35 +/- 1226.58
+Episode length: 799.40 +/- 348.07
+New best mean reward!
+[I 2024-12-12 12:18:35,672] Trial 185 pruned. 
+Eval num_timesteps=80000, episode_reward=-2371.09 +/- 491.55
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:18:49,282] Trial 190 pruned. 
+Eval num_timesteps=80000, episode_reward=-2735.97 +/- 438.31
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:18:51,156] Trial 191 pruned. 
+Eval num_timesteps=160000, episode_reward=-774.77 +/- 1553.93
+Episode length: 467.20 +/- 400.23
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2964.95 +/- 718.54
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:19:26,281] Trial 192 pruned. 
+Eval num_timesteps=240000, episode_reward=-348.95 +/- 860.81
+Episode length: 419.30 +/- 383.30
+New best mean reward!
+[I 2024-12-12 12:19:53,570] Trial 182 pruned. 
+Eval num_timesteps=240000, episode_reward=76.90 +/- 535.03
+Episode length: 204.35 +/- 200.26
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=264.20 +/- 90.66
+Episode length: 114.95 +/- 53.04
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2456.23 +/- 905.95
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:20:19,750] Trial 193 pruned. 
+Eval num_timesteps=240000, episode_reward=-2089.06 +/- 3171.34
+Episode length: 746.60 +/- 389.35
+[I 2024-12-12 12:20:28,035] Trial 184 pruned. 
+Eval num_timesteps=80000, episode_reward=-2824.47 +/- 656.39
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:20:47,324] Trial 194 pruned. 
+Eval num_timesteps=80000, episode_reward=-2421.31 +/- 436.37
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:20:59,518] Trial 195 pruned. 
+Eval num_timesteps=80000, episode_reward=-3590.97 +/- 1535.49
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:21:02,044] Trial 196 pruned. 
+Eval num_timesteps=240000, episode_reward=165.67 +/- 147.03
+Episode length: 148.90 +/- 72.50
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=222.31 +/- 80.97
+Episode length: 158.10 +/- 79.76
+New best mean reward!
+Eval num_timesteps=560000, episode_reward=207.45 +/- 261.11
+Episode length: 161.25 +/- 198.81
+Eval num_timesteps=80000, episode_reward=-3962.43 +/- 1109.96
+Episode length: 971.25 +/- 125.32
+New best mean reward!
+[I 2024-12-12 12:22:39,148] Trial 197 pruned. 
+Eval num_timesteps=80000, episode_reward=-3055.80 +/- 1054.57
+Episode length: 959.30 +/- 177.41
+New best mean reward!
+[I 2024-12-12 12:22:42,063] Trial 198 pruned. 
+Eval num_timesteps=320000, episode_reward=134.10 +/- 256.39
+Episode length: 214.70 +/- 239.84
+Eval num_timesteps=400000, episode_reward=230.44 +/- 100.68
+Episode length: 132.15 +/- 52.49
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=332.11 +/- 70.42
+Episode length: 73.55 +/- 43.69
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-145106.79 +/- 103986.92
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:23:55,167] Trial 199 pruned. 
+Eval num_timesteps=80000, episode_reward=-12074.46 +/- 7471.16
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:23:58,915] Trial 200 pruned. 
+Eval num_timesteps=80000, episode_reward=-4619.40 +/- 2785.26
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:24:18,841] Trial 201 pruned. 
+Eval num_timesteps=80000, episode_reward=-12357.28 +/- 6776.04
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:24:31,137] Trial 204 pruned. 
+Eval num_timesteps=80000, episode_reward=-7618.91 +/- 6849.03
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:24:33,977] Trial 202 pruned. 
+[I 2024-12-12 12:25:10,557] Trial 171 finished with value: 273.6261819 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.0005442576799459556, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=400000, episode_reward=239.71 +/- 101.73
+Episode length: 109.25 +/- 56.11
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=259.15 +/- 70.20
+Episode length: 118.70 +/- 55.68
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2364.10 +/- 847.69
+Episode length: 964.35 +/- 155.39
+New best mean reward!
+[I 2024-12-12 12:26:45,202] Trial 210 pruned. 
+Eval num_timesteps=80000, episode_reward=-2205.20 +/- 873.43
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=185.47 +/- 157.17
+Episode length: 148.55 +/- 81.14
+Eval num_timesteps=560000, episode_reward=252.83 +/- 82.07
+Episode length: 129.25 +/- 69.85
+Eval num_timesteps=320000, episode_reward=-2207.56 +/- 735.47
+Episode length: 953.45 +/- 202.91
+New best mean reward!
+[I 2024-12-12 12:28:00,063] Trial 208 pruned. 
+Eval num_timesteps=640000, episode_reward=-152.62 +/- 862.21
+Episode length: 230.15 +/- 277.51
+New best mean reward!
+[I 2024-12-12 12:29:00,009] Trial 205 pruned. 
+Eval num_timesteps=160000, episode_reward=-1736.89 +/- 1328.88
+Episode length: 873.50 +/- 301.60
+New best mean reward!
+[I 2024-12-12 12:29:23,563] Trial 211 pruned. 
+Eval num_timesteps=640000, episode_reward=251.69 +/- 101.16
+Episode length: 130.30 +/- 78.05
+Eval num_timesteps=560000, episode_reward=208.08 +/- 109.71
+Episode length: 135.60 +/- 62.96
+Eval num_timesteps=640000, episode_reward=-158.75 +/- 617.00
+Episode length: 404.70 +/- 437.57
+New best mean reward!
+[I 2024-12-12 12:30:06,584] Trial 207 pruned. 
+Eval num_timesteps=640000, episode_reward=183.91 +/- 133.80
+Episode length: 144.70 +/- 72.19
+New best mean reward!
+[I 2024-12-12 12:30:13,191] Trial 206 pruned. 
+[I 2024-12-12 12:30:50,465] Trial 183 finished with value: 206.6855302 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 0.0003912128604189977, 'clip_range': 0.2, 'n_epochs': 4, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=80000, episode_reward=-6869.88 +/- 3224.47
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:31:24,380] Trial 214 pruned. 
+Eval num_timesteps=640000, episode_reward=140.36 +/- 241.17
+Episode length: 164.90 +/- 100.50
+Eval num_timesteps=640000, episode_reward=-1074.53 +/- 842.04
+Episode length: 816.45 +/- 367.14
+New best mean reward!
+[I 2024-12-12 12:32:29,446] Trial 212 pruned. 
+[I 2024-12-12 12:33:09,305] Trial 186 finished with value: 211.0935378 and parameters: {'n_envs': 4, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.0003174405241273551, 'clip_range': 0.1, 'n_epochs': 20, 'gae_lambda': 0.9, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=320000, episode_reward=-4408.50 +/- 3922.98
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:34:24,146] Trial 215 pruned. 
+Eval num_timesteps=80000, episode_reward=-3100.28 +/- 1600.42
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:34:41,273] Trial 220 pruned. 
+Eval num_timesteps=320000, episode_reward=-354.51 +/- 510.37
+Episode length: 564.50 +/- 405.67
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1447.80 +/- 600.77
+Episode length: 952.45 +/- 207.27
+New best mean reward!
+[I 2024-12-12 12:35:12,187] Trial 216 pruned. 
+Eval num_timesteps=80000, episode_reward=-2675.27 +/- 866.06
+Episode length: 954.75 +/- 197.24
+New best mean reward!
+[I 2024-12-12 12:35:24,672] Trial 221 pruned. 
+Eval num_timesteps=320000, episode_reward=-1191.29 +/- 974.43
+Episode length: 772.55 +/- 394.22
+New best mean reward!
+[I 2024-12-12 12:35:53,805] Trial 218 pruned. 
+Eval num_timesteps=640000, episode_reward=-27.24 +/- 698.12
+Episode length: 251.75 +/- 320.86
+New best mean reward!
+[I 2024-12-12 12:36:13,789] Trial 209 pruned. 
+Eval num_timesteps=320000, episode_reward=-4287.99 +/- 4166.90
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:36:33,663] Trial 219 pruned. 
+Eval num_timesteps=80000, episode_reward=-1717.24 +/- 1053.75
+Episode length: 961.25 +/- 95.38
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3182.85 +/- 1520.83
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:36:48,313] Trial 223 pruned. 
+Eval num_timesteps=80000, episode_reward=-2631.78 +/- 1255.83
+Episode length: 953.50 +/- 202.69
+New best mean reward!
+[I 2024-12-12 12:37:17,647] Trial 224 pruned. 
+Eval num_timesteps=80000, episode_reward=-3128.46 +/- 707.27
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:37:30,634] Trial 225 pruned. 
+Eval num_timesteps=640000, episode_reward=-930.25 +/- 793.93
+Episode length: 748.65 +/- 373.46
+New best mean reward!
+[I 2024-12-12 12:38:08,474] Trial 213 pruned. 
+Eval num_timesteps=80000, episode_reward=-1781.68 +/- 557.10
+Episode length: 952.80 +/- 205.74
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-317.28 +/- 613.55
+Episode length: 522.35 +/- 434.31
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2364.65 +/- 1206.72
+Episode length: 954.20 +/- 199.64
+New best mean reward!
+[I 2024-12-12 12:39:05,141] Trial 228 pruned. 
+Eval num_timesteps=80000, episode_reward=-1347.93 +/- 1019.74
+Episode length: 817.30 +/- 365.71
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=87.05 +/- 584.50
+Episode length: 180.00 +/- 197.14
+New best mean reward!
+[I 2024-12-12 12:39:39,614] Trial 217 pruned. 
+Eval num_timesteps=80000, episode_reward=-2275.69 +/- 494.86
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:39:44,540] Trial 229 pruned. 
+Eval num_timesteps=240000, episode_reward=56.20 +/- 561.94
+Episode length: 207.30 +/- 196.88
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-665.68 +/- 1141.97
+Episode length: 532.10 +/- 425.29
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=-6528.73 +/- 10230.17
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:41:29,348] Trial 203 pruned. 
+Eval num_timesteps=320000, episode_reward=186.10 +/- 113.78
+Episode length: 159.35 +/- 89.28
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-740.67 +/- 877.56
+Episode length: 667.20 +/- 411.45
+New best mean reward!
+[I 2024-12-12 12:42:18,886] Trial 230 pruned. 
+Eval num_timesteps=320000, episode_reward=-651.18 +/- 724.09
+Episode length: 604.80 +/- 384.84
+New best mean reward!
+[I 2024-12-12 12:42:29,646] Trial 231 pruned. 
+Eval num_timesteps=160000, episode_reward=-2217.33 +/- 4282.10
+Episode length: 671.60 +/- 404.81
+[I 2024-12-12 12:43:05,795] Trial 227 pruned. 
+Eval num_timesteps=240000, episode_reward=-334.01 +/- 915.34
+Episode length: 396.40 +/- 398.39
+New best mean reward!
+[I 2024-12-12 12:43:13,750] Trial 226 pruned. 
+Eval num_timesteps=320000, episode_reward=-561.14 +/- 707.44
+Episode length: 579.05 +/- 430.19
+New best mean reward!
+[I 2024-12-12 12:43:18,481] Trial 232 pruned. 
+Eval num_timesteps=400000, episode_reward=210.41 +/- 209.15
+Episode length: 173.50 +/- 199.42
+New best mean reward!
+[I 2024-12-12 12:43:57,290] Trial 222 pruned. 
+Eval num_timesteps=320000, episode_reward=-537.99 +/- 674.33
+Episode length: 633.55 +/- 425.78
+New best mean reward!
+[I 2024-12-12 12:44:08,742] Trial 233 pruned. 
+Eval num_timesteps=320000, episode_reward=-173.19 +/- 556.73
+Episode length: 392.00 +/- 401.53
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1079.82 +/- 713.43
+Episode length: 819.35 +/- 361.62
+New best mean reward!
+[I 2024-12-12 12:44:51,988] Trial 235 pruned. 
+Eval num_timesteps=80000, episode_reward=-2879.92 +/- 478.48
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:45:17,859] Trial 241 pruned. 
+Eval num_timesteps=80000, episode_reward=-2820.30 +/- 2028.56
+Episode length: 917.50 +/- 247.76
+New best mean reward!
+[I 2024-12-12 12:46:08,224] Trial 243 pruned. 
+Eval num_timesteps=320000, episode_reward=63.39 +/- 111.21
+Episode length: 198.70 +/- 92.02
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3224.01 +/- 1627.36
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:46:52,290] Trial 244 pruned. 
+Eval num_timesteps=320000, episode_reward=-144.47 +/- 674.95
+Episode length: 340.85 +/- 334.76
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-700.95 +/- 782.43
+Episode length: 659.75 +/- 420.23
+New best mean reward!
+[I 2024-12-12 12:47:17,194] Trial 237 pruned. 
+Eval num_timesteps=80000, episode_reward=-2437.19 +/- 594.51
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:47:20,902] Trial 245 pruned. 
+Eval num_timesteps=320000, episode_reward=-1507.91 +/- 1271.01
+Episode length: 778.70 +/- 383.68
+New best mean reward!
+[I 2024-12-12 12:48:08,109] Trial 240 pruned. 
+Eval num_timesteps=80000, episode_reward=-2906.84 +/- 499.91
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:48:09,417] Trial 246 pruned. 
+Eval num_timesteps=320000, episode_reward=-385.90 +/- 517.32
+Episode length: 524.35 +/- 355.25
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=195.46 +/- 256.31
+Episode length: 151.80 +/- 198.59
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2635.34 +/- 566.63
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:49:23,221] Trial 248 pruned. 
+Eval num_timesteps=640000, episode_reward=215.58 +/- 175.67
+Episode length: 133.95 +/- 85.74
+New best mean reward!
+[I 2024-12-12 12:49:24,331] Trial 234 pruned. 
+Eval num_timesteps=80000, episode_reward=-2016.67 +/- 1039.94
+Episode length: 908.85 +/- 273.46
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1947.09 +/- 883.05
+Episode length: 910.10 +/- 269.86
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=104.80 +/- 514.51
+Episode length: 162.20 +/- 198.18
+New best mean reward!
+[I 2024-12-12 12:51:02,895] Trial 236 pruned. 
+Eval num_timesteps=80000, episode_reward=-2037.08 +/- 691.89
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1653.81 +/- 784.45
+Episode length: 909.90 +/- 270.50
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1213.83 +/- 710.65
+Episode length: 863.00 +/- 326.28
+New best mean reward!
+[I 2024-12-12 12:51:36,672] Trial 247 pruned. 
+Eval num_timesteps=320000, episode_reward=-1007.63 +/- 936.10
+Episode length: 729.65 +/- 413.44
+New best mean reward!
+[I 2024-12-12 12:52:00,299] Trial 249 pruned. 
+Eval num_timesteps=640000, episode_reward=183.04 +/- 374.21
+Episode length: 147.80 +/- 199.20
+New best mean reward!
+[I 2024-12-12 12:52:07,518] Trial 238 pruned. 
+Eval num_timesteps=160000, episode_reward=-622.68 +/- 920.41
+Episode length: 560.60 +/- 405.70
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-768.50 +/- 803.45
+Episode length: 720.20 +/- 397.20
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=252.14 +/- 93.14
+Episode length: 119.55 +/- 59.86
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-5035.94 +/- 2266.76
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:52:37,354] Trial 254 pruned. 
+Eval num_timesteps=80000, episode_reward=-5086.05 +/- 1858.98
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:53:10,865] Trial 255 pruned. 
+[I 2024-12-12 12:53:18,056] Trial 242 finished with value: 241.04480040000004 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.0008425468933434026, 'clip_range': 0.1, 'n_epochs': 4, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=160000, episode_reward=-1268.66 +/- 957.37
+Episode length: 810.70 +/- 378.70
+New best mean reward!
+[I 2024-12-12 12:53:30,606] Trial 252 pruned. 
+Eval num_timesteps=160000, episode_reward=-1312.57 +/- 1115.44
+Episode length: 834.75 +/- 335.68
+New best mean reward!
+[I 2024-12-12 12:53:31,644] Trial 253 pruned. 
+Eval num_timesteps=80000, episode_reward=-4249.54 +/- 1412.02
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:53:41,863] Trial 256 pruned. 
+Eval num_timesteps=80000, episode_reward=-4634.72 +/- 1775.92
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:53:52,065] Trial 257 pruned. 
+Eval num_timesteps=240000, episode_reward=-46.30 +/- 649.51
+Episode length: 258.40 +/- 255.35
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=-0.11 +/- 573.49
+Episode length: 220.80 +/- 190.21
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-5757.68 +/- 1805.29
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:54:23,145] Trial 258 pruned. 
+Eval num_timesteps=640000, episode_reward=222.93 +/- 144.15
+Episode length: 137.30 +/- 66.38
+New best mean reward!
+[I 2024-12-12 12:54:24,335] Trial 239 pruned. 
+Eval num_timesteps=80000, episode_reward=-2318.68 +/- 627.96
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 12:55:22,116] Trial 259 pruned. 
+Eval num_timesteps=320000, episode_reward=136.97 +/- 231.69
+Episode length: 204.80 +/- 193.76
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=182.43 +/- 55.17
+Episode length: 167.10 +/- 45.19
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1093.77 +/- 735.52
+Episode length: 827.55 +/- 307.27
+New best mean reward!
+[I 2024-12-12 12:57:05,033] Trial 260 pruned. 
+Eval num_timesteps=320000, episode_reward=-1640.74 +/- 1437.77
+Episode length: 832.10 +/- 297.02
+New best mean reward!
+[I 2024-12-12 12:57:41,453] Trial 262 pruned. 
+Eval num_timesteps=320000, episode_reward=-1685.59 +/- 1061.44
+Episode length: 915.10 +/- 254.79
+New best mean reward!
+[I 2024-12-12 12:57:42,891] Trial 261 pruned. 
+Eval num_timesteps=320000, episode_reward=-1707.18 +/- 1132.08
+Episode length: 869.35 +/- 311.23
+New best mean reward!
+[I 2024-12-12 12:57:45,558] Trial 263 pruned. 
+Eval num_timesteps=400000, episode_reward=27.27 +/- 661.26
+Episode length: 209.80 +/- 211.54
+[I 2024-12-12 12:57:52,553] Trial 250 pruned. 
+Eval num_timesteps=400000, episode_reward=223.56 +/- 99.62
+Episode length: 136.10 +/- 58.53
+New best mean reward!
+[I 2024-12-12 12:57:55,762] Trial 251 pruned. 
+Eval num_timesteps=320000, episode_reward=-1359.68 +/- 455.77
+Episode length: 955.85 +/- 192.45
+New best mean reward!
+[I 2024-12-12 12:58:24,827] Trial 264 pruned. 
+Eval num_timesteps=320000, episode_reward=-3857.17 +/- 1767.30
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:00:22,752] Trial 265 pruned. 
+Eval num_timesteps=320000, episode_reward=-1496.20 +/- 835.51
+Episode length: 862.65 +/- 327.08
+New best mean reward!
+[I 2024-12-12 13:01:32,884] Trial 271 pruned. 
+Eval num_timesteps=320000, episode_reward=-867.30 +/- 922.58
+Episode length: 671.95 +/- 447.38
+New best mean reward!
+[I 2024-12-12 13:01:35,235] Trial 272 pruned. 
+Eval num_timesteps=320000, episode_reward=-7791.09 +/- 5901.25
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:01:45,066] Trial 273 pruned. 
+Eval num_timesteps=320000, episode_reward=-6229.51 +/- 1855.83
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:01:54,811] Trial 266 pruned. 
+Eval num_timesteps=320000, episode_reward=-4412.29 +/- 985.53
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:03:21,783] Trial 270 pruned. 
+Eval num_timesteps=320000, episode_reward=-1195.71 +/- 377.29
+Episode length: 954.45 +/- 198.55
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3165.27 +/- 1321.13
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:04:07,833] Trial 274 pruned. 
+[I 2024-12-12 13:04:07,855] Trial 276 pruned. 
+Eval num_timesteps=320000, episode_reward=-790.66 +/- 1437.15
+Episode length: 634.90 +/- 405.83
+New best mean reward!
+[I 2024-12-12 13:04:09,458] Trial 275 pruned. 
+Eval num_timesteps=80000, episode_reward=-1447.81 +/- 1016.81
+Episode length: 768.25 +/- 401.47
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1833.32 +/- 818.08
+Episode length: 909.10 +/- 272.74
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1937.97 +/- 1844.28
+Episode length: 868.85 +/- 312.83
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1267.71 +/- 1401.78
+Episode length: 740.10 +/- 399.65
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1771.13 +/- 415.61
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-7718.64 +/- 5585.70
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:06:38,944] Trial 269 pruned. 
+Eval num_timesteps=80000, episode_reward=-30752.26 +/- 19064.20
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:07:13,061] Trial 281 pruned. 
+Eval num_timesteps=80000, episode_reward=-24863.13 +/- 42082.55
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:07:13,222] Trial 282 pruned. 
+Eval num_timesteps=160000, episode_reward=4.49 +/- 490.04
+Episode length: 261.95 +/- 316.45
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-349.27 +/- 606.60
+Episode length: 550.85 +/- 450.70
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-1296.24 +/- 1588.36
+Episode length: 730.80 +/- 371.08
+New best mean reward!
+[I 2024-12-12 13:08:43,299] Trial 283 pruned. 
+Eval num_timesteps=160000, episode_reward=-717.05 +/- 670.60
+Episode length: 732.50 +/- 367.48
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-5472.30 +/- 1809.38
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:08:54,695] Trial 267 pruned. 
+Eval num_timesteps=160000, episode_reward=-124.29 +/- 873.74
+Episode length: 260.95 +/- 258.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1462.28 +/- 878.40
+Episode length: 863.45 +/- 325.27
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2725.49 +/- 2941.40
+Episode length: 874.95 +/- 297.78
+New best mean reward!
+[I 2024-12-12 13:09:32,152] Trial 285 pruned. 
+Eval num_timesteps=320000, episode_reward=-5576.69 +/- 1764.43
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:09:32,662] Trial 268 pruned. 
+Eval num_timesteps=80000, episode_reward=-16122.48 +/- 7935.53
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:09:47,266] Trial 284 pruned. 
+Eval num_timesteps=240000, episode_reward=101.54 +/- 534.20
+Episode length: 175.25 +/- 202.36
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=12.02 +/- 582.93
+Episode length: 195.80 +/- 188.82
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-4050.07 +/- 1207.55
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:10:30,217] Trial 287 pruned. 
+Eval num_timesteps=80000, episode_reward=-2932.29 +/- 843.56
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:10:43,275] Trial 288 pruned. 
+Eval num_timesteps=80000, episode_reward=-5850.68 +/- 1915.45
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:11:14,566] Trial 290 pruned. 
+Eval num_timesteps=80000, episode_reward=-4427.41 +/- 1084.67
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:11:16,035] Trial 289 pruned. 
+Eval num_timesteps=80000, episode_reward=-6557.33 +/- 2278.37
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:11:28,424] Trial 291 pruned. 
+Eval num_timesteps=240000, episode_reward=90.36 +/- 593.70
+Episode length: 169.65 +/- 197.40
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-394.25 +/- 1240.59
+Episode length: 357.60 +/- 280.30
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=96.32 +/- 557.98
+Episode length: 190.15 +/- 214.60
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-5515.43 +/- 1216.32
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:12:07,991] Trial 292 pruned. 
+Eval num_timesteps=320000, episode_reward=235.42 +/- 132.57
+Episode length: 122.00 +/- 68.89
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-2437.67 +/- 622.93
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:12:54,335] Trial 293 pruned. 
+Eval num_timesteps=320000, episode_reward=167.80 +/- 390.37
+Episode length: 156.70 +/- 199.15
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1587.68 +/- 710.49
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3765.49 +/- 713.64
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:13:25,861] Trial 295 pruned. 
+Eval num_timesteps=80000, episode_reward=-3938.82 +/- 1569.39
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:13:37,453] Trial 296 pruned. 
+Eval num_timesteps=240000, episode_reward=167.43 +/- 64.94
+Episode length: 169.95 +/- 62.19
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=240.97 +/- 69.01
+Episode length: 122.75 +/- 45.90
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=233.13 +/- 74.10
+Episode length: 127.90 +/- 50.27
+New best mean reward!
+Eval num_timesteps=160000, episode_reward=-319.22 +/- 566.22
+Episode length: 572.10 +/- 432.21
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=250.40 +/- 111.67
+Episode length: 106.30 +/- 58.64
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=256.68 +/- 133.22
+Episode length: 109.50 +/- 67.64
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=143.51 +/- 177.87
+Episode length: 185.55 +/- 118.39
+Eval num_timesteps=320000, episode_reward=-283.72 +/- 657.67
+Episode length: 427.35 +/- 378.64
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=280.49 +/- 65.96
+Episode length: 109.40 +/- 50.21
+New best mean reward!
+Eval num_timesteps=240000, episode_reward=190.83 +/- 84.80
+Episode length: 157.55 +/- 79.56
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-2922.92 +/- 807.32
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:17:42,851] Trial 298 pruned. 
+Eval num_timesteps=400000, episode_reward=74.72 +/- 680.94
+Episode length: 177.15 +/- 207.42
+[I 2024-12-12 13:17:54,829] Trial 286 pruned. 
+Eval num_timesteps=480000, episode_reward=201.56 +/- 159.79
+Episode length: 131.85 +/- 69.16
+Eval num_timesteps=320000, episode_reward=-63.48 +/- 719.87
+Episode length: 242.25 +/- 259.08
+New best mean reward!
+Eval num_timesteps=400000, episode_reward=209.39 +/- 102.45
+Episode length: 152.20 +/- 57.74
+Eval num_timesteps=320000, episode_reward=-749.45 +/- 622.62
+Episode length: 747.35 +/- 388.54
+New best mean reward!
+[I 2024-12-12 13:18:26,194] Trial 299 pruned. 
+Eval num_timesteps=480000, episode_reward=243.12 +/- 119.28
+Episode length: 115.50 +/- 62.82
+Eval num_timesteps=320000, episode_reward=-17.95 +/- 566.57
+Episode length: 277.50 +/- 306.84
+Eval num_timesteps=480000, episode_reward=277.26 +/- 78.86
+Episode length: 105.25 +/- 56.29
+Eval num_timesteps=560000, episode_reward=228.96 +/- 205.63
+Episode length: 139.35 +/- 200.84
+Eval num_timesteps=400000, episode_reward=1.41 +/- 632.91
+Episode length: 254.55 +/- 318.18
+[I 2024-12-12 13:20:55,647] Trial 294 pruned. 
+Eval num_timesteps=640000, episode_reward=54.70 +/- 402.36
+Episode length: 252.95 +/- 317.49
+New best mean reward!
+[I 2024-12-12 13:21:10,125] Trial 297 pruned. 
+Eval num_timesteps=560000, episode_reward=295.19 +/- 112.35
+Episode length: 93.45 +/- 63.63
+New best mean reward!
+Eval num_timesteps=480000, episode_reward=113.71 +/- 593.35
+Episode length: 161.00 +/- 200.98
+[I 2024-12-12 13:21:33,003] Trial 279 pruned. 
+Eval num_timesteps=320000, episode_reward=-1398.11 +/- 1189.51
+Episode length: 921.20 +/- 236.50
+New best mean reward!
+[I 2024-12-12 13:22:31,993] Trial 302 pruned. 
+Eval num_timesteps=320000, episode_reward=-1320.14 +/- 893.41
+Episode length: 818.85 +/- 362.34
+New best mean reward!
+[I 2024-12-12 13:22:38,173] Trial 301 pruned. 
+Eval num_timesteps=560000, episode_reward=255.92 +/- 78.02
+Episode length: 121.30 +/- 58.79
+Eval num_timesteps=320000, episode_reward=-1938.78 +/- 611.00
+Episode length: 954.90 +/- 196.59
+New best mean reward!
+[I 2024-12-12 13:23:02,338] Trial 303 pruned. 
+Eval num_timesteps=640000, episode_reward=252.00 +/- 126.37
+Episode length: 110.70 +/- 62.62
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=295.78 +/- 99.89
+Episode length: 91.70 +/- 64.88
+New best mean reward!
+Eval num_timesteps=640000, episode_reward=322.93 +/- 59.42
+Episode length: 71.05 +/- 44.22
+New best mean reward!
+[I 2024-12-12 13:24:14,799] Trial 300 finished with value: 291.4086011 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.00014611386603110557, 'clip_range': 0.2, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=80000, episode_reward=-5864.21 +/- 2335.38
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:24:49,919] Trial 309 pruned. 
+Eval num_timesteps=640000, episode_reward=317.33 +/- 59.61
+Episode length: 82.45 +/- 40.33
+New best mean reward!
+Eval num_timesteps=320000, episode_reward=-1603.60 +/- 804.06
+Episode length: 909.45 +/- 271.65
+New best mean reward!
+[I 2024-12-12 13:25:53,546] Trial 306 pruned. 
+Eval num_timesteps=320000, episode_reward=-364.86 +/- 639.10
+Episode length: 528.05 +/- 356.57
+New best mean reward!
+[I 2024-12-12 13:25:59,274] Trial 277 finished with value: 213.47214990000003 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 3.758139391171584e-05, 'clip_range': 0.1, 'n_epochs': 30, 'gae_lambda': 0.95, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=320000, episode_reward=-1492.19 +/- 1309.54
+Episode length: 817.50 +/- 320.34
+New best mean reward!
+[I 2024-12-12 13:26:17,965] Trial 305 pruned. 
+[I 2024-12-12 13:26:19,534] Trial 278 finished with value: 299.82125165 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 3.1166812674667164e-05, 'clip_range': 0.1, 'n_epochs': 30, 'gae_lambda': 0.95, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=320000, episode_reward=-2767.94 +/- 480.36
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:26:27,801] Trial 308 pruned. 
+Eval num_timesteps=320000, episode_reward=72.52 +/- 567.14
+Episode length: 184.05 +/- 194.64
+New best mean reward!
+[I 2024-12-12 13:27:48,136] Trial 280 finished with value: 231.10584060000002 and parameters: {'n_envs': 4, 'batch_size': 256, 'gamma': 0.99, 'learning_rate': 3.6336413111964856e-05, 'clip_range': 0.3, 'n_epochs': 30, 'gae_lambda': 0.95, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=320000, episode_reward=-3082.54 +/- 697.33
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:28:23,961] Trial 311 pruned. 
+Eval num_timesteps=320000, episode_reward=-2621.11 +/- 927.19
+Episode length: 952.60 +/- 206.61
+New best mean reward!
+[I 2024-12-12 13:29:35,317] Trial 313 pruned. 
+Eval num_timesteps=320000, episode_reward=-1149.72 +/- 968.57
+Episode length: 795.95 +/- 337.04
+New best mean reward!
+[I 2024-12-12 13:29:50,914] Trial 307 pruned. 
+Eval num_timesteps=320000, episode_reward=-3955.76 +/- 671.14
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:29:53,843] Trial 314 pruned. 
+Eval num_timesteps=640000, episode_reward=255.64 +/- 128.68
+Episode length: 125.40 +/- 120.70
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-4196.50 +/- 5451.27
+Episode length: 909.90 +/- 270.39
+New best mean reward!
+[I 2024-12-12 13:30:51,933] Trial 315 pruned. 
+Eval num_timesteps=80000, episode_reward=-3530.28 +/- 814.30
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:30:56,848] Trial 317 pruned. 
+Eval num_timesteps=640000, episode_reward=-9.73 +/- 695.53
+Episode length: 240.85 +/- 302.91
+[I 2024-12-12 13:31:15,916] Trial 310 pruned. 
+Eval num_timesteps=320000, episode_reward=184.72 +/- 246.39
+Episode length: 153.50 +/- 196.86
+New best mean reward!
+[I 2024-12-12 13:31:49,226] Trial 304 finished with value: 290.52485390000004 and parameters: {'n_envs': 16, 'batch_size': 2048, 'gamma': 0.99, 'learning_rate': 0.0001524019922638236, 'clip_range': 0.1, 'n_epochs': 10, 'gae_lambda': 0.98, 'net_arch': 'medium'}. Best is trial 157 with value: 326.4785243.
+Eval num_timesteps=80000, episode_reward=-12785.24 +/- 11303.86
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:34:03,500] Trial 323 pruned. 
+Eval num_timesteps=80000, episode_reward=-15335.93 +/- 20807.10
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:34:24,126] Trial 324 pruned. 
+Eval num_timesteps=80000, episode_reward=-972.90 +/- 467.34
+Episode length: 910.40 +/- 269.13
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-1501.88 +/- 804.01
+Episode length: 861.35 +/- 330.11
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-63864.27 +/- 76109.79
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:34:46,617] Trial 316 pruned. 
+Eval num_timesteps=80000, episode_reward=-1888.69 +/- 2133.88
+Episode length: 863.35 +/- 325.68
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-12267.47 +/- 6419.63
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:35:06,472] Trial 320 pruned. 
+Eval num_timesteps=80000, episode_reward=-2436.09 +/- 1113.73
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:36:00,278] Trial 318 pruned. 
+Eval num_timesteps=80000, episode_reward=-46942.37 +/- 43058.82
+Episode length: 1000.00 +/- 0.00
+New best mean reward!
+[I 2024-12-12 13:36:06,030] Trial 322 pruned. 
+Eval num_timesteps=160000, episode_reward=-1415.57 +/- 935.06
+Episode length: 873.00 +/- 303.06
+Eval num_timesteps=640000, episode_reward=232.56 +/- 167.97
+Episode length: 143.05 +/- 76.21
+New best mean reward!
+[I 2024-12-12 13:37:24,056] Trial 312 pruned. 
+Eval num_timesteps=80000, episode_reward=-1886.90 +/- 653.60
+Episode length: 951.75 +/- 210.32
+New best mean reward!
+Eval num_timesteps=80000, episode_reward=-3570.23 +/- 1974.12
+Episode length: 951.45 +/- 211.62
+New best mean reward!
+[I 2024-12-12 13:38:05,321] Trial 331 pruned. 
+Eval num_timesteps=80000, episode_reward=-4256.71 +/- 1769.00
+Episode length: 951.40 +/- 211.84
+New best mean reward!
+[I 2024-12-12 13:38:07,786] Trial 326 pruned. 

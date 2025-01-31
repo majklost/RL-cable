@@ -1,0 +1,7 @@
+Environment: CableReshapeMovementVel
+Total runs: 4
+env_kwargs: {'seg_num': 10, 'cable_length': 300, 'scale_factor': 800}
+0. potential reward
+1. potential reward
+2. potential reward
+3. potential reward

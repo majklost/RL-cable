@@ -1,0 +1,1 @@
+{"run_cnt": 6, "comment": ["first_run", "first_run", "first_run", "first_run", "first_run", "first_run"], "env_name": "RectVel", "dates": ["22-12-22-18-16", "22-12-22-29-03", "22-12-22-44-41", "22-12-23-12-58", "23-12-12-14-39", "23-12-18-53-06"], "data": {"env_kwargs": {"gamma": 0.99}, "normalize": true}}

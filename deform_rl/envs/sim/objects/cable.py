@@ -1,6 +1,7 @@
 import pymunk
 import numpy as np
 
+import warnings
 
 from .pm_multibody import PMMultiBodyObject
 from .rectangle import Rectangle
@@ -120,6 +121,12 @@ class Cable(PMMultiBodyObject):
         # the length of the empty space between segments so cable can bend
         self.empty_len = self.thickness / \
             (3 * np.tan((np.pi - self.max_angle) / 2))
+        print(f"empty len: {self.empty_len}, thickness: {self.thickness}")
+
+        if self.empty_len > self.thickness:
+            warnings.warn(
+                "Empty length is greater than thickness, cable can stuck in itself")
+
         self.length = length + 2 * (self.num_links - 1) * self.empty_len
         self._create_cable(pos)
         self.track_colisions = True

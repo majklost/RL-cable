@@ -1,0 +1,10 @@
+Environment: CableReshapeMovement
+Total runs: 4
+seg_num: 10
+cable_length: 300
+scale_factor: 800
+threshold: 10
+0. movement cable
+1. movement cable
+2. movement cable
+3. movement cable

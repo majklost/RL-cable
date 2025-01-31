@@ -1,0 +1,1 @@
+{"run_cnt": 1, "comment": ["first_run"], "env_name": "TrajectoryVel", "dates": ["23-12-19-34-38"], "data": {"env_kwargs": {"gamma": 0.99}, "normalize": true}}

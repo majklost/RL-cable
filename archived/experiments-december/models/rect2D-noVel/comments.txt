@@ -1,0 +1,8 @@
+Environment: RectangleNoVel
+Total runs: 6
+0. first_run
+1. first_run
+2. first_run
+3. first_run
+4. first_run
+5. first_run

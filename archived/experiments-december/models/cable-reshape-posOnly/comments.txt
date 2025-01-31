@@ -1,0 +1,13 @@
+Environment: CableReshapeV2
+Total runs: 8
+seg_num: 10
+cable_length: 300
+scale_factor: 800
+0. small cable || small cable || small cable || small cable || small cable
+1. small cable
+2. small cable
+3. small cable
+4. small cable
+5. small cable
+6. small cable
+7. small cable

@@ -1,0 +1,7 @@
+Environment: EmptyNoRewardObs
+Total runs: 3
+env_kwargs: {}
+maker_kwargs: {'max_episode_steps': 2000}
+0. Same as no_obs_no_rew but started from learned agent
+1. Same as no_obs_no_rew but started from learned agent
+2. Same as no_obs_no_rew but started from learned agent

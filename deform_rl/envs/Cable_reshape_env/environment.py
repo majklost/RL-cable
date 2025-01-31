@@ -54,6 +54,7 @@ class CableReshape(gym.Env):
         self.exported_sim = self.sim.export()
         self.target = self._get_target()
         self.start_distance = self._calc_distance(ctrl_only=True)
+        self.last_actions = None
 
     def _create_observation_space(self):
         ctrl_num = len(self.controlable_idxs)
@@ -117,6 +118,7 @@ class CableReshape(gym.Env):
         return reward
 
     def step(self, action):
+        self.last_actions = action
         self.step_count += 1
         self.prev_points = self.cable.position
         # print(action)
@@ -163,6 +165,10 @@ class CableReshape(gym.Env):
         for i in range(len(self.target)):
             pygame.draw.line(screen, (255, 0, 0), self.cable.position[i],
                              self.target[i], 1)
+        actions = self.last_actions.reshape((self.ctrl_num, 2))
+        for i in range(len(actions)):
+            pygame.draw.line(screen, (0, 0, 255), self.cable.position[i],
+                             self.cable.position[i] + actions[i] / 10, 3)
 
     def close(self):
         if self.screen is not None:

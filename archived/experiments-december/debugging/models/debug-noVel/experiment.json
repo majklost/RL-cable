@@ -1,0 +1,1 @@
+{"run_cnt": 4, "comment": ["first_run", "first_run", "first_run", "first_run"], "env_name": "RectNoVel", "dates": ["22-12-22-18-47", "22-12-22-29-11", "22-12-22-44-48", "23-12-18-59-15"], "data": {"env_kwargs": {"gamma": 0.99}, "normalize": true}}
