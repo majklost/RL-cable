@@ -45,9 +45,9 @@ class CableReshape(gym.Env):
         self.observation_space = self._create_observation_space()
 
         self.action_space = gym.spaces.Box(
-            low=-1, high=1, shape=(self.ctrl_num*2,), dtype=np.float32)
+            low=-1, high=1, shape=(self.ctrl_num * 2,), dtype=np.float32)
 
-        self.cable = Cable([self.width/2-cable_length/2, self.height/2],
+        self.cable = Cable([self.width / 2 - cable_length / 2, self.height / 2],
                            length=cable_length, num_links=seg_num, thickness=5)
         self.sampler = self._create_sampler()
         self.sim = Simulator(sim_config, [self.cable], [], unstable_sim=False)
@@ -59,12 +59,12 @@ class CableReshape(gym.Env):
         ctrl_num = len(self.controlable_idxs)
         limit = max(self.width, self.height)
         return gym.spaces.Box(
-            low=-limit, high=limit, shape=(ctrl_num*2+self.seg_num*2,), dtype=np.float32)
+            low=-limit, high=limit, shape=(ctrl_num * 2 + self.seg_num * 2,), dtype=np.float32)
 
     def _create_sampler(self):
         PADDING = 50
         return BezierSampler(self.cable.length, self.cable.num_links, lower_bounds=np.array(
-            [PADDING, PADDING, 0]), upper_bounds=np.array([self.width-PADDING, self.height-PADDING, 2*np.pi]))
+            [PADDING, PADDING, 0]), upper_bounds=np.array([self.width - PADDING, self.height - PADDING, 2 * np.pi]))
 
     def _calc_distance(self, ctrl_only=False):
         # ctrl_points are in shape (num_links, 2)
@@ -100,7 +100,7 @@ class CableReshape(gym.Env):
         }
 
     def _get_target(self):
-        return self.sampler.sample(self.width/2, self.height/2)
+        return self.sampler.sample(self.width / 2, self.height / 2)
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed, options=options)
@@ -113,7 +113,7 @@ class CableReshape(gym.Env):
 
     def _get_standard_reward(self):
         distance = self._calc_distance(ctrl_only=True)
-        reward = float(-5*np.mean(distance)/np.mean(self.start_distance))
+        reward = float(-5 * np.mean(distance) / np.mean(self.start_distance))
         return reward
 
     def step(self, action):
@@ -123,7 +123,7 @@ class CableReshape(gym.Env):
         for i in range(len(self.controlable_idxs)):
             idx = self.controlable_idxs[i]
             # print(i, len(action), i*2+2)
-            force = action[i*2:i*2+2]
+            force = action[i * 2:i * 2 + 2]
             if np.linalg.norm(force) > 1:
                 force /= np.linalg.norm(force)
             force *= self.scale_factor
@@ -160,6 +160,9 @@ class CableReshape(gym.Env):
     def _render_target(self, screen):
         for i in range(len(self.target)):
             pygame.draw.circle(screen, (0, 255, 0), self.target[i], 5)
+        for i in range(len(self.target)):
+            pygame.draw.line(screen, (255, 0, 0), self.cable.position[i],
+                             self.target[i], 1)
 
     def close(self):
         if self.screen is not None:
@@ -183,9 +186,9 @@ class CableReshapeV2(CableReshape):
 
     def _create_observation_space(self):
         ctrl_num = len(self.controlable_idxs)
-        limit = max(self.width, self.height)//2
+        limit = max(self.width, self.height) // 2
         return gym.spaces.Box(
-            low=-limit, high=limit, shape=(ctrl_num*2,), dtype=np.float32)
+            low=-limit, high=limit, shape=(ctrl_num * 2,), dtype=np.float32)
 
     def _get_obs(self):
         all_pts = self.cable.position
@@ -213,7 +216,7 @@ class CableReshapeV3(CableReshapeV2):
     def calc_potential(self, position):
         target_pts = self.target[self.controlable_idxs]
         # max_distance = np.sqrt(self.width**2 + self.height**2)
-        return -np.sum(np.linalg.norm(position-self.target, axis=1))
+        return -np.sum(np.linalg.norm(position - self.target, axis=1))
 
     def _get_standard_reward(self):
         all_pts = self.cable.position
@@ -221,7 +224,7 @@ class CableReshapeV3(CableReshapeV2):
         prev_pts = self.prev_points[self.controlable_idxs]
         prev_potential = self.calc_potential(prev_pts)
         now_potential = self.calc_potential(ctrl_pts)
-        return now_potential - prev_potential-5
+        return now_potential - prev_potential - 5
 
 
 class CableReshapeMovement(CableReshapeV3):
@@ -235,7 +238,7 @@ class CableReshapeMovementVel(CableReshapeMovement):
         limit = np.inf
 
         return gym.spaces.Box(
-            low=-limit, high=limit, shape=(ctrl_num*4,), dtype=np.float32)
+            low=-limit, high=limit, shape=(ctrl_num * 4,), dtype=np.float32)
 
     def _get_obs(self):
         all_pts = self.cable.position
@@ -253,7 +256,7 @@ class CableReshapeMovementNeighbourObs(CableReshapeMovement):
         limit = np.inf
 
         return gym.spaces.Box(
-            low=-limit, high=limit, shape=(ctrl_num*6,), dtype=np.float32)
+            low=-limit, high=limit, shape=(ctrl_num * 6,), dtype=np.float32)
 
     def _get_obs(self):
         all_pts = self.cable.position
@@ -291,7 +294,7 @@ class CableReshapeNeighbourObs(CableReshapeV2):
     def _create_observation_space(self):
         limit = max(self.width, self.height)
         return gym.spaces.Box(
-            low=-limit, high=limit, shape=((self.ctrl_num+self.ctrl_num)*2,), dtype=np.float32)
+            low=-limit, high=limit, shape=((self.ctrl_num + self.ctrl_num) * 2,), dtype=np.float32)
 
     def _get_obs(self):
         all_pts = self.cable.position

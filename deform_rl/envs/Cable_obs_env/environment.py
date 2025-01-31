@@ -1,17 +1,18 @@
 import gymnasium as gym
+import pygame.freetype
 import pymunk
 from pymunk.pygame_util import DrawOptions
 import pygame
 import numpy as np
 from ..sim.simulator import Simulator
 from ..sim.objects.cable import Cable
-from ..sim.maps import AlmostEmptyWorld
+from ..sim.maps import AlmostEmptyWorld, EmptyWorld, UPDATED_CFG
 
 
 class CableObsV0(gym.Env):
     """
 
-    In this environment, there are a few random 
+    In this environment, there are a few random
     obstacles. Agent has random initial position and random goal position.
     """
     metadata = {'render.modes': ['human', None], 'render_fps': 60}
@@ -19,7 +20,7 @@ class CableObsV0(gym.Env):
     def __init__(self, controllable_idxs=None, threshold=20, render_mode=None):
         super().__init__()
         pygame.init()
-        self.map = AlmostEmptyWorld()
+        self.map = self._get_map()
         # rendering
         self.screen = None
         self.width = self.map.cfg['width']
@@ -41,9 +42,16 @@ class CableObsV0(gym.Env):
         self.scale_factor = 200
         self.last_target_potential = None
         self.last_obstacle_potential = None
+        self.last_reward_obs = 0
+        self.lats_reward_target = 0
+        self.last_info = None
+        self.success = False
 
         self.observation_space = self._create_observation_space()
         self.action_space = self._create_action_space()
+
+    def _get_map(self):
+        return AlmostEmptyWorld()
 
     def _set_filter(self):
         for b in self.map.cable.bodies:
@@ -60,7 +68,7 @@ class CableObsV0(gym.Env):
         return gym.spaces.Box(low=-1, high=1, shape=(self.controllable_num * 2,), dtype=np.float64)
 
     def _get_target_distance_vecs(self):
-        return self.map.cable.position - self.map.get_goal_points()
+        return self.map.get_goal_points() - self.map.cable.position
 
     def _get_obstacle_distance_vecs(self):
         responses = np.array([self.sim._space.point_query_nearest(
@@ -88,15 +96,17 @@ class CableObsV0(gym.Env):
         self.sim.step()
         obs = self._get_observation()
         reward, done = self._get_reward()
-        info = self._get_info()
-        return obs, reward, done, False, info
+
+        self.last_info = self._get_info()
+        return obs, reward, done, False, self.last_info
 
     def _get_reward(self):
         if self.map.cable.outer_collision_idxs:
-            return -1000, True
+            return -10000, True
 
         if np.all(np.linalg.norm(self._get_target_distance_vecs(), axis=1) < self.threshold):
-            return 1000, True
+            self.success = True
+            return 10000, True
 
         target_potential = self._calc_potential(
             self._get_target_distance_vecs())
@@ -109,10 +119,16 @@ class CableObsV0(gym.Env):
             obstacle_potential  # must be negative
         self.last_target_potential = target_potential
         self.last_obstacle_potential = obstacle_potential
-        return 0.8 * target_reward + 0.2 * obstacle_reward, False
+
+        # DEBUG
+        self.lats_reward_target = target_reward
+        self.last_reward_obs = obstacle_reward
+
+        return target_reward + obstacle_reward, False
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed, options=options)
+        self.success = False
         self.map.reset_start()
         self.map.reset_goal()
         self.last_obstacle_potential = self._calc_potential(
@@ -120,12 +136,16 @@ class CableObsV0(gym.Env):
         self.last_target_potential = self._calc_potential(
             self._get_target_distance_vecs())
 
-        info = self._get_info()
-        return self._get_observation(), info
+        self.last_info = self._get_info()
+        return self._get_observation(), self.last_info
 
     def _get_info(self):
         return {
             "position": self.map.cable.position,
+            "goal": self.map.get_goal_points(),
+            "success": self.success,
+            # "obstacle_vecs": self._get_obstacle_distance_vecs(),
+            # "target_vecs": self._get_target_distance_vecs(),
         }
 
     def render(self):
@@ -137,7 +157,8 @@ class CableObsV0(gym.Env):
                 (self.width, self.height))
             self.options = DrawOptions(self.screen)
             self.options.flags = pymunk.SpaceDebugDrawOptions.DRAW_SHAPES
-
+            pygame.font.init()
+            self.font = pygame.freetype.Font('Arial.ttf', 20)
         self.screen.fill((255, 255, 255))
         self.sim.draw_on(self.options)
         self._additional_render(self.screen)
@@ -148,6 +169,18 @@ class CableObsV0(gym.Env):
         gpoints = self.map.get_goal_points()
         for i in range(len(gpoints)):
             pygame.draw.circle(screen, (0, 255, 0), gpoints[i], 5)
+        obstacle_vecs = self._get_obstacle_distance_vecs()
+        for i in range(len(obstacle_vecs)):
+            pygame.draw.line(screen, (0, 255, 0), self.map.cable.position[i],
+                             self.map.cable.position[i] + obstacle_vecs[i], 1)
+        target_vecs = self._get_target_distance_vecs()
+        for i in range(len(target_vecs)):
+            pygame.draw.line(screen, (255, 0, 0), self.map.cable.position[i],
+                             self.map.cable.position[i] + target_vecs[i], 1)
+        self.font.render_to(
+            screen, (50, 50), f"Obs reward: {self.last_reward_obs}")
+        self.font.render_to(screen, (50, 100),
+                            f"Target reward: {self.lats_reward_target}")
 
     def close(self):
         if self.screen is not None:
@@ -155,6 +188,67 @@ class CableObsV0(gym.Env):
             pygame.quit()
             self.screen = None
             self.clock = None
+
+
+class EmptyObsV0(CableObsV0):
+    def _get_map(self):
+        return EmptyWorld()
+
+
+class EmptyNoRewardObs(EmptyObsV0):
+    def _get_observation(self):
+        target_distances = self._get_target_distance_vecs()
+        obstacle_distances = np.zeros_like(target_distances)
+        return np.concatenate((target_distances.flatten(), obstacle_distances.flatten()))
+
+    def _get_reward(self):
+        if self.map.cable.outer_collision_idxs:
+            return -10000, True
+
+        if np.all(np.linalg.norm(self._get_target_distance_vecs(), axis=1) < self.threshold):
+            self.success = True
+            return 10000, True
+
+        target_potential = self._calc_potential(
+            self._get_target_distance_vecs())
+
+        target_reward = target_potential - self.last_target_potential - 5
+        self.last_target_potential = target_potential
+
+        # DEBUG
+        self.lats_reward_target = target_reward
+        self.last_reward_obs = 0
+
+        return target_reward, False
+
+
+class EmptyNoRewShorter(EmptyNoRewardObs):
+    def _get_map(self):
+        my_cfg = UPDATED_CFG.copy()
+        my_cfg['SEG_NUM'] = 10
+        return EmptyWorld(cfg=my_cfg)
+
+
+class ObsObservedOnly(CableObsV0):
+    def _get_reward(self):
+        if self.map.cable.outer_collision_idxs:
+            return -10000, True
+
+        if np.all(np.linalg.norm(self._get_target_distance_vecs(), axis=1) < self.threshold):
+            self.success = True
+            return 10000, True
+
+        target_potential = self._calc_potential(
+            self._get_target_distance_vecs())
+
+        target_reward = target_potential - self.last_target_potential - 5
+        self.last_target_potential = target_potential
+
+        # DEBUG
+        self.lats_reward_target = target_reward
+        self.last_reward_obs = 0
+
+        return target_reward, False
 
 
 if __name__ == "__main__":

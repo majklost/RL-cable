@@ -38,16 +38,167 @@ activation nn.Tanh
 
 def vanilla():
     env_name = CableObsV0.__name__
-    kwargs = dict(env_kwargs=dict())
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
     paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
 
-    env, eval_env = standard_envs(CableObsV0, env_kwargs=kwargs['env_kwargs'])
+    env, eval_env = standard_envs(
+        CableObsV0, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
     SAVE_FREQ = 10000
     ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
-    model = PPO("MlpPolicy", env, verbose=1,
+    model = PPO("MlpPolicy", env, verbose=0,
                 tensorboard_log=paths['tb'], device='cpu')
     print("Training model")
-    model.learn(total_timesteps=5000000, callback=[ch_clb, eval_clb])
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def vannila_bigger():
+    env_name = CableObsV0.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        CableObsV0, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu', policy_kwargs=dict(
+                    net_arch=dict(pi=[128, 256], vf=[128, 256]),
+                    activation_fn=nn.Tanh,
+                ))
+    print("Training model")
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def no_obs():
+    env_name = EmptyObsV0.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        EmptyObsV0, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu', policy_kwargs=dict(
+                    net_arch=dict(pi=[128, 256], vf=[128, 256]),
+                    activation_fn=nn.Tanh,
+                ))
+    print("Training model")
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def no_obs_small():
+    env_name = EmptyObsV0.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        EmptyObsV0, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'], norm_paths=EXPERIMENTS_PATH / "norms" / "cable-obs-no_obs_no_rew" / "cable-obs-no_obs_no_rew_r1_30-01-21-37-18.pkl")
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    # model = PPO("MlpPolicy", env, verbose=0,
+    #             tensorboard_log=paths['tb'], device='cpu')
+    model = PPO.load(
+        EXPERIMENTS_PATH / "models" / "cable-obs-no_obs_no_rew" / "cable-obs-no_obs_no_rew_best_r1_30-01-21-37-18_best_model.zip")
+    model.set_env(env)
+    model.tensorboard_log = paths['tb']
+    print("Training model")
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def no_obs_no_rew():
+    env_name = EmptyNoRewardObs.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        EmptyNoRewardObs, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
+    print("Training model")
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def no_obs_no_rew_bigger():
+    env_name = EmptyNoRewardObs.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        EmptyNoRewardObs, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu', policy_kwargs=dict(
+                    net_arch=dict(pi=[128, 256], vf=[128, 256]),
+                    activation_fn=nn.Tanh,
+                ))
+    print("Training model")
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def no_obs_no_rew_short_c():
+    env_name = EmptyNoRewShorter.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        EmptyNoRewShorter, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0,
+                tensorboard_log=paths['tb'], device='cpu')
+    print("Training model")
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def testing_inference():
+    env_name = EmptyNoRewardObs.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(
+    ), 'Same as no_obs_no_rew but started from learned agent', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        EmptyNoRewardObs, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'], norm_paths=EXPERIMENTS_PATH / "norms" / "cable-obs-no_obs_no_rew" / "cable-obs-no_obs_no_rew_r1_30-01-21-37-18.pkl")
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO.load(
+        EXPERIMENTS_PATH / "models" / "cable-obs-no_obs_no_rew" / "cable-obs-no_obs_no_rew_best_r1_30-01-21-37-18_best_model.zip")
+    model.set_env(env)
+    model.tensorboard_log = paths['tb']
+    print("Training model")
+    model.learn(total_timesteps=1000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def obs_observed_only():
+    """
+    Obstacles observed but no dens reward about them
+    """
+    env_name = ObsObservedOnly.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=2000))
+    paths = get_paths(get_name(
+    ), 'started from learned agent adding observation without reward change', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        ObsObservedOnly, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'], norm_paths=EXPERIMENTS_PATH / "norms" / "cable-obs-no_obs_no_rew" / "cable-obs-no_obs_no_rew_r1_30-01-21-37-18.pkl")
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO.load(
+        EXPERIMENTS_PATH / "models" / "cable-obs-no_obs_no_rew" / "cable-obs-no_obs_no_rew_best_r1_30-01-21-37-18_best_model.zip")
+    model.set_env(env)
+    model.tensorboard_log = paths['tb']
+    print("Training model")
+    model.learn(total_timesteps=2000000, callback=[ch_clb, eval_clb])
     print("Training done")
 
 
@@ -57,4 +208,12 @@ def get_name():
 
 if __name__ == "__main__":
     pass
-    vanilla()
+    # vanilla()
+    # vannila_bigger()
+    # no_obs()
+    # no_obs_small()
+    # testing_inference()
+    # no_obs_no_rew()
+    # obs_observed_only()
+    # no_obs_no_rew_bigger()
+    no_obs_no_rew_short_c()

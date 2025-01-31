@@ -26,13 +26,14 @@ UPDATED_CFG = {
     'damping': .15,
     'collision_slope': 0.01,
     'CABLE_LENGTH': CABLE_LENGTH,
+    "SEG_NUM": NUM
 
 }
 
 # plan - 320 px start, 320 px end; middle is obstacle course
 EMPTY = 320
 START = (EMPTY - 10, HEIGHT // 2 - CABLE_LENGTH // 2)
-END = (WIDTH - EMPTY // 2, HEIGHT // 2)
+END = (HEIGHT - EMPTY // 2, HEIGHT // 2)
 MARGIN = 50
 
 
@@ -47,7 +48,7 @@ class EmptyWorld:
 
     def __init__(self, cfg=UPDATED_CFG, rectangle=False):
         self.cfg = cfg
-        self.cfg.update(UPDATED_CFG)
+        # self.cfg.update(UPDATED_CFG)
         self._init_manager()
         self.fixed = []
         self.movable = []
@@ -59,7 +60,7 @@ class EmptyWorld:
             print("cable")
             self._add_cable()
 
-        self._sampler = BezierSampler(self.cable.length, NUM, np.array(
+        self._sampler = BezierSampler(self.cable.length, self.cfg['SEG_NUM'], np.array(
             [MARGIN, MARGIN, 0]), np.array([cfg["width"] - MARGIN, cfg["height"] - MARGIN, 2 * np.pi]))
         self._goal_points = self._sampler.sample(
             x=END[0], y=END[1], angle=0, fixed_shape=True)
@@ -84,9 +85,9 @@ class EmptyWorld:
     def _add_basic(self):
         boundings = Boundings(self.cfg["width"], self.cfg["height"])
         # end_platform = Rectangle(
-        #     np.array([WIDTH - EMPTY // 2 - 10, HEIGHT // 2]), EMPTY, HEIGHT, DYNAMIC, True)
+        #     np.array([cfg['width'] - EMPTY // 2 - 10, cfg['height'] // 2]), EMPTY, cfg['height'], DYNAMIC, True)
         # end_platform = Rectangle(
-        #     np.array([EMPTY // 2 - 10, HEIGHT // 2]), EMPTY, HEIGHT, KINEMATIC, True)
+        #     np.array([EMPTY // 2 - 10, cfg['height'] // 2]), EMPTY, cfg['height'], KINEMATIC, True)
         # end_platform.color = (237, 186, 31)
         # end_platform.set_collision_type(5)
 
@@ -100,8 +101,8 @@ class EmptyWorld:
         self.movable.append(self.cable)
 
     def _add_cable(self):
-        self.cable = Cable(START, CABLE_LENGTH,
-                           NUM, thickness=5, angle=np.pi)
+        self.cable = Cable(START, self.cfg["CABLE_LENGTH"],
+                           self.cfg['SEG_NUM'], thickness=5, angle=np.pi)
         # self.cable = Rectangle(START, 20, 20, DYNAMIC)
         self.cable.color = (0, 0, 255)
         self.cable.set_collision_type(1)
@@ -128,13 +129,43 @@ class EmptyWorld:
         self.sim.add_custom_handler(self._begin_col, self._on_exit, 1, 5)
         return self.sim
 
+    def _check_validity(self, pos):
+        if not hasattr(self, "sim"):
+            raise ValueError("Simulator not initialized, use get_sim() first")
+
+        b = pymunk.Body()
+        circ = pymunk.Circle(b, 10)
+
+        for p in pos:
+            if not (MARGIN < p[0] < self.cfg['width'] - MARGIN and MARGIN < p[1] < self.cfg['height'] - MARGIN):
+                return False
+
+            b.position = p.tolist()
+            res = self.sim._space.shape_query(circ)
+            if res:
+                return False
+        return True
+
+    def reset_start(self):
+        valid = False
+        while not valid:
+            self._start_points = self._sampler.sample()
+            valid = self._check_validity(self._start_points)
+        self.cable.position = self._start_points
+
+    def reset_goal(self):
+        valid = False
+        while not valid:
+            self._goal_points = self._sampler.sample()
+            valid = self._check_validity(self._goal_points)
+
 
 class PipedWorld(EmptyWorld):
     """
     World with narrow passages between 'rooms' some feasible, some not
     """
 
-    def __init__(self, cfg):
+    def __init__(self, cfg=UPDATED_CFG):
         cfg.update({
             "seed_env": 50,
         })
@@ -143,40 +174,42 @@ class PipedWorld(EmptyWorld):
 
     def _add_pipes(self):
         blockage = Rectangle(
-            np.array([EMPTY + 50, HEIGHT // 4 - 50]), HEIGHT // 2 - 80, 20, STATIC)
+            np.array([EMPTY + 50, self.cfg['height'] // 4 - 50]), self.cfg['height'] // 2 - 80, 20, STATIC)
         blockage2 = Rectangle(np.array(
-            [EMPTY + 50, HEIGHT - (HEIGHT // 4 - 50)]), HEIGHT // 2 - 80, 20, STATIC)
+            [EMPTY + 50, self.cfg['height'] - (self.cfg['height'] // 4 - 50)]), cfg['height'] // 2 - 80, 20, STATIC)
         blockage.orientation = blockage2.orientation = np.pi / 2
         self.fixed.append(blockage)
         self.fixed.append(blockage2)
-        self._create_pipe(np.array([EMPTY + 200, HEIGHT // 2]), 300, 0, 150)
-        self._add_v_shape(np.array([WIDTH // 2 - 150, HEIGHT // 2]), 200, 120)
+        self._create_pipe(
+            np.array([EMPTY + 200, self.cfg['height'] // 2]), 300, 0, 150)
+        self._add_v_shape(
+            np.array([self.cfg['width'] // 2 - 150, self.cfg['height'] // 2]), 200, 120)
         rec = Rectangle(
-            np.array([WIDTH // 2 - 220, HEIGHT // 2 - 200]), 250, 20, STATIC)
+            np.array([self.cfg['width'] // 2 - 220, self.cfg['height'] // 2 - 200]), 250, 20, STATIC)
         rec.orientation = -deg2rad(60)
         self.fixed.append(rec)
         rec = Rectangle(
-            np.array([WIDTH // 2 - 220, HEIGHT // 2 + 180]), 250, 20, STATIC)
+            np.array([self.cfg['width'] // 2 - 220, self.cfg['height'] // 2 + 180]), 250, 20, STATIC)
         rec.orientation = deg2rad(45)
         self.fixed.append(rec)
         rec = Rectangle(
-            np.array([WIDTH // 2, HEIGHT // 2 + 280]), 400, 20, STATIC)
+            np.array([self.cfg['width'] // 2, self.cfg['height'] // 2 + 280]), 400, 20, STATIC)
         self.fixed.append(rec)
         rec = Rectangle(
-            np.array([WIDTH // 2, HEIGHT // 2 + 200]), 400, 20, STATIC)
+            np.array([self.cfg['width'] // 2, self.cfg['height'] // 2 + 200]), 400, 20, STATIC)
         rec.orientation = deg2rad(45)
         self.fixed.append(rec)
         rec = Rectangle(
-            np.array([WIDTH // 2 + 80, HEIGHT // 2 - 280]), 700, 20, STATIC)
+            np.array([self.cfg['width'] // 2 + 80, self.cfg['height'] // 2 - 280]), 700, 20, STATIC)
         self.fixed.append(rec)
         rec = Rectangle(
-            np.array([WIDTH // 2 + 20, HEIGHT // 2 - 120]), 300, 20, STATIC)
+            np.array([self.cfg['width'] // 2 + 20, self.cfg['height'] // 2 - 120]), 300, 20, STATIC)
         self.fixed.append(rec)
         rec = Rectangle(
-            np.array([WIDTH // 2 + 400, HEIGHT // 2 - 120]), 400, 20, STATIC)
+            np.array([self.cfg['width'] // 2 + 400, self.cfg['height'] // 2 - 120]), 400, 20, STATIC)
         rec.orientation = -deg2rad(70)
         self.fixed.append(rec)
-        # self._create_pipe(np.array([EMPTY+500, HEIGHT // 2+180]), 300, deg2rad(45), 150)
+        # self._create_pipe(np.array([EMPTY+500, cfg['height'] // 2+180]), 300, deg2rad(45), 150)
 
     def _create_pipe(self, pos, length, angle, width):
         pipe1 = Rectangle(pos + (0, width // 2), length, 20, STATIC)
@@ -207,7 +240,7 @@ class ThickStones(EmptyWorld):
 
     def _add_stones(self):
         stones = RandomObstacleGroup(
-            np.array([EMPTY + 120, 200]), WIDTH // 6, HEIGHT // 3.5, 3, 3, radius=200)
+            np.array([EMPTY + 120, 200]), self.cfg['width'] // 6, self.cfg['height'] // 3.5, 3, 3, radius=200)
         stones.color = (100, 100, 100)
         self.fixed.append(stones)
 
@@ -223,7 +256,7 @@ class StandardStones(EmptyWorld):
 
     def _add_stones(self):
         stones = RandomObstacleGroup(
-            np.array([EMPTY + 120, 30]), WIDTH // 6, HEIGHT // 3.5, 4, 4, radius=130)
+            np.array([EMPTY + 120, 30]), self.cfg['width'] // 6, self.cfg['height'] // 3.5, 4, 4, radius=130)
         stones.color = (100, 100, 100)
         self.fixed.append(stones)
 
@@ -233,8 +266,8 @@ class AlmostEmptyWorld(EmptyWorld):
     World with a few obstacles
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, cfg=UPDATED_CFG):
+        super().__init__(cfg)
         self._add_obstacles()
 
     def _init_manager(self):
@@ -243,42 +276,9 @@ class AlmostEmptyWorld(EmptyWorld):
 
     def _add_obstacles(self):
         stones = RandomObstacleGroup(
-            np.array([EMPTY + 120, 60]), WIDTH // 4, HEIGHT // 2.5, 3, 3, radius=100)
+            np.array([EMPTY + 120, 60]), self.cfg['width'] // 4, self.cfg['height'] // 2.5, 3, 3, radius=100)
         stones.color = (100, 100, 100)
         self.fixed.append(stones)
-
-    def _check_validity(self, pos):
-        if not hasattr(self, "sim"):
-            raise ValueError("Simulator not initialized, use get_sim() first")
-
-        b = pymunk.Body()
-        circ = pymunk.Circle(b, 10)
-
-        for p in pos:
-            if not (MARGIN < p[0] < WIDTH - MARGIN and MARGIN < p[1] < HEIGHT - MARGIN):
-                return False
-
-            b.position = p.tolist()
-            res = self.sim._space.shape_query(circ)
-            if res:
-                return False
-        return True
-
-    def reset_start(self):
-        valid = False
-        while not valid:
-            self._start_points = self._sampler.sample()
-            valid = self._check_validity(self._start_points)
-        self.cable.position = self._start_points
-
-    def reset_goal(self):
-        valid = False
-        while not valid:
-            self._goal_points = self._sampler.sample()
-            valid = self._check_validity(self._goal_points)
-
-    def get_goal_points(self):
-        return self._goal_points
 
 
 class NonConvexWorld(EmptyWorld):
@@ -286,7 +286,7 @@ class NonConvexWorld(EmptyWorld):
     World with non-convex obstacles
     """
 
-    def __init__(self, cfg):
+    def __init__(self, cfg=UPDATED_CFG):
         cfg.update({
             "seed_env": 51,
         })
@@ -294,18 +294,20 @@ class NonConvexWorld(EmptyWorld):
         self._add_non_convex()
 
     def _add_non_convex(self):
-        self._add_v_shape(np.array([WIDTH // 2, HEIGHT // 2]), 420, 35)
-        self._add_v_shape(np.array([WIDTH // 2 - 400, HEIGHT // 3]), 400, 60)
         self._add_v_shape(
-            np.array([WIDTH // 2 + 200, HEIGHT // 2 - 300]), 200, 30)
+            np.array([self.cfg['width'] // 2, self.cfg['height'] // 2]), 420, 35)
         self._add_v_shape(
-            np.array([WIDTH // 2 + 200, HEIGHT // 2 + 300]), 200, 30)
+            np.array([self.cfg['width'] // 2 - 400, self.cfg['height'] // 3]), 400, 60)
         self._add_v_shape(
-            np.array([WIDTH // 2 - 600, HEIGHT // 2 + 300]), 200, 40)
+            np.array([self.cfg['width'] // 2 + 200, self.cfg['height'] // 2 - 300]), 200, 30)
+        self._add_v_shape(
+            np.array([self.cfg['width'] // 2 + 200, self.cfg['height'] // 2 + 300]), 200, 30)
+        self._add_v_shape(
+            np.array([self.cfg['width'] // 2 - 600, self.cfg['height'] // 2 + 300]), 200, 40)
 
         for i in range(5):
             self._add_v_shape(
-                np.array([WIDTH - EMPTY - 200, HEIGHT - i * 200]), 80, 40)
+                np.array([self.cfg['width'] - EMPTY - 200, self.cfg['height'] - i * 200]), 80, 40)
 
     def _add_v_shape(self, pos, length, angle):
         rect1 = Rectangle(pos + (0, length // 4), length, 20, STATIC)

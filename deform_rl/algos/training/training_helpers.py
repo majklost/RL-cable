@@ -11,7 +11,7 @@ import inspect
 import warnings
 
 
-def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] = [],  wrappers_args: list[dict] = [], **kwargs):
+def single_env_maker(ENV_CREATOR: gym.Env, seed=0, wrappers: list[gym.Wrapper] = [], wrappers_args: list[dict] = [], **kwargs):
     """
     Return a function that creates a single environment.
 
@@ -95,6 +95,20 @@ class SaveModelCallback(BaseCallback):
         return True
 
 
+class SuccessRateTracker(BaseCallback):
+    """
+    Callback for plotting custom values in Tensorboard.
+    """
+
+    def __init__(self, verbose=0, K=10):
+        self.is_tb_set = False
+        super().__init__(verbose)
+        self.success_buffer = []
+
+    def _on_rollout_end(self):
+        return super()._on_rollout_end()
+
+
 def get_name(base_name):
     return base_name + str(inspect.stack()[1][3])
 
@@ -109,11 +123,16 @@ def create_callback_list(paths, save_freq, eval_env) -> tuple:
     return checkpoint_callback, eval_callback
 
 
-def standard_envs(env_cls, env_kwargs={}, n_train=4, n_eval=1, normalize=True, norm_paths=None):
+def standard_envs(env_cls, env_kwargs={}, n_train=4, n_eval=1, normalize=True, norm_paths=None, maker_kwargs={}):
     if env_kwargs == {}:
         warnings.warn("No environment arguments were provided")
-    maker = single_env_maker(env_cls, wrappers=[TimeLimit, Monitor], wrappers_args=[
-        {'max_episode_steps': 1000}, {}], render_mode='human', **env_kwargs)
+    if maker_kwargs == {}:
+        maker = single_env_maker(env_cls, wrappers=[TimeLimit, Monitor], wrappers_args=[
+            {'max_episode_steps': 1000}, {}], render_mode='human', **env_kwargs)
+    else:
+        maker = single_env_maker(env_cls, wrappers=[TimeLimit, Monitor], wrappers_args=[
+            {'max_episode_steps': maker_kwargs['max_episode_steps']}, {}], render_mode='human', **env_kwargs)
+
     env = create_multi_env(maker, n_train, normalize=normalize,
                            normalize_path=norm_paths)
     eval_env = create_multi_env(

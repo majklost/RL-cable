@@ -1,6 +1,7 @@
 from pathlib import Path
 from argparse import ArgumentParser
 import numpy as np
+import warnings
 from deform_rl.algos.visualization.players import play_model
 from deform_rl.algos.save_manager import consistency_check, get_run_paths, load_manager
 from deform_rl.algos.training.training_helpers import single_env_maker
@@ -44,8 +45,19 @@ else:
     # print(f"Playing model for {experiment}")
 env_cls = globals()[env_name]
 print(f"Playing model for {env_cls.__name__}")
-maker = single_env_maker(env_cls, seed=args.seed, wrappers=[TimeLimit, Monitor], wrappers_args=[
-    {'max_episode_steps': 1000}, {}], render_mode='human', **experiment['data']['env_kwargs'])
+
+env_kwargs = experiment['data'].get('env_kwargs', {})
+maker_kwargs = experiment['data'].get('maker_kwargs', {})
+if env_kwargs == {}:
+    warnings.warn("No environment arguments were provided")
+if maker_kwargs == {}:
+    maker = single_env_maker(env_cls, wrappers=[TimeLimit, Monitor], wrappers_args=[
+        {'max_episode_steps': 1000}, {}], render_mode='human', **env_kwargs)
+else:
+    print("Using maker_kwargs: ", maker_kwargs)
+    maker = single_env_maker(env_cls, wrappers=[TimeLimit, Monitor], wrappers_args=[
+        {'max_episode_steps': maker_kwargs['max_episode_steps']}, {}], render_mode='human', **env_kwargs)
+
 
 play_model(experiment['model_best'], experiment['norm'],
            maker, normalize=True)

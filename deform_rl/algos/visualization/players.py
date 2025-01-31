@@ -6,6 +6,7 @@ from stable_baselines3.common.vec_env import VecNormalize
 from ..training.training_helpers import single_env_maker, create_multi_env
 import pygame
 
+
 from typing import Callable
 
 
@@ -30,7 +31,7 @@ def play_model(model_path: str | Path, normalize_path: str, maker: Callable[[], 
     # print(obs.shape)
     cum_reward = cnt = 0
     episode_cnt = 0
-    for _ in range(1000):
+    while True:
         action, _ = model.predict(obs, deterministic=True)
         obs, reward, done, info = env.step(action)
         if normalize:

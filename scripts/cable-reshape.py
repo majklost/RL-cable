@@ -397,6 +397,6 @@ if __name__ == "__main__":
     # delete_experiment(BASE_NAME+'reshapeNeighbour')
     # reshapeNeighbour()
     # reshapePotentialRewardPosOnly()
-    # reshapePotentialRewardMovement()
-    PotentialMovementVel()
+    reshapePotentialRewardMovement()
+    # PotentialMovementVel()
     # PotentialMovementNeighbourVel()
