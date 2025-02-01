@@ -37,7 +37,6 @@ def draw_clb(surf):
 
 
 dbg.draw_clb = draw_clb
-
 for i in range(10000):
 
     if sim.step():

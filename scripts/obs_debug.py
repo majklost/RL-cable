@@ -4,7 +4,7 @@ from deform_rl.envs.sim.utils.environment_controller import EnvironmentControlle
 
 
 def test_movement():
-    maker = single_env_maker(EmptyNoRewShorter, wrappers=[TimeLimit, Monitor], wrappers_args=[
+    maker = single_env_maker(CableEmptyV2, wrappers=[TimeLimit, Monitor], wrappers_args=[
         {'max_episode_steps': 1000}, {}], render_mode='human')
     env = create_multi_env(maker, 1, normalize=True)
     assert len(env.action_space.shape) == 1, "Only 1D action space is supported"
