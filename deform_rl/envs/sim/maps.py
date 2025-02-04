@@ -71,8 +71,9 @@ class EmptyWorld:
         return 0
 
     def _init_manager(self):
-        seed_env = 90
-        init_manager(seed_env, 30)
+        seed_env = self.cfg.get("seed_env", None)
+        seed_plan = self.cfg.get("seed_plan", None)
+        init_manager(seed_env, seed_plan)
 
     def _begin_col(self, arbiter, space, data):
         self._in_cnt += 1
@@ -151,6 +152,7 @@ class EmptyWorld:
         while not valid:
             self._start_points = self._sampler.sample()
             valid = self._check_validity(self._start_points)
+
         self.cable.position = self._start_points
 
     def reset_goal(self):

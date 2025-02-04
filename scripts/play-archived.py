@@ -13,6 +13,7 @@ from deform_rl.algos.training.training_helpers import single_env_maker
 from deform_rl.envs.Cable_reshape_env.environment import *
 from deform_rl.envs.Rectangle_env.environment import *
 from deform_rl.envs.Rectangle_env.debug_env import *
+from deform_rl.envs.Cable_obs_env.environment import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
 
 
@@ -23,21 +24,23 @@ parser.add_argument("--env", type=str, default=None)
 parser.add_argument('--seed', type=int, default=0)
 
 parser.add_argument("model", type=str)
-parser.add_argument("experiment_json", type=str)
+parser.add_argument("--experiment_json", type=str)
 
 args = parser.parse_args()
 
-
-json_file = json.load(open(args.experiment_json, 'r'))
+if args.experiment_json is not None:
+    json_file = json.load(open(args.experiment_json, 'r'))
+    if "env_kwargs" in json_file['data']:
+        env_kwargs = json_file['data']['env_kwargs']
+    else:
+        env_kwargs = json_file['data']
+        print("Using old format for env_kwargs")
+else:
+    env_kwargs = {}
 if args.env is None:
     print("Env not provided, using the one from the json file")
     args.env = json_file['env_name']
 
-if "env_kwargs" in json_file['data']:
-    env_kwargs = json_file['data']['env_kwargs']
-else:
-    env_kwargs = json_file['data']
-    print("Using old format for env_kwargs")
 
 normalize = True
 if args.norm is None:

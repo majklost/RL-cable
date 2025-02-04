@@ -1,6 +1,7 @@
 from pymunk.pygame_util import from_pygame
 import pygame
 import numpy as np
+from .common_utils import rot_matrix
 
 
 from ..objects.cable import Cable
@@ -35,7 +36,7 @@ class PMCableController:
             self.cable.bodies[self.current].color = pygame.Color("yellow")
 
     def update(self):
-        force_template = np.zeros(4)
+        force_template = np.zeros(2)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -69,4 +70,18 @@ class PMCableController:
 
         # self.cable.bodies[self.current].velocity = (force_template[:2]/8)
         #
-        self.cable.bodies[self.current].apply_force(force_template)
+
+        # print(np.array(force_template))
+        # print(
+        #     ((self.cable.bodies[self.current].orientation * 180 / np.pi) + 180) % 360 - 180)
+
+        # self.cable.bodies[self.current].apply_force(
+        #     force_template, True)
+
+        dummy = np.zeros_like(self.cable.position)
+        dummy[self.current] = force_template
+        # print(dummy.shape)
+        another = self.cable.glob2loc(dummy)
+        # print(another.shape)
+        self.cable.bodies[self.current].apply_force(
+            another[self.current], False)

@@ -2,6 +2,8 @@ from deform_rl.algos.training.training_helpers import *
 from deform_rl.envs.Cable_obs_env.environment import *
 from deform_rl.envs.sim.utils.environment_controller import EnvironmentController
 
+import time
+
 
 def test_movement():
     maker = single_env_maker(CableEmptyV2, wrappers=[TimeLimit, Monitor], wrappers_args=[

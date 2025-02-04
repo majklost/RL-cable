@@ -140,7 +140,7 @@ class Cable(PMMultiBodyObject):
         for i in range(self.num_links):
             r = Rectangle(pos + rm @ np.array([i * self.segment_length, 0]), self.segment_length, self.thickness,
                           pymunk.Body.DYNAMIC)
-            r.orientation = self.angle
+            r.orientation = self.angle + np.pi
             self.append(r)
 
     def _create_pivots(self):
@@ -148,7 +148,7 @@ class Cable(PMMultiBodyObject):
         # print(x)
         for i in range(self.num_links - 1):
             pivot = pymunk.constraints.PivotJoint(
-                self.bodies[i].body, self.bodies[i + 1].body, (x + self.segment_length / 2, 0), (-x - self.segment_length / 2, 0))
+                self.bodies[i + 1].body, self.bodies[i].body, (x + self.segment_length / 2, 0), (-x - self.segment_length / 2, 0))
             self.pivots.append(pivot)
 
     def add_to_space(self, space):
@@ -174,6 +174,54 @@ class Cable(PMMultiBodyObject):
             self.bodies[i].position = pos[i]
             diff = pos[i] - prev
             angle = np.arctan2(diff[1], diff[0])
-            self.bodies[i].orientation = angle
-
+            self.bodies[i].orientation = angle + np.pi
             prev = pos[i]
+
+    @property
+    def orientation(self):
+        return np.array([b.orientation for b in self.bodies])
+
+    def glob2loc(self, vec):
+        transposed = False
+        # converts global vector to local vector (rotated by angle)
+        assert len(vec.shape) == 2, "Input vector to location must be 2D"
+        if vec.shape[0] == 2:
+            assert vec.shape[1] == len(
+                self.bodies), "Input vector must have the same number of elements as cable segments"
+            vec = vec.T
+            transposed = True
+
+        if vec.shape[0] == len(self.bodies):
+            assert vec.shape[1] == 2, "Input vector must have 2 elements"
+
+        rot_matrices = self._generate_rotations(-self.orientation)
+        results = rot_matrices @ vec[:, :, None]
+        if transposed:
+            return results.squeeze().T
+        return results.squeeze()
+
+    def loc2glob(self, vec):
+        transposed = False
+        # converts local vector to global vector (rotated by angle)
+        assert len(vec.shape) == 2, "Input vector to location must be 2D"
+        if vec.shape[0] == 2:
+            assert vec.shape[1] == len(
+                self.bodies), "Input vector must have the same number of elements as cable segments"
+            vec = vec.T
+            transposed = True
+
+        if vec.shape[0] == len(self.bodies):
+            assert vec.shape[1] == 2, "Input vector must have 2 elements"
+        rot_matrices = self._generate_rotations(self.orientation)
+        results = rot_matrices @ vec[:, :, None]
+        if transposed:
+            return results.squeeze().T
+        return results.squeeze()
+
+    def _generate_rotations(self, orient):
+        orientations = orient
+        # np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
+        cos = np.cos(orientations)
+        sin = np.sin(orientations)
+        rot_matrices = np.array([[cos, -sin], [sin, cos]])
+        return np.transpose(rot_matrices, (2, 0, 1))

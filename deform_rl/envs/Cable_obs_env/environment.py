@@ -37,14 +37,14 @@ class CableEmptyV0(gym.Env):
         self.sim = self.map.get_sim()
         self.map.reset_goal()
         self.map.reset_start()
-        self.scale_factor = 800
+        self.scale_factor = 600
         # for rendering and reward calculation
         self.last_target_potential = None
         # self.last_obstacle_potential = None
         self.last_reward_obs = 0
         self.lats_reward_target = 0
         self.last_info = None
-        self.last_actions = None
+        self.last_actions_processed = None
         self.success = False
         self.cur_return = 0
 
@@ -81,8 +81,12 @@ class CableEmptyV0(gym.Env):
     def _calc_potential(self, distances):
         return -np.sum(np.linalg.norm(distances, axis=1))
 
+    def _process_action(self, action):
+        return action
+
     def step(self, action):
-        self.last_actions = action
+        action = self._process_action(action)
+        self.last_actions_processed = action
         for i in range(len(self.controllable_idxs)):
             idx = self.controllable_idxs[i]
             # print(i, len(action), i*2+2)
@@ -173,11 +177,11 @@ class CableEmptyV0(gym.Env):
                              self.map.cable.position[i] + target_vecs[i], 1)
 
     def _render_actions(self, screen):
-        actions = self.last_actions.reshape(
+        actions = self.last_actions_processed.reshape(
             (self.action_space.shape[0] // 2, 2))
         for i in range(len(actions)):
             pygame.draw.line(screen, (0, 0, 255), self.map.cable.position[i],
-                             self.map.cable.position[i] + actions[i] / 10, 3)
+                             self.map.cable.position[i] + 1 * actions[i] / 10, 3)
 
     def _render_return(self, screen):
         self.font.render_to(screen, (50, 150),
@@ -189,6 +193,53 @@ class CableEmptyV0(gym.Env):
             pygame.quit()
             self.screen = None
             self.clock = None
+
+
+
+class CableEmptyV0Local(CableEmptyV0):
+    def _get_observation(self):
+        # transform observations to local coordinates
+        target_distances = self._get_target_distance_vecs()
+        return self.map.cable.glob2loc(target_distances).flatten()
+
+    def _process_action(self, action):
+        unflatted = self.map.cable.loc2glob(action.reshape((-1, 2)))
+        return unflatted.flatten()
+
+
+class CableEmptyV0LocalNeighbour(CableEmptyV0Local):
+    """
+    In observation the sine and cosine of the difference to neighbours are added
+    """
+
+    def _create_observation_space(self):
+        limit = max(self.width, self.height)
+        lim_1 = np.repeat(limit, self.controllable_num * 2)
+        lim_2 = np.repeat(1, self.controllable_num * 2)
+        lim_all = np.concatenate((lim_1, lim_2))
+        return gym.spaces.Box(low=-lim_all, high=lim_all, shape=(self.controllable_num * 4,), dtype=np.float64)
+
+    def _get_observation(self):
+        cur = super()._get_observation()
+        orientation = self.map.cable.orientation
+        neighbours = np.roll(orientation, 1)
+        diff = orientation - neighbours
+        return np.concatenate((cur, np.sin(diff), np.cos(diff)))
+
+
+class CableEmptyV0LocalVelocity(CableEmptyV0Local):
+    """
+    Observe also velocity
+    """
+
+    def _create_observation_space(self):
+        limit = max(self.width, self.height)
+        return gym.spaces.Box(low=-limit, high=limit, shape=(self.controllable_num * 4,), dtype=np.float64)
+
+    def _get_observation(self):
+        cur = super()._get_observation()
+        velocity = self.map.cable.velocity
+        return np.concatenate((cur, self.map.cable.glob2loc(velocity).flatten()))
 
 
 class CableEmptyV1(CableEmptyV0):
@@ -234,6 +285,88 @@ class CableEmptyV2(CableEmptyV1):
         self._render_return(screen)
         self._render_actions(screen)
         self._render_obstacles_vecs(screen)
+        for i in range(len(self.map._start_points)):
+            pygame.draw.circle(screen, (255, 0, 0),
+                               self.map._start_points[i], 5)
+
+
+class CableEmptyRayLocal(CableEmptyV0Local):
+    """
+    Not null observation, rays from each segment to see obstacles
+    """
+
+    def _create_observation_space(self):
+        limit = max(self.width, self.height)
+        return gym.spaces.Box(low=-limit, high=limit, shape=(self.controllable_num * 4,), dtype=np.float64)
+
+    def _get_obstacle_distances(self):
+        unit_vecs1 = np.array([(np.cos(ang + np.pi / 2), np.sin(ang + np.pi / 2))
+                               for ang in self.map.cable.orientation])
+        unit_vecs2 = -1 * unit_vecs1
+        RADIUS = 1000
+
+        responses1 = [self.map.sim._space.segment_query_first(
+            pos.tolist(), (pos + RADIUS * vec).tolist(), 1, self.my_filter) for pos, vec in zip(self.map.cable.position, unit_vecs1)]
+        responses2 = [self.map.sim._space.segment_query_first(
+            pos.tolist(), (pos + RADIUS * vec).tolist(), 1, self.my_filter) for pos, vec in zip(self.map.cable.position, unit_vecs2)]
+
+        self.obspoints1 = np.array([res.point if res else pos for pos, res in zip(
+            self.map.cable.position, responses1)])
+        self.obspoints2 = np.array([res.point if res else pos for pos, res in zip(
+            self.map.cable.position, responses2)])
+
+        distances1 = np.array([np.linalg.norm(np.array(
+            res.point) - pos) if res else RADIUS for pos, res in zip(self.map.cable.position, responses1)])
+
+        distances2 = np.array([np.linalg.norm(np.array(
+            res.point) - pos) if res else RADIUS for pos, res in zip(self.map.cable.position, responses2)])
+
+        return np.concatenate((distances1, distances2))
+
+    def _get_observation(self):
+        target_distances = self._get_target_distance_vecs()
+        obstacle_distances = self._get_obstacle_distances()
+        return np.concatenate((target_distances.flatten(), obstacle_distances.flatten()))
+
+    def _render_obs_points(self, screen):
+        for i in range(len(self.obspoints1)):
+            pygame.draw.circle(screen, (0, 255, 0),
+                               self.obspoints1[i], 5)
+            pygame.draw.circle(screen, (0, 255, 0),
+                               self.obspoints2[i], 5)
+
+    def _additional_render(self, screen):
+        self._render_gpoints(screen)
+        self._render_return(screen)
+        self._render_actions(screen)
+        self._render_obs_points(screen)
+
+
+class CableRayLocal(CableEmptyRayLocal):
+    def _get_map(self):
+        my_cfg = UPDATED_CFG.copy()
+        my_cfg['SEG_NUM'] = 10
+        return AlmostEmptyWorld(cfg=my_cfg)
+
+    def _get_reward(self):
+        if self.map.cable.outer_collision_idxs:
+            return -5000, True
+
+        if np.all(np.linalg.norm(self._get_target_distance_vecs(), axis=1) < self.threshold):
+            self.success = True
+            return 10000, True
+
+        target_potential = self._calc_potential(
+            self._get_target_distance_vecs())
+
+        target_reward = 100 * (target_potential -
+                               self.last_target_potential - 5)
+        self.last_target_potential = target_potential
+        self.lats_reward_target = target_reward
+        print(target_reward)
+        return target_reward, False
+
+
 # class EmptyNoRewardObs(EmptyObsV0):
 #     def _get_observation(self):
 #         target_distances = self._get_target_distance_vecs()
@@ -286,7 +419,6 @@ class CableEmptyV2(CableEmptyV1):
 #         # DEBUG
 #         self.lats_reward_target = target_reward
 #         self.last_reward_obs = 0
-
 #         return target_reward, False
 if __name__ == "__main__":
     from stable_baselines3.common.env_checker import check_env
