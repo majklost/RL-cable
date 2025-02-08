@@ -103,10 +103,17 @@ class SuccessRateTracker(BaseCallback):
     def __init__(self, verbose=0, K=10):
         self.is_tb_set = False
         super().__init__(verbose)
-        self.success_buffer = []
+
+    def _on_step(self):
+        return True
 
     def _on_rollout_end(self):
-        return super()._on_rollout_end()
+        num = min(10, len(self.training_env.buf_infos))
+
+        lst = [self.training_env.buf_infos[-i]['success']
+               for i in range(1, num + 1)]
+        success_rate = sum(lst) / num
+        self.logger.record("train/success_rate", success_rate)
 
 
 def get_name(base_name):

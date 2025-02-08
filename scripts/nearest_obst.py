@@ -6,7 +6,7 @@ from deform_rl.envs.sim.utils.PM_rectangle_controller import PMRectangleControll
 from deform_rl.envs.sim.utils.PM_cable_controller import PMCableController
 from deform_rl.envs.sim.utils.PM_debug_viewer import DebugViewer
 
-ew = EmptyWorld(rectangle=False)
+ew = StandardStones(rectangle=False)
 sim = ew.get_sim()
 for b in ew.cable.bodies:
     for s in b.shapes:

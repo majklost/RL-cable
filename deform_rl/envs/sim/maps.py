@@ -171,14 +171,14 @@ class PipedWorld(EmptyWorld):
         cfg.update({
             "seed_env": 50,
         })
-        super().__init__(cfg)
+        super().__init__(cfg=cfg)
         self._add_pipes()
 
     def _add_pipes(self):
         blockage = Rectangle(
             np.array([EMPTY + 50, self.cfg['height'] // 4 - 50]), self.cfg['height'] // 2 - 80, 20, STATIC)
         blockage2 = Rectangle(np.array(
-            [EMPTY + 50, self.cfg['height'] - (self.cfg['height'] // 4 - 50)]), cfg['height'] // 2 - 80, 20, STATIC)
+            [EMPTY + 50, self.cfg['height'] - (self.cfg['height'] // 4 - 50)]), self.cfg['height'] // 2 - 80, 20, STATIC)
         blockage.orientation = blockage2.orientation = np.pi / 2
         self.fixed.append(blockage)
         self.fixed.append(blockage2)
@@ -235,9 +235,9 @@ class ThickStones(EmptyWorld):
     World with thick stones blocking the way
     """
 
-    def __init__(self):
+    def __init__(self, cfg=UPDATED_CFG):
 
-        super().__init__()
+        super().__init__(cfg=cfg)
         self._add_stones()
 
     def _add_stones(self):
@@ -252,8 +252,8 @@ class StandardStones(EmptyWorld):
     World with standard stones blocking the way
     """
 
-    def __init__(self, rectangle=False):
-        super().__init__(rectangle=rectangle)
+    def __init__(self, rectangle=False, cfg=UPDATED_CFG):
+        super().__init__(rectangle=rectangle, cfg=cfg)
         self._add_stones()
 
     def _add_stones(self):

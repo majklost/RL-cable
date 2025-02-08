@@ -21,13 +21,22 @@ def give_args(trial):
     #         "sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
     net_arch_type = trial.suggest_categorical(
         "net_arch", ["tiny", "small", "medium"])
+
+    activation_fn_type = trial.suggest_categorical(
+        "activation_fn", ["tanh", "relu"])
+
     net_arch = {
         "tiny": dict(pi=[64], vf=[64]),
         "small": dict(pi=[64, 64], vf=[64, 64]),
         "medium": dict(pi=[256, 256], vf=[256, 256]),
         "large": dict(pi=[400, 400], vf=[400, 400]),
     }[net_arch_type]
-    activation_fn = nn.ReLU
+
+    activation_fn = {
+        "tanh": nn.Tanh,
+        "relu": nn.ReLU,
+    }[activation_fn_type]
+
     return {
         "n_steps": n_steps,
         "batch_size": batch_size,

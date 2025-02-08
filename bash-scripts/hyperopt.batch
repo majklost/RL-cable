@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=hyperopt-CableLocalNeighbours
-#SBATCH --output=hyperopt-CableLocalNeighbours.out
-#SBATCH --error=hyperopt-CableLocalNeighbours.err
+#SBATCH --job-name=hyperopt-RadiusObsVel
+#SBATCH --output=hyperopt-RadiusObsVel.out
+#SBATCH --error=hyperopt-RadiusObsVel.err
 #SBATCH --time=23:00:00
 #SBATCH --ntasks=11
 #SBATCH --partition=cpu
@@ -11,7 +11,7 @@
 ml SQLite
 ml Python/3.10
 pwd
-python ../../scripts/init_hyperopt.py --name CableLocalNeighbours
+python ../../scripts/init_hyperopt.py --name RadiusObsVel
 echo "Starting hyperopt"
 srun --ntasks=10  --multi-prog ./hyperopt.conf 
 

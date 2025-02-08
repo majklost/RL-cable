@@ -188,13 +188,16 @@ def empty_local_rays():
         CableEmptyRayLocal, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
     SAVE_FREQ = 10000
     ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
-    model = PPO("MlpPolicy", env, verbose=0,
-                tensorboard_log=paths['tb'], device='cpu', policy_kwargs=dict(
-                    net_arch=dict(pi=[128, 128], vf=[128, 128]),
-                    activation_fn=nn.Tanh,
-                ))
+
+    model = PPO("MlpPolicy", env, verbose=0, tensorboard_log=paths['tb'], device='cpu',
+                batch_size=256, gamma=0.95, learning_rate=1.9851635274160808e-05, clip_range=0.2, n_epochs=20, gae_lambda=0.98,
+                policy_kwargs=dict(
+        net_arch=dict(pi=[256, 256], vf=[256, 256]),
+        activation_fn=nn.ReLU)
+    )
+
     print("Training model")
-    model.learn(total_timesteps=3000000, callback=[ch_clb, eval_clb])
+    model.learn(total_timesteps=4000000, callback=[ch_clb, eval_clb])
     print("Training done")
 
 
@@ -218,6 +221,29 @@ def nonempty_local_rays():
 
 
 def nonempty_local_rays_pseudo():
+    """
+    Using tuned parameters from neighbours on rays problem
+    """
+    env_name = CableRayLocal.__name__
+    kwargs = dict(env_kwargs=dict(), maker_kwargs=dict(max_episode_steps=1000))
+    paths = get_paths(get_name(), 'comment', env_name, data=kwargs)
+
+    env, eval_env = standard_envs(
+        CableRayLocal, env_kwargs=kwargs['env_kwargs'], maker_kwargs=kwargs['maker_kwargs'])
+    SAVE_FREQ = 10000
+    ch_clb, eval_clb = create_callback_list(paths, SAVE_FREQ, eval_env)
+    model = PPO("MlpPolicy", env, verbose=0, tensorboard_log=paths['tb'], device='cpu',
+                batch_size=256, gamma=0.95, learning_rate=1.9851635274160808e-05, clip_range=0.2, n_epochs=20, gae_lambda=0.98,
+                policy_kwargs=dict(
+                    net_arch=dict(pi=[256, 256], vf=[256, 256]),
+                    activation_fn=nn.ReLU)
+                )
+    print("Training model")
+    model.learn(total_timesteps=4000000, callback=[ch_clb, eval_clb])
+    print("Training done")
+
+
+def nonempty_local_rays_pseudoXX():
     """
     Using tuned parameters from neighbours on rays problem
     """
@@ -432,7 +458,7 @@ if __name__ == "__main__":
     # empty_local_neighbours()
     # empty_local_rays()
     # empty_local_neighbours_continue()
-    nonempty_local_rays_pseudo()
+    nonempty_local_rays_pseudoXX()
 
     # nonempty_local_rays()
     # empty_local_velocity()

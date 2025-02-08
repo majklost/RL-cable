@@ -10,9 +10,9 @@ from stable_baselines3.common.monitor import Monitor
 from deform_rl.envs.Cable_reshape_env.environment import *
 from deform_rl.envs.Rectangle_env.environment import *
 from deform_rl.envs.Cable_obs_env.environment import *
+from deform_rl.envs.Cable_radius_env.environment import *
 from deform_rl.envs.Rectangle_env.debug_env import *
 from deform_rl.envs.sim.utils.seed_manager import init_manager
-
 
 EXPERIMENTS_PATH = Path(__file__).parent.parent / "experiments"
 

@@ -195,7 +195,6 @@ class CableEmptyV0(gym.Env):
             self.clock = None
 
 
-
 class CableEmptyV0Local(CableEmptyV0):
     def _get_observation(self):
         # transform observations to local coordinates
@@ -350,7 +349,7 @@ class CableRayLocal(CableEmptyRayLocal):
 
     def _get_reward(self):
         if self.map.cable.outer_collision_idxs:
-            return -5000, True
+            return 0, True
 
         if np.all(np.linalg.norm(self._get_target_distance_vecs(), axis=1) < self.threshold):
             self.success = True
@@ -359,8 +358,8 @@ class CableRayLocal(CableEmptyRayLocal):
         target_potential = self._calc_potential(
             self._get_target_distance_vecs())
 
-        target_reward = 100 * (target_potential -
-                               self.last_target_potential - 5)
+        target_reward = 1000 * (target_potential -
+                                self.last_target_potential - 5)
         self.last_target_potential = target_potential
         self.lats_reward_target = target_reward
         print(target_reward)
